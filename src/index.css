@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Charm&family=Great+Vibes&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Charm&family=Great+Vibes&family=Pacifico&display=swap');
+
+@layer utilities{
+  .animation-elay-2000{
+    animation-delay: 2s;
+  }
+  .animation-elay-4000{
+    animation-delay: 4s;
+  }
+  .drop-shadoww{
+    filter: drop-shadow(0 0 2em #777aacaa);
+  }
+  h2{
+    font-family: 'Allura', cursive;
+  }
+.no-scrollbar::-webkit-scrollbar{
+  display: none;
+}
+  .no-scrollbar{
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+}
+
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif,"Allura";
+  padding: 0;
+  box-sizing: border-box;
+}
+
