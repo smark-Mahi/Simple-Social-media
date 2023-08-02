@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, NavLink, useNavigate, useNavigation } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -12,13 +12,13 @@ import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schema";
-import axios from "axios";
-import { useDispatch } from "react-redux";
 import { useAppDispatch } from "../../features/store";
 import { loginApi } from "../../api/loginauth";
 import jwtDecode from "jwt-decode";
 import { setAuth } from "../../helpers/Tokens";
 import { login } from "../../features/userSlice";
+import { SignUpContext } from "../../Context/SignUPInfoContext";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const initialValues = {
   username: "",
@@ -28,12 +28,23 @@ type val = {
   username: string;
   password: string;
 };
+
+type Decode = {
+  user_id: number;
+};
+
 const Login = () => {
-  const { values, errors, handleChange, handleSubmit, touched } = useFormik({
-    initialValues: initialValues,
-    validationSchema: loginSchema,
-    onSubmit: (values) => onSubmitHandler(values),
-  });
+  //Context
+  const { setError, loading, setLoading } = useContext(SignUpContext);
+
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: loginSchema,
+      onSubmit: (values) => onSubmitHandler(values),
+    });
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -42,8 +53,8 @@ const Login = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const onSubmitHandler = async (values: val) => {
-    console.log(values);
     try {
+      setLoading(true);
       const payload = {
         username: values.username.trim(),
         password: values.password.trim(),
@@ -51,29 +62,33 @@ const Login = () => {
 
       const data = await loginApi(payload);
 
-      console.log(data);
+      const decoded = jwtDecode(data.data.access_token) as Decode;
+      console.log(data, "datalogin", decoded);
       const user = {
-        name: "sum",
+        isAuth: true,
+        id: decoded.user_id,
         accessToken: data.data.access_token,
-        refreshToken: "ni hi",
       };
-      console.log(user);
+      console.log(user, "user");
       setAuth(user);
       dispatch(login(user));
-      navigate("/");
+      setLoading(false);
+      navigate(from, { replace: true });
     } catch (err) {
+      setError("something went wrong");
+      setLoading(false);
       console.log(err, "err");
     }
   };
 
   return (
-    <div className="bg-gray-50 flex h-[80%] items-center justify-center w-full h-screen px-16">
-      <div className="relative w-full h-[80%] max-w-md flex flex-col items-center justify-center border-1 rounded-lg border-indigo-200 shadow-2xl">
-        <Box className="absolute top-0 -left-4 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-80 animate-blob "></Box>
-        <Box className="absolute top-0 -right-4 w-72 h-72 bg-yellow-100 rounded-full mix-blend-multiply filter blur-2xl opacity-90 animate-blob animation-delay-2000 "></Box>
-        <Box className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob animation-delay-4000 "></Box>
+    <div className="bg-gray-50 flex  items-center justify-center w-full h-screen px-16">
+      <div className=" relative w-[250px] md:w-full h-[80%] max-w-md flex flex-col items-center justify-center border-1 rounded-lg border-indigo-200 shadow-2xl">
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-80 animate-blob "></div>
+        <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-100 rounded-full mix-blend-multiply filter blur-2xl opacity-90 animate-blob animation-delay-2000 "></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob animation-delay-4000 "></div>
         <Box
-          className="w-full h-[90%] flex flex-col items-center justify-around rounded-b-3xl border-b-2 border-indigo-100"
+          className="w-full h-[60%]  flex flex-col items-center justify-around rounded-b-3xl border-b-2 border-indigo-100"
           component="form"
           sx={{
             "& > :not(style)": { m: 1, width: "25ch" },
@@ -89,12 +104,13 @@ const Login = () => {
               variant="standard"
               value={values.username}
               onChange={handleChange}
+              onBlur={handleBlur}
             />
-            {errors.username && touched.username && (
+            {errors.username && touched.username ? (
               <p className="text-sm text-customred-400">{errors.username}</p>
-            )}
+            ) : null}
           </FormControl>
-          <Box>
+          <div>
             <FormControl sx={{ m: 1, width: "25ch" }} variant="standard">
               <InputLabel htmlFor="standard-adornment-password">
                 Password
@@ -102,6 +118,7 @@ const Login = () => {
               <Input
                 value={values.password}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 name="password"
                 id="standard-adornment-password"
                 type={showPassword ? "text" : "password"}
@@ -120,13 +137,13 @@ const Login = () => {
             {errors.password && touched.password && (
               <p className="text-sm text-customred-400">{errors.password}</p>
             )}
-          </Box>
-          <Button variant="text" type="submit">
-            Login
-          </Button>
+          </div>
+          {loading ? <ScaleLoader height={15} margin={1} /> : <Button variant="text" type="submit">
+           Login
+          </Button>}
         </Box>
-        <div className=" w-full h-[40%] flex justify-center items-center ">
-          <h3 className="text-sm font-bold cursor-pointer">
+        <div className=" w-full h-[40%] flex justify-center items-center">
+          <h3 className="text-sm font-bold cursor-pointer text-center">
             Dont you have an account?
             <NavLink to="/signup">
               <Button

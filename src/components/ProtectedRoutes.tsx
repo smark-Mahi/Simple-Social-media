@@ -1,15 +1,21 @@
-import React from "react";
-import { useAppSelector } from "../features/store";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
+// type Props = {
+//   children: JSX.Element | JSX.Element[];
+// };
 
 const ProtectedRoutes = () => {
-  const tokenn = useAppSelector((state) => state.user.accessToken);
-  const location = useLocation();
-  return tokenn ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
-  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let login = localStorage.getItem("simpleSocial");
+    if (!login) {
+      navigate("/login");
+    }
+  });
+
+  return <Outlet />;
 };
 
 export default ProtectedRoutes;

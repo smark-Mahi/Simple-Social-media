@@ -1,8 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Allura&family=Charm&family=Great+Vibes&family=Pacifico&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Allura&family=Charm&family=Great+Vibes&family=Pacifico&display=swap');
+
 
 @layer utilities{
   .animation-elay-2000{
@@ -29,8 +28,25 @@
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif,"Allura";
   padding: 0;
   box-sizing: border-box;
+}
+
+/* || VARIABLES */
+
+:root {
+  --MAIN-BORDER: #333;
+  --POST-BGCOLOR: hsl(200,20%,95%);
+  --BOX-SHADOW: rgb(0,0,0,0.5);
+}
+
+.post {
+  background-color: var(--POST-BGCOLOR);
+  padding: 2px 4px;
+  padding-left: 8px;
+  margin: 1rem;
+  border: 0px solid var(--MAIN-BORDER);
+  border-radius: .25rem;
+  box-shadow: 1px 1px 1px 1px var(--BOX-SHADOW);
 }
 

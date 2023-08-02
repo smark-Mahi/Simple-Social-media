@@ -1,119 +1,175 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import Closebtn from "../components/reusableComponents/Closebtn";
 import MapsUgcRounded from "@mui/icons-material/MapsUgcRounded";
-import { Checkbox, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
-import Avatar from "@mui/material/Avatar";
-import flowerimg from ".././assets/amy-shamblen-qdPnQuGeuwU-unsplash.jpg";
 import AddReactionOutlined from "@mui/icons-material/AddReactionOutlined";
-import Input from "@mui/material/Input";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import Carousel from "../components/Carousel";
+import {
+  addCommentsApi,
+  addLikeApi,
+  getAllCommentsById,
+} from "../api/loginauth";
 
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 900,
-  height: 550,
+  width: 700,
+  height: 400,
   bgcolor: "background.paper",
   border: "0px ",
   outline: "none",
   borderRadius: "4px",
 };
 
+type ToggleModal = () => boolean | void;
+
 type propstype = {
   open: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  posts: any;
 };
 
-const CommentSectionModal = ({ open, setShowModal }: propstype) => {
-  const toggleModal = () => setShowModal(!open);
+const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
+  const queryClient = useQueryClient();
+  const [addComment, setAddComment] = useState<string>("");
+  const { data } = useQuery({
+    queryKey: ["comments", posts.post.id],
+    queryFn: () => getAllCommentsById(posts.post.id),
+  });
+
+  const toggleModal: ToggleModal = () => setShowModal(!open);
+
+  const addComments = async () => {
+    await addCommentsApi({ post_id: posts.post.id, comment: addComment });
+    await queryClient.invalidateQueries(["comments", posts.post.id]);
+    await queryClient.invalidateQueries(["getdata"]);
+    setAddComment("");
+  };
+
+  const removeVote = async (id: number) => {
+    await addLikeApi({ post_id: id, dir: 0 });
+    //tell ark to add votes count in allcomments api
+    await queryClient.invalidateQueries(["getdata"]);
+  };
+
+  const addVote = async (id: number) => {
+    await addLikeApi({ post_id: id, dir: 1 });
+    //tell ark to add votes count in allcomments api
+    await queryClient.invalidateQueries(["getdata"]);
+  };
+
+  console.log(addComment, "data");
+
+  console.log(data, "post");
   return (
     <Modal
       open={open}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       onClose={() => setShowModal(false)}
-      className="backdrop-blur-sm "
+      className="backdrop-blur-sm"
     >
-      <Box sx={style} className="flex ">
+      <div style={style} className="flex">
         <Closebtn onClick={toggleModal} />
-        <Box className="basis-2/5 ">
-          <img src={flowerimg} alt="image" className="h-full object-fill" />
-        </Box>
-        <Box className="basis-2/3  flex flex-col justify-between">
-          <Box className=" flex p-3">
-            <Avatar alt="Travis Howard" src="/" />
-            <b className="ml-3">smark_x</b>
-          </Box>
-          <Box className="basis-2/3 overflow-auto no-scrollbar">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel autem
-            esse sed doloremque cum quisquam, nostrum non sit sint quod ex
-            nesciunt ipsam possimus perspiciatis aperiam, dignissimos totam
-            nulla voluptates? Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Voluptate libero iste aliquam repudiandae nulla et
-            hic nam temporibus, placeat fugiat laborum distinctio quasi error
-            natus, eum sed earum reprehenderit. Culpa? Lorem ipsum dolor sit
-            amet consectetur adipisicing elit. Earum excepturi, modi, architecto
-            totam facere dolore placeat expedita deserunt molestiae provident
-            laboriosam, aliquid minima aliquam possimus quia? Culpa vero
-            voluptas excepturi! Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Non, consequuntur facilis facere iusto beatae
-            nihil omnis error sint magnam ratione ipsa! Obcaecati suscipit
-            exercitationem veniam rerum beatae totam accusamus officia! Lorem
-            ipsum dolor sit amet consectetur adipisicing elit. Impedit eum rerum
-            consequatur aliquid ipsa adipisci soluta? Vitae architecto ea
-            debitis fuga pariatur eligendi, ipsam accusamus quisquam id quo!
-            Officia, dignissimos. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Earum sapiente provident debitis quisquam dolorem
-            nemo? Dolore facilis nemo sunt omnis, quae voluptatem quia corporis,
-            recusandae labore sapiente reiciendis, maxime nostrum. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit. Possimus accusantium
-            dolor quibusdam quae perspiciatis neque sequi magni obcaecati
-            inventore ea maxime vitae nostrum, vel consequuntur ducimus odio
-            corporis ex eligendi. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Aliquid dicta incidunt sed fuga iste quasi! Modi
-            autem distinctio optio quas a, perspiciatis rem magni explicabo
-            neque provident rerum quisquam dignissimos! Lorem, ipsum dolor sit
-            amet consectetur adipisicing elit. Aut deserunt obcaecati impedit.
-            At quasi, excepturi dolor, voluptatum asperiores ab reprehenderit
-            aliquid necessitatibus vitae earum similique minus ad beatae sint
-            corrupti! Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Perspiciatis consequatur corporis asperiores quisquam, rem, dolorum
-            ab, similique minima excepturi autem aperiam hic adipisci cupiditate
-            molestiae! Repudiandae nostrum nisi inventore deleniti.
-          </Box>
-          <Box className=" flex flex-col basis-1/6">
-            <Box>
-              <IconButton className="mt-10">
-                <Checkbox
-                  icon={<FavoriteBorder />}
-                  checkedIcon={<Favorite sx={{ color: "red" }} />}
-                  className="hover:opacity-60 "
-                />
+        <div className="basis-2/3 ">
+          {posts.post.images.length > 1 ? (
+            <div className="bg-blue-300 overflow-hidden">
+              <Carousel images={posts.post.images} />
+            </div>
+          ) : (
+            <img
+              src={posts.post.images[0]}
+              style={{
+                aspectRatio: 1,
+                objectFit: "cover",
+              }}
+            />
+          )}
+        </div>
+        <div className="basis-2/4  flex flex-col justify-between">
+          <div className=" flex p-3">
+            <img
+              src={posts.post.owner.profile_photo}
+              alt="p"
+              className="w-[25px] h-[25px] rounded-full"
+              style={{ border: "1px solid black" }}
+            />
+            <b className="ml-3">{posts.post.owner.username}</b>
+          </div>
+          <div className="basis-2/3 overflow-auto no-scrollbar">
+            {data &&
+              data.map((comment: any) => (
+                <Typography
+                  variant="body2"
+                  className="p-2 flex gap-2"
+                  key={comment.id}
+                >
+                  <img
+                    src={comment.user.profile_photo}
+                    alt="p"
+                    className="w-[25px] h-[25px] rounded-full"
+                    style={{ border: "1px solid black" }}
+                  />
+                  <b className="text-sm">{comment.user.username}</b>
+                  <span className="text-sm">{comment.comment}</span>
+                </Typography>
+              ))}
+          </div>
+          <div className=" flex flex-col basis-1/6">
+            <div>
+              <IconButton>
+                {posts.votes === 1 || posts.votes > 1 ? (
+                  <Favorite
+                    sx={{ color: "red" }}
+                    onClick={() => removeVote(posts.post.id)}
+                  />
+                ) : (
+                  <FavoriteBorder onClick={() => addVote(posts.post.id)} />
+                )}
               </IconButton>
               <IconButton>
                 <MapsUgcRounded className="text-slate-600 cursor-pointer hover:opacity-70 hover:text-md" />
               </IconButton>
-            </Box>
+            </div>
             <Typography component="p" className="pl-3">
-              3 likes
+              {posts.votes !== 1 ? (
+                <p>{posts.votes} likes</p>
+              ) : posts.votes === 0 ? (
+                <p>No likes</p>
+              ) : (
+                <p>{posts.votes} like</p>
+              )}
             </Typography>
-            <Box className="flex pb-6 pl-3 mt-6">
+            <div className="flex pb-6 pl-3 mt-6">
               <AddReactionOutlined />
               <input
                 placeholder="Add a comment..."
                 style={{ outline: "none" }}
                 className="ml-6 w-full"
+                value={addComment}
+                onChange={(e) => setAddComment(e.target.value)}
               />
-            </Box>
-          </Box>
-        </Box>
-      </Box>
+              {addComment.length > 0 ? (
+                <p
+                  className="mr-4 text-red-500 text-sm cursor-pointer"
+                  onClick={addComments}
+                >
+                  Post
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </Modal>
   );
 };

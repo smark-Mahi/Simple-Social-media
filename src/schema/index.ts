@@ -1,13 +1,27 @@
-import * as yup from "yup";
+import * as Yup from "yup";
 
-export const loginSchema = yup.object({
-  username: yup.string().required("please enter username"),
-  password:yup.string().required("This is required field").min(6,"must be of 6 characters long")
+export const loginSchema = Yup.object({
+  username: Yup.string().min(2).max(25).required("please enter username"),
+  password: Yup.string()
+    .min(6, "password must be of 6 characters long")
+    .required("This is required field"),
 });
 
-export const signUpSchema = yup.object({
-    email: yup.string().email().required("please enter email"),
-    password:yup.string().required("This is required field").min(6,"must be of 6 characters long")
-  });
-  
-  
+const psswordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
+
+export const signUpSchema = Yup.object().shape({
+  email: Yup.string().email().required("please enter email"),
+  password: Yup.string()
+    .min(6, "password must be of 6 characters long")
+    .matches(psswordRules, { message: "please create a strong password" })
+    .required("This is required field"),
+  confirmpassword: Yup.string()
+    .oneOf([Yup.ref("password")], "password must match")
+    .required("This is required field"),
+});
+
+export const createProfileSchema = Yup.object({
+  fullName: Yup.string().min(1).required("please enter Full Name"),
+  userName: Yup.string().min(1).required("please enter User Name"),
+  about: Yup.string().min(1).required("Required"),
+});

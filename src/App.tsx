@@ -1,27 +1,56 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
-import Home from "./pages/Home";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+import { useAppDispatch } from "./features/store.ts";
+import { checkAuth, getAuth } from "./helpers/Tokens.ts";
+import { useEffect } from "react";
+import { login } from "./features/userSlice.ts";
+import { lazy } from "react";
 import Login from "./pages/Login";
-import Profile from "./pages/Profile.tsx";
-import Singlepost from "./pages/Singlepost";
-import Signup from "./pages/Signup";
-import Strtpage from "./components/Strtpage";
-import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
+import Signup from "./pages/Signup/index.tsx";
+import SignUPInfoContextProvider from "./Context/SignUPInfoContext.tsx";
+
+const Home = lazy(() => import("./pages/Home"));
+const Profile = lazy(() => import("./pages/Profile.tsx"));
+const Chat = lazy(() => import("./pages/Chat"));
+const Notification = lazy(() => import("./pages/Notification"));
+const Search = lazy(() => import("./pages/Search"));
+const PostDetails = lazy(() => import("./pages/PostDetails/PostDetails.tsx"));
+const Comments = lazy(() => import("./pages/Comments/Comments.tsx"));
+const AllUsersProfile = lazy(() => import("./pages/AllUsersProfile"));
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (checkAuth()) {
+      dispatch(login(getAuth()));
+    }
+  }, [dispatch]);
   return (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
           <Route element={<ProtectedRoutes />}>
-            <Route index element={<Home />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="singlepost" element={<Singlepost />} />
+            <Route path="chat" element={<Chat />} />
+            <Route path="notification" element={<Notification />} />
+            <Route path="comments/:id" element={<Comments />} />
+            <Route path="search" element={<Search />} />
+            <Route path="posts/:id" element={<PostDetails />} />
+            <Route path="/posts/user/:id" element={<AllUsersProfile />} />
           </Route>
         </Route>
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/startpage" element={<Strtpage />} />
+        <Route
+          path="/signup"
+          element={
+            <SignUPInfoContextProvider>
+              <Signup />
+            </SignUPInfoContextProvider>
+          }
+        />
       </Routes>
     </>
   );

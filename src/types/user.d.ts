@@ -1,5 +1,5 @@
-export type User={
-    name: string;
+export type User = {
+  isAuth: boolean;
+  id: number;
   accessToken: string;
-  refreshToken: string;
-}
+};

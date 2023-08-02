@@ -1,19 +1,17 @@
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import flowerimg from '../assets/amy-shamblen-qdPnQuGeuwU-unsplash.jpg'
-
-const Profileposts = () => {
+const Profileposts = ({ posts }: any) => {
   return (
-    <Card sx={{ maxWidth: 250 }}>
-    <CardMedia
-      component="img"
-    //   width="30%"
-      height="20%"
-      image={flowerimg}
-      alt="Paella dish"
-    />
-  </Card>
-  )
-}
+    <div className="columns-3 md:columns-4 gap-x-px ">
+      {posts.map((item: any, i: number) => (
+        <img
+          key={i}
+          src={item.post.images[0]}
+          alt={item.post.owner.username[0]}
+          loading="lazy"
+          className="mb-0.5"
+        />
+      ))}
+    </div>
+  );
+};
 
-export default Profileposts
+export default Profileposts;
