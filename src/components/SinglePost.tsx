@@ -107,7 +107,7 @@ const Singlepost = ({ items }: any) => {
           ) : (
             <img
               src={items.post.images[0]}
-              style={{ aspectRatio: 1, objectFit: "contain" }}
+              style={{ aspectRatio: 1, objectFit: "cover" }}
             />
           )}
         </div>

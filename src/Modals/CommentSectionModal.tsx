@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import Closebtn from "../components/reusableComponents/Closebtn";
 import MapsUgcRounded from "@mui/icons-material/MapsUgcRounded";
-import { IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import AddReactionOutlined from "@mui/icons-material/AddReactionOutlined";
@@ -76,7 +76,7 @@ const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
       onClose={() => setShowModal(false)}
       className="backdrop-blur-sm"
     >
-      <div style={style} className="flex">
+      <Box sx={style} className="flex">
         <Closebtn onClick={toggleModal} />
         <div className="basis-2/3 ">
           {posts.post.images.length > 1 ? (
@@ -169,7 +169,7 @@ const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
             </div>
           </div>
         </div>
-      </div>
+      </Box>
     </Modal>
   );
 };
