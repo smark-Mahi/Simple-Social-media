@@ -96,6 +96,7 @@ const Createpostmodal = ({ open, toggleModal }: Props) => {
     } catch (error) {
       setError("Unknown Error");
       setLoading(false);
+      toggleModal();
     }
   }
 

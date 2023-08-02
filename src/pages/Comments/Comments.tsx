@@ -40,7 +40,7 @@ export default function Comments() {
     <>
       {error ? (
         <p>error</p>
-      ) : !data ? (
+      ) : !data && !userProfile.data ? (
         <p>loading...</p>
       ) : (
         <div className="mt-14  h-screen bg-slate-500 flex flex-col">
@@ -77,7 +77,7 @@ export default function Comments() {
             {" "}
             Lorem ipsum dolor sit amet consectetur adipisicing elit
           </div>
-          <div className="p-2 overflow-auto no-scrollbar h-[350px]">
+          <div className="p-2 overflow-auto no-scrollbar h-[450px]">
             {data.map((comment: any) => (
               <Typography variant="body2" className="p-2 flex gap-2">
                 <img
