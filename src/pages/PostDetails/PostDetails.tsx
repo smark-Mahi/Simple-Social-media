@@ -17,6 +17,7 @@ import Confirmdeletemodal from "../../Modals/Confirmdeletemodal";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import SkeletonPost from "../../helpers/skeletons/SkeletonPost";
+import dayjs from "dayjs";
 
 const PostDetails = () => {
   const params = useParams();
@@ -83,7 +84,7 @@ const PostDetails = () => {
                   </IconButton>
                 }
                 title={data.post.owner.username}
-                subheader={data.created_at}
+                subheader={dayjs(data.created_at).format("DD-MM-YYYY")}
               />
               {openMenu && (
                 <div className="w-[90px] h-[110px] bg-white absolute right-4 top-12 shadow-xl z-50 rounded-sm on">

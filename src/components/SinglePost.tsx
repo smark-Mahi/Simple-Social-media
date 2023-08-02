@@ -14,7 +14,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Confirmdeletemodal from "../Modals/Confirmdeletemodal";
 import { useNavigate } from "react-router-dom";
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 
 const Singlepost = ({ items }: any) => {
   const navigate = useNavigate();
