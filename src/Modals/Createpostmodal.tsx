@@ -28,7 +28,7 @@ const stylee = {
 
 type Props = {
   open: boolean;
-  toggleModal: () => boolean;
+  toggleModal: () => boolean | null | void;
 };
 
 type Message = {
