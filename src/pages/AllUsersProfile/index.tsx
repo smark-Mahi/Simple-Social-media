@@ -1,10 +1,6 @@
 import { useParams } from "react-router-dom";
-import {
-  followUserApi,
-  getPostByUserIdApi,
-  getProfileApi,
-} from "../../api/loginauth";
-import { useQueries, useQueryClient } from "@tanstack/react-query";
+import { getPostByUserIdApi, getProfileApi } from "../../api/loginauth";
+import { useQueries } from "@tanstack/react-query";
 import Profileposts from "../../components/Profileposts";
 import { Box } from "@mui/material";
 import { useAppSelector } from "../../features/store";
@@ -14,7 +10,6 @@ export default function AllUsersProfile() {
   const params = useParams();
   const id = +(params.id ?? 0);
   const auth = useAppSelector((state) => state.user);
-  const queryClient = useQueryClient();
   const [idd, setIdd] = useState(0);
   const [userPosts, userProfile] = useQueries({
     queries: [
@@ -28,10 +23,10 @@ export default function AllUsersProfile() {
   console.log(userPosts.data, "datas");
   console.log(userProfile.data, "profile");
 
-  const followUser = async () => {
-    await followUserApi(id);
-    await queryClient.invalidateQueries(["profile", id]);
-  };
+  // const followUser = async () => {
+  //   await followUserApi(id);
+  //   await queryClient.invalidateQueries(["profile", id]);
+  // };
 
   console.log(idd, "id");
   return (
