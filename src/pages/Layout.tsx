@@ -10,7 +10,7 @@ const Layout = () => {
       <div className="md:basis-1/6 ">
         <Sidebar />
       </div>
-      <div className="md:basis-11/12 h-screen">
+      <div className="md:basis-11/12 h-screen ">
         <ErrorBoundary fallback={<p>An error has been occured</p>}>
           <Suspense
             fallback={

@@ -23,7 +23,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 700,
   height: 400,
-  bgcolor: "background.paper",
+  bgcolor: "white",
   border: "0px ",
   outline: "none",
   borderRadius: "4px",
@@ -95,7 +95,7 @@ const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
               src={posts.post.images[0]}
               style={{
                 aspectRatio: 1,
-                objectFit: "cover",
+                objectFit: "contain",
               }}
               className="h-full"
             />
@@ -166,7 +166,7 @@ const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
               />
               {addComment.length > 0 ? (
                 <p
-                  className="mr-4 text-red-500 text-sm cursor-pointer"
+                  className="mr-2 ml-2 text-red-500 text-sm cursor-pointer"
                   onClick={addComments}
                 >
                   Post

@@ -87,7 +87,7 @@ const PostDetails = () => {
                 subheader={dayjs(data.created_at).format("DD-MM-YYYY")}
               />
               {openMenu && (
-                <div className="w-[90px] h-[110px] bg-white absolute right-4 top-12 shadow-xl z-50 rounded-sm on">
+                <div className="w-[90px] h-[110px] bg-white absolute right-4 top-12 shadow-xl z-50 rounded-sm ">
                   <p className=" cursor-pointer text-slate-500 text-center p-2 hover:bg-slate-500 hover:text-white">
                     Update
                   </p>
@@ -110,7 +110,7 @@ const PostDetails = () => {
                 </div>
               )}
             </div>
-            <div className="bg-blue-300 max-w-[400px] ">
+            <div className=" max-w-[400px] ">
               {data.post.images.length > 1 ? (
                 <Carousel images={data.post.images} />
               ) : (

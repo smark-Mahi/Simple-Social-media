@@ -22,7 +22,7 @@ const Confirmdeletemodal = ({ open, setOpen, id, setopenMenu }: propstype) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    bgcolor: "background.paper",
+    bgcolor: "white",
     p: 4,
     border: "0px ",
     outline: "none",

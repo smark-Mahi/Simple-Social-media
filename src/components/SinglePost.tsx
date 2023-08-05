@@ -30,6 +30,7 @@ const Singlepost = ({ items }: any) => {
   const CustomCard = styled(Card)({
     backgroundColor: "white",
     color: "#708090",
+    width: "550px",
   });
 
   const removeVote = async (id: number) => {
@@ -55,7 +56,7 @@ const Singlepost = ({ items }: any) => {
 
   return (
     <>
-      <CustomCard className="border-slate-100 border-2 cursor-pointer ">
+      <CustomCard className="border-slate-300 border-solid border-2 cursor-pointer rounded-3xl flex flex-col hover:shadow-2xl">
         <div className="relative">
           <CardHeader
             avatar={
@@ -70,6 +71,7 @@ const Singlepost = ({ items }: any) => {
                 <IconButton
                   aria-label="settings"
                   onClick={() => getId(items.post.id)}
+                  sx={{ color: "black" }}
                 >
                   <MoreVertIcon />
                 </IconButton>
@@ -83,7 +85,7 @@ const Singlepost = ({ items }: any) => {
             subheader={dayjs(items.created_at).format("DD-MM-YYYY")}
           />
           {openMenu && (
-            <div className="w-[90px] h-[110px] bg-white absolute right-4 top-12 shadow-xl z-50 rounded-sm on">
+            <div className="w-[90px] h-max bg-white absolute right-4 top-12 shadow-xl z-50 rounded-sm on">
               <p className=" cursor-pointer text-slate-500 text-center p-2 hover:bg-slate-500 hover:text-white">
                 Update
               </p>
@@ -97,6 +99,12 @@ const Singlepost = ({ items }: any) => {
               </p>
               <p
                 className=" cursor-pointer text-slate-500 text-center pb-2  hover:bg-slate-500 hover:text-white"
+                onClick={() => navigate(`/posts/${items.post.id}`)}
+              >
+                Go To Post
+              </p>
+              <p
+                className=" cursor-pointer text-slate-500 text-center pb-2  hover:bg-slate-500 hover:text-white"
                 onClick={() => {
                   setopenMenu(false);
                 }}
@@ -106,16 +114,14 @@ const Singlepost = ({ items }: any) => {
             </div>
           )}
         </div>
-        <div
-          className=" max-w-[400px] "
-          onClick={() => navigate(`/posts/${items.post.id}`)}
-        >
+        <div className="flex justify-center">
           {items.post.images.length > 1 ? (
-            <Carousel images={items.post.images} />
+            <Carousel items={items} />
           ) : (
             <img
               src={items.post.images[0]}
-              style={{ aspectRatio: 1, objectFit: "cover" }}
+              style={{ aspectRatio: 1, objectFit: "contain" }}
+              onClick={() => navigate(`/posts/${items.post.id}`)}
             />
           )}
         </div>
@@ -127,7 +133,10 @@ const Singlepost = ({ items }: any) => {
                 onClick={() => removeVote(items.post.id)}
               />
             ) : (
-              <FavoriteBorder onClick={() => addVote(items.post.id)} />
+              <FavoriteBorder
+                onClick={() => addVote(items.post.id)}
+                sx={{ color: "gray" }}
+              />
             )}
           </IconButton>
           <MapsUgcRounded

@@ -2,31 +2,31 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useState } from "react";
 
-const Carousel = ({ images }: any) => {
+const Carousel = ({ items }: any) => {
   const [currSlide, setCurrSlide] = useState(0);
   function prevSlide() {
     setCurrSlide((currSlide) =>
-      currSlide === 0 ? images.length - 1 : currSlide - 1
+      currSlide === 0 ? items.post.images.length - 1 : currSlide - 1
     );
   }
   function nextSlide() {
     setCurrSlide((currSlide) =>
-      currSlide === images.length - 1 ? 0 : currSlide + 1
+      currSlide === items.post.images.length - 1 ? 0 : currSlide + 1
     );
   }
 
   return (
-    <div className="relative w-full ">
+    <div className="relative w-full">
       <div
         className="flex relative w-full duration-700 "
         style={{ transform: `translateX(-${currSlide * 100}%)` }}
       >
-        {images.map((image: any, i: number) => (
+        {items.post.images.map((image: any, i: number) => (
           <img
             key={i}
             src={image}
             alt="images"
-            style={{ aspectRatio: 1, objectFit: "cover" }}
+            style={{ aspectRatio: 1, objectFit: "contain" }}
           />
         ))}
       </div>
