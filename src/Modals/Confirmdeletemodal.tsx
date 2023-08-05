@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -6,6 +6,10 @@ import Closebtn from "../components/reusableComponents/Closebtn";
 import { deletePostApi } from "../api/loginauth";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { Snackbar } from "@mui/material";
+import { Alert } from "../components/reusableComponents/Alert";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import { SignUpContext } from "../Context/SignUPInfoContext";
 
 type propstype = {
   open: boolean;
@@ -15,6 +19,7 @@ type propstype = {
 };
 
 const Confirmdeletemodal = ({ open, setOpen, id, setopenMenu }: propstype) => {
+  const { loading, setLoading, error, setError } = useContext(SignUpContext);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const style = {
@@ -30,11 +35,23 @@ const Confirmdeletemodal = ({ open, setOpen, id, setopenMenu }: propstype) => {
   };
 
   const deletePost = async () => {
-    await deletePostApi(id);
-    await queryClient.invalidateQueries(["getdata"]);
-    setOpen(null);
-    navigate("/");
-    setopenMenu(false);
+    try {
+      setLoading(true);
+      await deletePostApi(id);
+      await queryClient.invalidateQueries(["getdata"]);
+      setOpen(null);
+      setLoading(false);
+      navigate("/");
+      setopenMenu(false);
+    } catch (err) {
+      console.log(err, "err");
+      setLoading(false);
+      setError("Something Went Wrong");
+      setOpen(null);
+      setopenMenu(false);
+      navigate("/");
+      setError("");
+    }
   };
   return (
     <Modal open={open} className="backdrop-blur-sm ">
@@ -45,6 +62,20 @@ const Confirmdeletemodal = ({ open, setOpen, id, setopenMenu }: propstype) => {
           <Button variant="outlined" onClick={deletePost}>
             Yes
           </Button>
+          {loading ? <ScaleLoader height={15} margin={1} /> : ""}
+          <Snackbar
+            open={!!error}
+            autoHideDuration={1000}
+            onClose={() => setError(null)}
+          >
+            <Alert
+              onClose={() => setError(null)}
+              severity="error"
+              sx={{ width: "100%" }}
+            >
+              {error}
+            </Alert>
+          </Snackbar>
           <Button variant="outlined" onClick={() => setOpen(null)}>
             No
           </Button>

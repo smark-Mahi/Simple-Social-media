@@ -34,7 +34,7 @@ const SkeletonProfile = () => {
             </div>
           </div>
         </div>
-        <div className="columns-3 md:columns-6 gap-x-px md:h-[450px] md:overflow-auto md:no-scrollbar ">
+        <div className="columns-3 md:columns-4 gap-x-px md:h-[920px] md:overflow-auto md:no-scrollbar ">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
             (_: unknown, index: number) => (
               <Skeleton classes="profile-image width-100" key={index} />

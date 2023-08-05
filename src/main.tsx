@@ -6,6 +6,7 @@ import { store } from "./features/store.ts";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { setUpInterceptors } from "./api/auth.ts";
+import SignUPInfoContextProvider from "./Context/SignUPInfoContext.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,7 +22,14 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
-          <Route path="/*" element={<App />} />
+          <Route
+            path="/*"
+            element={
+              <SignUPInfoContextProvider>
+                <App />
+              </SignUPInfoContextProvider>
+            }
+          />
         </Routes>
       </Router>
     </QueryClientProvider>

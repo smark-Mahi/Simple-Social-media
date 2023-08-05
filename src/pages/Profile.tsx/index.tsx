@@ -79,7 +79,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="mt-12 md:h-[370px] md:overflow-auto md:no-scrollbar">
+          <div className="mt-12 md:h-[820px] md:overflow-auto md:no-scrollbar">
             <Profileposts posts={userPosts.data.data} />
           </div>
         </div>

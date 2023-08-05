@@ -20,10 +20,11 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <div className=" fixed w-1/6 h-1/2 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-80 animate-blob "></div>
+
+      <div className="ml-24 fixed w-1/6 h-1/2 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-80 animate-blob "></div>
       <div
-        className={`relative md:mt-0 mt-12 bg-white ${
-          windowWidth <= 380 ? "h-[660px] overflow-auto no-scrollbar" : "h-max "
+        className={`relative md:mt-0 mt-12 ${
+          windowWidth <= 380 ? "h-[660px] overflow-auto no-scrollbar" : "h-max"
         }`}
       >
         <Post />

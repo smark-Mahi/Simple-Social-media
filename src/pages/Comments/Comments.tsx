@@ -26,7 +26,7 @@ export default function Comments() {
   });
 
   const userProfile = useQuery({
-    queryKey: ["profile"],
+    queryKey: ["profile", auth.id],
     queryFn: () => getProfileApi(auth.id),
   });
 
@@ -38,9 +38,9 @@ export default function Comments() {
   console.log(addComment, "data");
   return (
     <>
-      {error ? (
+      {error && userProfile.error ? (
         <p>error</p>
-      ) : !data && !userProfile.data ? (
+      ) : !data && !userProfile.data.user ? (
         <p>loading...</p>
       ) : (
         <div className="mt-14  h-screen bg-slate-500 flex flex-col">
@@ -78,18 +78,24 @@ export default function Comments() {
             Lorem ipsum dolor sit amet consectetur adipisicing elit
           </div>
           <div className="p-2 overflow-auto no-scrollbar h-[450px]">
-            {data.map((comment: any) => (
-              <Typography variant="body2" className="p-2 flex gap-2">
-                <img
-                  src={comment.user.profile_photo}
-                  alt="p"
-                  className="w-[25px] h-[25px] rounded-full"
-                  style={{ border: "1px solid black" }}
-                />
-                <b className="text-sm">{comment.user.username}</b>
-                <span className="text-sm">{comment.comment}</span>
-              </Typography>
-            ))}
+            {data ? (
+              <>
+                {data.map((comment: any) => (
+                  <Typography variant="body2" className="p-2 flex gap-2">
+                    <img
+                      src={comment.user.profile_photo}
+                      alt="p"
+                      className="w-[25px] h-[25px] rounded-full"
+                      style={{ border: "1px solid black" }}
+                    />
+                    <b className="text-sm">{comment.user.username}</b>
+                    <span className="text-sm">{comment.comment}</span>
+                  </Typography>
+                ))}
+              </>
+            ) : (
+              <p>No Comments Are Found</p>
+            )}
           </div>
         </div>
       )}

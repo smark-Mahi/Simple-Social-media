@@ -75,7 +75,7 @@ const Sidebar = () => {
                 to="/"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
-                <div className="flex h-[50px] w-[190px] justify-around items-center  hover:text-lg transition-all">
+                <div className="flex h-[50px] w-60 justify-around items-center  hover:text-lg transition-all">
                   <Home /> <p>Home</p>
                 </div>
               </NavLink>
@@ -87,7 +87,7 @@ const Sidebar = () => {
                 to="/profile"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
-                <div className="flex h-[50px] w-[170px] justify-around items-center hover:text-lg transition-all">
+                <div className="flex h-[50px] w-60 justify-around items-center hover:text-lg transition-all">
                   <img
                     src={
                       userProfile.data && userProfile.data.user.profile_photo
@@ -117,7 +117,7 @@ const Sidebar = () => {
                 to="/chat"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
-                <div className="flex h-[50px] w-[170px] justify-around items-center hover:text-lg transition-all">
+                <div className="flex h-[50px] w-60 justify-around items-center hover:text-lg transition-all">
                   <BsChatDots /> <p>Chat</p>
                 </div>
               </NavLink>
@@ -129,7 +129,7 @@ const Sidebar = () => {
                 to="/notification"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
-                <div className="flex h-[50px] w-[170px] ml-6 justify-around items-center hover:text-lg transition-all">
+                <div className="flex h-[50px] w-60 ml-6 justify-around items-center hover:text-lg transition-all">
                   <AiOutlineHeart /> <p>Notifications</p>
                 </div>
               </NavLink>
@@ -139,7 +139,7 @@ const Sidebar = () => {
         <div className="py-4 px-2">
           <div className="flex hover:bg-white hover:text-black  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
             <div
-              className="flex h-[50px] w-[170px] justify-around items-center hover:text-lg transition-all cursor-pointer"
+              className="flex h-[50px] w-60 justify-around items-center hover:text-lg transition-all cursor-pointer"
               onClick={logoutHandler}
             >
               <div>

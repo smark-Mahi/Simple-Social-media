@@ -55,7 +55,7 @@ const Singlepost = ({ items }: any) => {
 
   return (
     <>
-      <CustomCard className="border-slate-300 border-solid border-2 cursor-pointer rounded-3xl flex flex-col hover:shadow-2xl  md:w-[50%]">
+      <CustomCard className="border-slate-300 border-solid border-[1px] cursor-pointer rounded-3xl flex flex-col hover:shadow-2xl  md:w-[50%]">
         <div className="relative">
           <CardHeader
             avatar={
@@ -117,11 +117,7 @@ const Singlepost = ({ items }: any) => {
           {items.post.images.length > 1 ? (
             <Carousel items={items} />
           ) : (
-            <img
-              src={items.post.images[0]}
-              style={{ aspectRatio: 1, objectFit: "contain" }}
-              onClick={() => navigate(`/posts/${items.post.id}`)}
-            />
+            <img src={items.post.images[0]} />
           )}
         </div>
         <CardContent>

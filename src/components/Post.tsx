@@ -47,7 +47,7 @@ const Post = () => {
           loader={<FadeLoader height={5} width={2} />}
           style={{ width: "100%" }}
         >
-          <div className="p-2 w-full  grid place-items-center md:p-20 gap-5 ">
+          <div className="p-4  grid place-items-center md:p-20 gap-5 ">
             {data.pages.map((page: any) =>
               page.data.map((item: any) => <Singlepost items={item} />)
             )}
