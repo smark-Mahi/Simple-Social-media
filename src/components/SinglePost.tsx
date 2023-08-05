@@ -30,7 +30,6 @@ const Singlepost = ({ items }: any) => {
   const CustomCard = styled(Card)({
     backgroundColor: "white",
     color: "#708090",
-    width: "550px",
   });
 
   const removeVote = async (id: number) => {
@@ -56,7 +55,7 @@ const Singlepost = ({ items }: any) => {
 
   return (
     <>
-      <CustomCard className="border-slate-300 border-solid border-2 cursor-pointer rounded-3xl flex flex-col hover:shadow-2xl">
+      <CustomCard className="border-slate-300 border-solid border-2 cursor-pointer rounded-3xl flex flex-col hover:shadow-2xl  md:w-[50%]">
         <div className="relative">
           <CardHeader
             avatar={
