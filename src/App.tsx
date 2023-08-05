@@ -23,7 +23,7 @@ const AllUsersProfile = lazy(() => import("./pages/AllUsersProfile"));
 
 function App() {
   const dispatch = useAppDispatch();
-  const [mode, setMode] = useState("dark");
+  const [mode] = useState("dark");
   const darkTheme = createTheme({
     palette: {
       mode: mode as PaletteMode,

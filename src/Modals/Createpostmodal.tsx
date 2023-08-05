@@ -13,7 +13,6 @@ import { Alert } from "../components/reusableComponents/Alert";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { useAppSelector } from "../features/store";
 import { useNavigate } from "react-router-dom";
-import jwt from "jsonwebtoken";
 
 const stylee = {
   position: "absolute" as "absolute",
@@ -66,7 +65,7 @@ const Createpostmodal = ({ open, toggleModal }: Props) => {
           setOpened({ messgae: "Image Uploaded Successfully" });
         })
         .catch((err) => {
-          setError("something went wrong");
+          setError(err.response.status);
           setLoading(false);
         });
     }

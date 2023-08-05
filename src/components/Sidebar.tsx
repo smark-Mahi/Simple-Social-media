@@ -64,7 +64,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="hidden lg:block fixed flex flex-col justify-between h-full border-r-2  w-52 bg-slate-500">
+      <div className="hidden lg:block fixed flex flex-col justify-between h-full border-r-2  bg-slate-500">
         <Stack spacing={3} direction="column">
           <div className=" mt-10 text-center">
             <h2 className="text-2xl font-base">𝓼𝓲𝓶𝓹𝓵𝓮 𝓼𝓸𝓬𝓲𝓪𝓵</h2>
