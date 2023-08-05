@@ -3,7 +3,7 @@ import Skeleton from "./Skeleton";
 const SkeletonProfile = () => {
   return (
     <>
-      <div className="w-full md:w-[100%] h-screen p-2 md:pt-10 ">
+      <div className="w-full md:w-[100%] h-screen p-2 ">
         <div className="flex md:justify-evenly md:items-center   ">
           <div className="md:-mt-0 hidden md:block">
             <Skeleton classes="profile-page-img-width" />
@@ -34,10 +34,12 @@ const SkeletonProfile = () => {
             </div>
           </div>
         </div>
-        <div className="columns-3 md:columns-6 gap-x-px ">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((_: unknown, index: number) => (
-            <Skeleton classes="profile-image width-100" key={index} />
-          ))}
+        <div className="columns-3 md:columns-6 gap-x-px md:h-[450px] md:overflow-auto md:no-scrollbar ">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
+            (_: unknown, index: number) => (
+              <Skeleton classes="profile-image width-100" key={index} />
+            )
+          )}
         </div>
       </div>
     </>

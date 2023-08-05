@@ -5,6 +5,7 @@ import Profileposts from "../../components/Profileposts";
 import { Box } from "@mui/material";
 import { useAppSelector } from "../../features/store";
 import { useState } from "react";
+import SkeletonProfile from "../../helpers/skeletons/SkeletonProfile";
 
 export default function AllUsersProfile() {
   const params = useParams();
@@ -30,14 +31,16 @@ export default function AllUsersProfile() {
 
   console.log(idd, "id");
   return (
-    <div className="mt-14">
-      <div className="md:mt-0 h-max flex justify-center mt-16">
+    <div className="h-screen">
+      <div className="md:mt-0 h-max flex justify-center mt-16 ">
         {userPosts.error || userProfile.error ? (
           <p>error</p>
         ) : !userPosts.data || !userProfile.data ? (
-          <p>loading...</p>
+          <div className="w-full md:w-[70%] h-screen p-2 ">
+            <SkeletonProfile />
+          </div>
         ) : (
-          <div className="w-full md:w-[70%] h-screen p-2 md:pt-10 h-max ">
+          <div className="w-full md:w-[70%]  p-2 md:pt-10  ">
             <div className="flex md:justify-evenly md:items-center md:justify-around  ">
               <div className="md:-mt-0 hidden md:block">
                 {/* <button
@@ -114,7 +117,7 @@ export default function AllUsersProfile() {
                 </div>
               </div>
             </div>
-            <div className="mt-12">
+            <div className="mt-12 md:h-[370px] md:overflow-auto md:no-scrollbar">
               <Profileposts posts={userPosts.data.data} />
             </div>
           </div>

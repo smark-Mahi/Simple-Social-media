@@ -66,16 +66,21 @@ const Singlepost = ({ items }: any) => {
               />
             }
             action={
-              <IconButton
-                aria-label="settings"
-                onClick={() => getId(items.post.id)}
-              >
-                <MoreVertIcon />
-              </IconButton>
+              <>
+                <IconButton
+                  aria-label="settings"
+                  onClick={() => getId(items.post.id)}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+              </>
             }
-            title={items.post.owner.username}
+            title={
+              <p onClick={() => navigate(`/posts/user/${items.post.owner_id}`)}>
+                {items.post.owner.username}
+              </p>
+            }
             subheader={dayjs(items.created_at).format("DD-MM-YYYY")}
-            onClick={() => navigate(`/posts/${items.post.id}`)}
           />
           {openMenu && (
             <div className="w-[90px] h-[110px] bg-white absolute right-4 top-12 shadow-xl z-50 rounded-sm on">
@@ -101,7 +106,10 @@ const Singlepost = ({ items }: any) => {
             </div>
           )}
         </div>
-        <div className=" max-w-[400px] ">
+        <div
+          className=" max-w-[400px] "
+          onClick={() => navigate(`/posts/${items.post.id}`)}
+        >
           {items.post.images.length > 1 ? (
             <Carousel images={items.post.images} />
           ) : (

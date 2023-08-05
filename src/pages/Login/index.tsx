@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -17,8 +17,9 @@ import { loginApi } from "../../api/loginauth";
 import jwtDecode from "jwt-decode";
 import { setAuth } from "../../helpers/Tokens";
 import { login } from "../../features/userSlice";
-import { SignUpContext } from "../../Context/SignUPInfoContext";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import { Alert } from "../../components/reusableComponents/Alert";
+import { Snackbar } from "@mui/material";
 
 const initialValues = {
   username: "",
@@ -34,9 +35,8 @@ type Decode = {
 };
 
 const Login = () => {
-  //Context
-  const { setError, loading, setLoading } = useContext(SignUpContext);
-
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const { values, errors, handleChange, handleSubmit, touched, handleBlur } =
@@ -80,23 +80,25 @@ const Login = () => {
       console.log(err, "err");
     }
   };
-
+  console.log(error, "err");
   return (
-    <div className="bg-gray-50 flex  items-center justify-center w-full h-screen px-16">
-      <div className=" relative w-[250px] md:w-full h-[80%] max-w-md flex flex-col items-center justify-center border-1 rounded-lg border-indigo-200 shadow-2xl">
+    <div className="bg-gray-50 flex  items-center justify-center w-screen h-screen ">
+      <div className=" relative  md:w-full h-[60%] max-w-md flex flex-col items-center justify-center border-1 rounded-lg border-indigo-200 shadow-2xl ">
         <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-80 animate-blob "></div>
         <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-100 rounded-full mix-blend-multiply filter blur-2xl opacity-90 animate-blob animation-delay-2000 "></div>
         <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob animation-delay-4000 "></div>
         <Box
-          className="w-full h-[60%]  flex flex-col items-center justify-around rounded-b-3xl border-b-2 border-indigo-100"
+          className="w-full flex flex-col items-center justify-between rounded-b-3xl border-b-2 border-indigo-100"
           component="form"
           sx={{
-            "& > :not(style)": { m: 1, width: "25ch" },
+            "& > :not(style)": { m: 1, width: "35ch" },
           }}
           onSubmit={handleSubmit}
         >
-          <h1 className="text-lg text-center font-bold">Log In</h1>
-          <FormControl>
+          <div>
+            <h1 className="text-lg text-center font-bold">Log In</h1>
+          </div>
+          <FormControl className="mt-4">
             <TextField
               id="standard-basic"
               label="username"
@@ -111,7 +113,7 @@ const Login = () => {
             ) : null}
           </FormControl>
           <div>
-            <FormControl sx={{ m: 1, width: "25ch" }} variant="standard">
+            <FormControl variant="standard" className="w-full">
               <InputLabel htmlFor="standard-adornment-password">
                 Password
               </InputLabel>
@@ -138,11 +140,28 @@ const Login = () => {
               <p className="text-sm text-customred-400">{errors.password}</p>
             )}
           </div>
-          {loading ? <ScaleLoader height={15} margin={1} /> : <Button variant="text" type="submit">
-           Login
-          </Button>}
+          {loading ? (
+            <ScaleLoader height={15} margin={1} />
+          ) : (
+            <Button variant="text" type="submit">
+              Login
+            </Button>
+          )}
+          <Snackbar
+            open={!!error}
+            autoHideDuration={1000}
+            onClose={() => setError(null)}
+          >
+            <Alert
+              onClose={() => setError(null)}
+              severity="error"
+              sx={{ width: "100%" }}
+            >
+              {error}
+            </Alert>
+          </Snackbar>
         </Box>
-        <div className=" w-full h-[40%] flex justify-center items-center">
+        <div className=" w-full h-[25%] flex  justify-center items-center">
           <h3 className="text-sm font-bold cursor-pointer text-center">
             Dont you have an account?
             <NavLink to="/signup">

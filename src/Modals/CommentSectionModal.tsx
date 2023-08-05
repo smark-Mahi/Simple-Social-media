@@ -14,6 +14,7 @@ import {
   addLikeApi,
   getAllCommentsById,
 } from "../api/loginauth";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",
@@ -38,6 +39,7 @@ type propstype = {
 
 const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [addComment, setAddComment] = useState<string>("");
   const { data } = useQuery({
     queryKey: ["comments", posts.post.id],
@@ -45,7 +47,6 @@ const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
   });
 
   const toggleModal: ToggleModal = () => setShowModal(!open);
-
   const addComments = async () => {
     await addCommentsApi({ post_id: posts.post.id, comment: addComment });
     await queryClient.invalidateQueries(["comments", posts.post.id]);
@@ -60,9 +61,15 @@ const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
   };
 
   const addVote = async (id: number) => {
-    await addLikeApi({ post_id: id, dir: 1 });
-    //tell ark to add votes count in allcomments api
-    await queryClient.invalidateQueries(["getdata"]);
+    try {
+      await addLikeApi({ post_id: id, dir: 1 });
+      //tell ark to add votes count in allcomments api
+      await queryClient.invalidateQueries(["getdata"]);
+    } catch (error) {
+      if (error instanceof Error && error.message === "Access token expired") {
+        navigate("/login");
+      }
+    }
   };
 
   console.log(addComment, "data");
@@ -78,9 +85,9 @@ const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
     >
       <Box sx={style} className="flex">
         <Closebtn onClick={toggleModal} />
-        <div className="basis-2/3 ">
+        <div className="basis-2/3">
           {posts.post.images.length > 1 ? (
-            <div className="bg-blue-300 overflow-hidden">
+            <div className=" overflow-hidden">
               <Carousel images={posts.post.images} />
             </div>
           ) : (
@@ -90,6 +97,7 @@ const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
                 aspectRatio: 1,
                 objectFit: "cover",
               }}
+              className="h-full"
             />
           )}
         </div>

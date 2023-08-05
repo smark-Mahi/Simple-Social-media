@@ -3,12 +3,14 @@ import Layout from "./pages/Layout";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import { useAppDispatch } from "./features/store.ts";
 import { checkAuth, getAuth } from "./helpers/Tokens.ts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { login } from "./features/userSlice.ts";
 import { lazy } from "react";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup/index.tsx";
 import SignUPInfoContextProvider from "./Context/SignUPInfoContext.tsx";
+import { PaletteMode } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const Home = lazy(() => import("./pages/Home"));
 const Profile = lazy(() => import("./pages/Profile.tsx"));
@@ -21,7 +23,12 @@ const AllUsersProfile = lazy(() => import("./pages/AllUsersProfile"));
 
 function App() {
   const dispatch = useAppDispatch();
-
+  const [mode, setMode] = useState("dark");
+  const darkTheme = createTheme({
+    palette: {
+      mode: mode as PaletteMode,
+    },
+  });
   useEffect(() => {
     if (checkAuth()) {
       dispatch(login(getAuth()));
@@ -31,7 +38,14 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route
+            index
+            element={
+              <ThemeProvider theme={darkTheme}>
+                <Home />
+              </ThemeProvider>
+            }
+          />
           <Route element={<ProtectedRoutes />}>
             <Route path="profile" element={<Profile />} />
             <Route path="chat" element={<Chat />} />

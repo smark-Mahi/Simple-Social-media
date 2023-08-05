@@ -22,7 +22,7 @@ const Profile = () => {
       {userPosts.error || userProfile.error ? (
         <p>error</p>
       ) : !userPosts.data || !userProfile.data ? (
-        <div className="w-full md:w-[70%] h-screen p-2 md:pt-10 h-max ">
+        <div className="w-full md:w-[70%] h-screen p-2 ">
           <SkeletonProfile />
         </div>
       ) : (
@@ -79,7 +79,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="mt-12">
+          <div className="mt-12 md:h-[370px] md:overflow-auto md:no-scrollbar">
             <Profileposts posts={userPosts.data.data} />
           </div>
         </div>

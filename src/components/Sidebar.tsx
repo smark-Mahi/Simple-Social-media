@@ -61,6 +61,7 @@ const Sidebar = () => {
     { name: "Logout", icon: <IoIosLogOut />, path: "/login" },
   ];
   const [active, setActive] = useState(0);
+
   return (
     <>
       <div className="hidden lg:block fixed flex flex-col justify-between h-full border-r-2  w-52 bg-slate-500">
@@ -144,7 +145,7 @@ const Sidebar = () => {
               <div>
                 <Logout className="text-customred-400" />
               </div>
-              <p>logout</p>
+              {auth.isAuth ? <p>logout</p> : <p>Login</p>}
             </div>
           </div>
         </div>

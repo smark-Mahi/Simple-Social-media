@@ -13,6 +13,7 @@ import { Alert } from "../components/reusableComponents/Alert";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { useAppSelector } from "../features/store";
 import { useNavigate } from "react-router-dom";
+import jwt from "jsonwebtoken";
 
 const stylee = {
   position: "absolute" as "absolute",
@@ -64,8 +65,7 @@ const Createpostmodal = ({ open, toggleModal }: Props) => {
           setLoading(false);
           setOpened({ messgae: "Image Uploaded Successfully" });
         })
-        .catch((error) => {
-          console.log(error);
+        .catch((err) => {
           setError("something went wrong");
           setLoading(false);
         });
@@ -88,18 +88,23 @@ const Createpostmodal = ({ open, toggleModal }: Props) => {
       if (!auth.id) {
         navigate("/login");
       }
+
+      if (!savePost.related_text && savePost.images.length === 0) {
+        throw new Error("All Fields Are Mandatory");
+      }
       await createPostApi(savePost);
       await queryClient.invalidateQueries(["getdata"]);
       setLoading(false);
-      setOpened({ messgae: "Post Cresyed Successfully" });
+      setOpened({ messgae: "Post Created Successfully" });
       toggleModal();
-    } catch (error) {
-      setError("Unknown Error");
+      navigate("/");
+    } catch (err) {
+      setError("Network Error");
       setLoading(false);
       toggleModal();
     }
   }
-
+  console.log(error, "err");
   return (
     <div className="">
       <Modal open={open} className="backdrop-blur-sm ">
