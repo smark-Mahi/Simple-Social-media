@@ -6,7 +6,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 
 const Layout = () => {
   return (
-    <div className="md:flex">
+    <div className="md:flex bg-white">
       <div className="md:basis-1/6 ">
         <Sidebar />
       </div>
