@@ -43,7 +43,7 @@ type MultiComponentTypes = {
 const Signup = () => {
   const [finalLoading, setFinalLoading] = useState(false);
   const navigate = useNavigate();
-  const { images, error, setError } = useContext(SignUpContext);
+  const { images, setError } = useContext(SignUpContext);
 
   const ButtonLink = styled(Button)({
     fontWeight: "bold",

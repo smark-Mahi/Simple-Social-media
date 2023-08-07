@@ -3,7 +3,6 @@ import Home from "@mui/icons-material/Home";
 import Add from "@mui/icons-material/Add";
 import Stack from "@mui/material/Stack";
 import Createpostmodal from ".././Modals/Createpostmodal";
-import Logout from "@mui/icons-material/Logout";
 import { useState } from "react";
 import { useAppDispatch } from "../features/store";
 import { useNavigate } from "react-router-dom";
