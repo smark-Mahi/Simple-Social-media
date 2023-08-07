@@ -10,9 +10,9 @@ import { SignUpContext } from "../Context/SignUPInfoContext";
 
 const CreateProfileInfo = () => {
   //Context
-  const { setImages, error, setError, opened, setOpened, loading, setLoading } =
+  const { setImages, opened, setOpened, loading, setLoading } =
     useContext(SignUpContext);
-
+  const [error, setError] = useState<string | null>(null);
   //state
   const [imagesLength, setImagesLength] = useState<number>(0);
 
@@ -40,7 +40,7 @@ const CreateProfileInfo = () => {
         });
     }
   }
-
+  console.log(error, "er");
   return (
     <div className="w-full h-[80%] flex flex-col items-center justify-around mt-8">
       <div className="w-full text-center">
@@ -76,7 +76,7 @@ const CreateProfileInfo = () => {
       <div className="text-center">
         {imagesLength > 1 ? (
           <span>{imagesLength} files selected</span>
-        ) : imagesLength === 1 ? (
+        ) : imagesLength === 1 && !error ? (
           <span>{imagesLength} file selected</span>
         ) : (
           <label className="cursor-pointer">

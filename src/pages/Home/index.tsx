@@ -21,7 +21,11 @@ const Home = () => {
     <div>
       <Header />
 
-      <div className="ml-24 fixed w-1/6 h-1/2 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-80 animate-blob "></div>
+      <div
+        className={` fixed w-1/6 h-1/2 bg-purple-200 md:bg-purple-100 rounded-full mix-blend-multiply filter blur-2xl opacity-80   ${
+          windowWidth <= 380 ? "animate-blob ml-24" : "ml-[680px] -mt-12"
+        }`}
+      ></div>
       <div
         className={`relative md:mt-0 mt-12 ${
           windowWidth <= 380 ? "h-[660px] overflow-auto no-scrollbar" : "h-max"

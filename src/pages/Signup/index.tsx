@@ -10,6 +10,7 @@ import { SignUpContext } from "../../Context/SignUPInfoContext";
 import { ObjectSchema } from "yup";
 import { createAccount } from "../../api/loginauth";
 import { useNavigate } from "react-router-dom";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 type basicValidationSchema = ObjectSchema<{
   email: string;
@@ -40,8 +41,9 @@ type MultiComponentTypes = {
 };
 
 const Signup = () => {
+  const [finalLoading, setFinalLoading] = useState(false);
   const navigate = useNavigate();
-  const { images } = useContext(SignUpContext);
+  const { images, error, setError } = useContext(SignUpContext);
 
   const ButtonLink = styled(Button)({
     fontWeight: "bold",
@@ -81,32 +83,39 @@ const Signup = () => {
   const previousStep = () => setStep((currPage) => currPage - 1);
 
   const handleSubmit = async (values: FormikValues) => {
-    if (isLastpage) {
-      const payload = {
-        username: values.userName,
-        full_name: values.fullName,
-        email: values.email,
-        password: values.password,
-        about: values.about,
-        profile_photo: images,
-      };
-      await createAccount(payload);
-      navigate("/login");
-      console.log(payload, "payload");
-    } else {
-      nextStep();
+    try {
+      if (isLastpage) {
+        setFinalLoading(true);
+        const payload = {
+          username: values.userName,
+          full_name: values.fullName,
+          email: values.email,
+          password: values.password,
+          about: values.about,
+          profile_photo: images,
+        };
+        await createAccount(payload);
+        setFinalLoading(false);
+        navigate("/login");
+        console.log(payload, "payload");
+      } else {
+        nextStep();
+      }
+    } catch (err) {
+      setError("something went wrong");
+      setError("");
     }
   };
   console.log(steps[step], "s");
   return (
-    <div className="flex flex-col justify-center items-center pt-4">
+    <div className="flex flex-col justify-center items-center pt-4 bg-white">
       <div className="w-[80%]  h-2 rounded-md md:w-[30%] bg-slate-500 text-white ">
         <div
           style={{ width: step === 1 ? "50%" : "100%" }}
           className="h-[100%] bg-blue-100 w-[50%]"
         ></div>
       </div>
-      <div className="bg-gray-50 flex items-center min-h-fit justify-center w-[450px] md:w-full h-screen px-16 ">
+      <div className="bg-white flex items-center min-h-fit justify-center w-[450px] md:w-full h-screen px-16 ">
         <div className="relative w-[600px] md:w-full h-[80%] max-w-md flex flex-col items-center justify-center shadow-2xl">
           <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-80 animate-blob "></div>
           <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-100 rounded-full mix-blend-multiply filter blur-2xl opacity-90 animate-blob animation-delay-2000 "></div>
@@ -129,7 +138,17 @@ const Signup = () => {
                 }`}
               >
                 {step > 1 && <Button onClick={previousStep}>Prev</Button>}
-                <Button type="submit">{isLastpage ? "submit" : "Next"}</Button>
+                <Button type="submit">
+                  {isLastpage ? (
+                    finalLoading ? (
+                      <ScaleLoader />
+                    ) : (
+                      "Submit"
+                    )
+                  ) : (
+                    "Next"
+                  )}
+                </Button>
               </div>
             </Form>
           </Formik>

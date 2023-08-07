@@ -55,7 +55,7 @@ const Singlepost = ({ items }: any) => {
 
   return (
     <>
-      <CustomCard className="border-slate-300 border-solid border-[1px] cursor-pointer rounded-3xl flex flex-col hover:shadow-2xl  md:w-[50%]">
+      <CustomCard className="border-slate-300 border-solid border-[1px] cursor-pointer rounded-3xl flex flex-col hover:shadow-2xl  md:w-[470px]">
         <div className="relative">
           <CardHeader
             avatar={
@@ -89,7 +89,7 @@ const Singlepost = ({ items }: any) => {
                 Update
               </p>
               <p
-                className=" cursor-pointer text-slate-500 text-center p-2  hover:bg-slate-500 hover:text-white"
+                className=" cursor-pointer text-customred-400 text-lg font-bold text-center p-2  hover:bg-slate-500 hover:text-white"
                 onClick={() => {
                   toggle(items.post.id);
                 }}
@@ -117,7 +117,7 @@ const Singlepost = ({ items }: any) => {
           {items.post.images.length > 1 ? (
             <Carousel items={items} />
           ) : (
-            <img src={items.post.images[0]} />
+            <img src={items.post.images[0]} style={{ objectFit: "cover" }} />
           )}
         </div>
         <CardContent>

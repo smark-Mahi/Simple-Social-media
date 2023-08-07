@@ -6,7 +6,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 
 const Layout = () => {
   return (
-    <div className="md:flex">
+    <div className="md:flex bg-white">
       <div className="basis-60 z-40">
         <Sidebar />
       </div>
@@ -14,7 +14,7 @@ const Layout = () => {
         <ErrorBoundary fallback={<p>An error has been occured</p>}>
           <Suspense
             fallback={
-              <div className="flex justify-center mt-[280px] md:mt-[450px]">
+              <div className="flex justify-center mt-[280px] lg:mt-[450px]">
                 <BeatLoader size={10} />
               </div>
             }

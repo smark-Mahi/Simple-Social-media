@@ -36,7 +36,7 @@ const Sidebar = () => {
     navigate("/login");
   }
 
-  const activeLink = "text-black bg-white rounded-lg ";
+  const activeLink = "text-black bg-slate-500 rounded-lg ";
   console.log(auth, "u");
   const userProfile = useQuery({
     queryKey: ["profile", auth.id],
@@ -58,19 +58,23 @@ const Sidebar = () => {
       ),
       path: "/profile",
     },
-    { name: "Logout", icon: <IoIosLogOut />, path: "/login" },
+    {
+      name: "Logout",
+      icon: <IoIosLogOut />,
+      path: "/login",
+    },
   ];
   const [active, setActive] = useState(0);
 
   return (
     <>
-      <div className="hidden lg:block fixed flex flex-col justify-between h-full border-r-2  bg-slate-500">
+      <div className="hidden lg:block fixed flex flex-col justify-between h-full border-r-[0.5px] border-slate-300 bg-white">
         <Stack spacing={3} direction="column">
           <div className=" mt-10 text-center">
             <h2 className="text-2xl font-base">𝓼𝓲𝓶𝓹𝓵𝓮 𝓼𝓸𝓬𝓲𝓪𝓵</h2>
           </div>
           <div className="px-2">
-            <div className="flex font-semibold hover:bg-white hover:text-black justify-around h-[50px]  items-center rounded-lg ">
+            <div className="flex font-semibold hover:bg-slate-500 hover:text-black justify-around h-[50px]  items-center rounded-lg ">
               <NavLink
                 to="/"
                 className={({ isActive }) => (isActive ? activeLink : "")}
@@ -82,7 +86,7 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="px-2">
-            <div className="flex hover:bg-white hover:text-black  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
+            <div className="flex hover:bg-slate-500 hover:text-black  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
               <NavLink
                 to="/profile"
                 className={({ isActive }) => (isActive ? activeLink : "")}
@@ -102,48 +106,48 @@ const Sidebar = () => {
           </div>
           <div className="px-2">
             <div
-              className="flex px-2 hover:bg-white hover:text-black hover:text-lg transition-all font-semibold   justify-around h-[50px] items-center rounded-lg  cursor-pointer"
+              className="flex px-2 hover:bg-slate-500 hover:text-black hover:text-lg transition-all font-semibold   justify-around h-[50px] items-center rounded-lg  cursor-pointer"
               onClick={toggle}
             >
               <div>
-                <Add />
+                <Add className="text-2xl" />
               </div>
               <div>create</div>
             </div>
           </div>
           <div className="px-2">
-            <div className="flex font-semibold hover:bg-white hover:text-black justify-around h-[50px]  items-center rounded-lg ">
+            <div className="flex font-semibold hover:bg-slate-500 hover:text-black justify-around h-[50px]  items-center rounded-lg ">
               <NavLink
                 to="/chat"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
                 <div className="flex h-[50px] w-60 justify-around items-center hover:text-lg transition-all">
-                  <BsChatDots /> <p>Chat</p>
+                  <BsChatDots className="text-2xl" /> <p>Chat</p>
                 </div>
               </NavLink>
             </div>
           </div>
           <div className="px-2">
-            <div className="flex font-semibold hover:bg-white hover:text-black justify-around h-[50px]  items-center rounded-lg ">
+            <div className="flex font-semibold hover:bg-slate-500 hover:text-black justify-around h-[50px]  items-center rounded-lg ">
               <NavLink
                 to="/notification"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
                 <div className="flex h-[50px] w-60 ml-6 justify-around items-center hover:text-lg transition-all">
-                  <AiOutlineHeart /> <p>Notifications</p>
+                  <AiOutlineHeart className="text-2xl" /> <p>Notifications</p>
                 </div>
               </NavLink>
             </div>
           </div>
         </Stack>
         <div className="py-4 px-2">
-          <div className="flex hover:bg-white hover:text-black  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
+          <div className="flex hover:bg-slate-500 hover:text-black  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
             <div
               className="flex h-[50px] w-60 justify-around items-center hover:text-lg transition-all cursor-pointer"
               onClick={logoutHandler}
             >
               <div>
-                <Logout className="text-customred-400" />
+                <IoIosLogOut className="text-customred-400 text-2xl" />
               </div>
               {auth.isAuth ? <p>logout</p> : <p>Login</p>}
             </div>

@@ -32,7 +32,7 @@ const Profile = () => {
               <img
                 alt="Remy Sharp"
                 src={userProfile.data.user.profile_photo}
-                className="border-2 rounded-full md:w-[150px] md:h-[150px] w-[50px] h-[50px]"
+                className="border-2 rounded-full md:w-[150px] md:h-[150px] w-[150px] h-[150px]"
               />
             </div>
             <div className=" md:w-[60%] md:h-[150px] flex flex-col justify-between w-full">
@@ -74,7 +74,7 @@ const Profile = () => {
                   <div className="absolute top-5 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-70 "></div>
                 </div>
                 <div className="md:order-last">
-                  <p>{userProfile.data.about}</p>
+                  <p>{userProfile.data.user.about}</p>
                 </div>
               </div>
             </div>
