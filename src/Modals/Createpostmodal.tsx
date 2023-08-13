@@ -66,6 +66,7 @@ const Createpostmodal = ({ open, toggleModal }: Props) => {
           setOpened({ messgae: "Image Uploaded Successfully" });
         })
         .catch((err) => {
+          console.log(err, "err");
           setError("something went wrong");
           setLoading(false);
         });
