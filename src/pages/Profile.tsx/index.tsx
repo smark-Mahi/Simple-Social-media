@@ -3,6 +3,7 @@ import { useQueries } from "@tanstack/react-query";
 import { getPostByUserIdApi, getProfileApi } from "../../api/loginauth";
 import { useAppSelector } from "../../features/store";
 import SkeletonProfile from "../../helpers/skeletons/SkeletonProfile";
+import { motion } from "framer-motion";
 
 const Profile = () => {
   const auth = useAppSelector((state) => state.user);
@@ -16,9 +17,24 @@ const Profile = () => {
       { queryKey: ["profile", auth.id], queryFn: () => getProfileApi(auth.id) },
     ],
   });
-  console.log(userProfile.data, "p"); //!userPosts.data || !userProfile.data
+
+  const variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.5,
+      },
+    },
+  };
+
   return (
-    <div className="md:mt-0 h-max flex justify-center mt-16">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.75, delay: 0.5 }}
+      className="md:mt-0 h-max flex justify-center mt-16"
+    >
       {userPosts.error || userProfile.error ? (
         <p>error</p>
       ) : !userPosts.data || !userProfile.data ? (
@@ -79,12 +95,17 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="mt-12 md:h-[820px] md:overflow-auto md:no-scrollbar">
+          <motion.div
+            variants={variants}
+            initial="hidden"
+            animate="show"
+            className="mt-12 md:h-[820px] md:overflow-auto md:no-scrollbar"
+          >
             <Profileposts posts={userPosts.data.data} />
-          </div>
+          </motion.div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

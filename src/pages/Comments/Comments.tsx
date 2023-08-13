@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAppSelector } from "../../features/store";
+import { motion } from "framer-motion";
 
 export default function Comments() {
   const navigate = useNavigate();
@@ -43,7 +44,13 @@ export default function Comments() {
       ) : !data && !userProfile.data.user ? (
         <p>loading...</p>
       ) : (
-        <div className="mt-14  h-screen bg-slate-500 flex flex-col">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          exit={{ opacity: 0 }}
+          className="mt-14  h-screen bg-slate-500 flex flex-col"
+        >
           <div className="">
             <KeyboardArrowLeftIcon
               className="cursor-pointer"
@@ -97,7 +104,7 @@ export default function Comments() {
               <p>No Comments Are Found</p>
             )}
           </div>
-        </div>
+        </motion.div>
       )}
     </>
   );

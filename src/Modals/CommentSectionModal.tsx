@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import Closebtn from "../components/reusableComponents/Closebtn";
 import MapsUgcRounded from "@mui/icons-material/MapsUgcRounded";
-import { Box, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import AddReactionOutlined from "@mui/icons-material/AddReactionOutlined";
@@ -15,6 +15,7 @@ import {
   getAllCommentsById,
 } from "../api/loginauth";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const style = {
   position: "absolute" as "absolute",
@@ -23,7 +24,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 700,
   height: 400,
-  bgcolor: "white",
+  backgroundColor: "white",
   border: "0px ",
   outline: "none",
   borderRadius: "4px",
@@ -72,9 +73,29 @@ const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
     }
   };
 
-  console.log(addComment, "data");
-
-  console.log(data, "post");
+  const dropModal = {
+    hidden: {
+      scale: 0,
+      opacity: 0,
+    },
+    visible: {
+      x: "-50%",
+      y: "-50%",
+      scale: 1.1,
+      opacity: 1,
+      transition: {
+        duration: 0.1,
+        type: "spring",
+        damping: 20,
+        stiffness: 200,
+      },
+    },
+    exit: {
+      y: "100vh",
+      opacity: 0,
+    },
+  };
+  
   return (
     <Modal
       open={open}
@@ -83,7 +104,12 @@ const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
       onClose={() => setShowModal(false)}
       className="backdrop-blur-sm"
     >
-      <Box sx={style} className="flex">
+      <motion.div
+        variants={dropModal}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+         style={style} className="flex">
         <Closebtn onClick={toggleModal} />
         <div className="basis-2/3">
           {posts.post.images.length > 1 ? (
@@ -177,7 +203,7 @@ const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
             </div>
           </div>
         </div>
-      </Box>
+      </motion.div>
     </Modal>
   );
 };

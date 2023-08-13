@@ -1,6 +1,25 @@
+import { motion } from "framer-motion";
+
 const Profileposts = ({ posts }: any) => {
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      x: 30,
+    },
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
+
   return (
-    <div className="columns-3 md:columns-4 gap-x-px ">
+    <motion.div
+      variants={cardVariants}
+      className="columns-3 md:columns-4 gap-x-px "
+    >
       {posts.map((item: any, i: number) => (
         <img
           key={i}
@@ -10,7 +29,7 @@ const Profileposts = ({ posts }: any) => {
           className="mb-0.5"
         />
       ))}
-    </div>
+    </motion.div>
   );
 };
 

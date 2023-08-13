@@ -13,6 +13,7 @@ import { Alert } from "../components/reusableComponents/Alert";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { useAppSelector } from "../features/store";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const stylee = {
   position: "absolute" as "absolute",
@@ -20,7 +21,7 @@ const stylee = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   height: 300,
-  bgcolor: "background.paper",
+  bgcolor: "white",
   border: "0px ",
   outline: "none",
   borderRadius: "4px",
@@ -65,7 +66,7 @@ const Createpostmodal = ({ open, toggleModal }: Props) => {
           setOpened({ messgae: "Image Uploaded Successfully" });
         })
         .catch((err) => {
-          setError(err.response.status);
+          setError("something went wrong");
           setLoading(false);
         });
     }
@@ -73,7 +74,7 @@ const Createpostmodal = ({ open, toggleModal }: Props) => {
       setImages(imgs);
     }
   }
-  console.log(images, "fil");
+  console.log(loading, error, "fil");
 
   async function handleSubmit(e: any) {
     try {
@@ -103,11 +104,38 @@ const Createpostmodal = ({ open, toggleModal }: Props) => {
       toggleModal();
     }
   }
-  console.log(error, "err");
+
+  const dropModal = {
+    hidden: {
+      scale: 0,
+      opacity: 0,
+    },
+    visible: {
+      x: "-50%",
+      y: "-50%",
+      scale: 1.1,
+      opacity: 1,
+      transition: {
+        duration: 0.1,
+        type: "spring",
+        damping: 20,
+        stiffness: 200,
+      },
+    },
+    exit: {
+      y: "100vh",
+      opacity: 0,
+    },
+  };
+
   return (
-    <div className="">
+    <div>
       <Modal open={open} className="backdrop-blur-sm ">
-        <div
+        <motion.div
+          variants={dropModal}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
           style={stylee}
           className="hover:drop-shadoww md:w-[400px] flex flex-col items-center justify-around relative bg-white w-[90%]"
         >
@@ -187,7 +215,7 @@ const Createpostmodal = ({ open, toggleModal }: Props) => {
             </Snackbar>
             <Button type="submit">CreatePost</Button>
           </form>
-        </div>
+        </motion.div>
       </Modal>
     </div>
   );

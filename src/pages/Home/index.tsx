@@ -1,6 +1,7 @@
 import Header from "../../components/Header";
 import Post from "../../components/Post";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const [windowWidth, setWindoWidth] = useState(window.innerWidth);
@@ -18,7 +19,12 @@ const Home = () => {
   }, [windowWidth]);
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.25, duration: 0.55, ease: "easeOut" }}
+      exit={{ opacity: 0 }}
+    >
       <Header />
 
       <div
@@ -33,7 +39,7 @@ const Home = () => {
       >
         <Post />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

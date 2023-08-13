@@ -18,6 +18,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import SkeletonPost from "../../helpers/skeletons/SkeletonPost";
 import dayjs from "dayjs";
+import { motion } from "framer-motion";
 
 const PostDetails = () => {
   const params = useParams();
@@ -67,7 +68,13 @@ const PostDetails = () => {
           <SkeletonPost />
         </div>
       ) : (
-        <div className="flex justify-center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          exit={{ opacity: 0 }}
+          className="flex justify-center"
+        >
           <CustomCard className="cursor-pointer border-slate-100 border-2 md:mt-6 mt-14">
             <div className="relative">
               <CardHeader
@@ -221,7 +228,7 @@ const PostDetails = () => {
               </div>
             </CardContent>
           </CustomCard>
-        </div>
+        </motion.div>
       )}
       {showCommentsPage && (
         <CommentSectionModal

@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import BeatLoader from "react-spinners/BeatLoader";
+import { AnimatePresence } from "framer-motion";
 
 const Layout = () => {
   return (
@@ -19,7 +20,10 @@ const Layout = () => {
               </div>
             }
           >
-            <Outlet />
+            <AnimatePresence mode="wait">
+              {" "}
+              <Outlet key={Math.random()} />
+            </AnimatePresence>
           </Suspense>
         </ErrorBoundary>
       </div>

@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Closebtn from "../components/reusableComponents/Closebtn";
 import { deletePostApi } from "../api/loginauth";
@@ -10,6 +9,7 @@ import { Snackbar } from "@mui/material";
 import { Alert } from "../components/reusableComponents/Alert";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import { SignUpContext } from "../Context/SignUPInfoContext";
+import { motion } from "framer-motion";
 
 type propstype = {
   open: boolean;
@@ -27,7 +27,7 @@ const Confirmdeletemodal = ({ open, setOpen, id, setopenMenu }: propstype) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    bgcolor: "white",
+    bagroundColor: "white",
     p: 4,
     border: "0px ",
     outline: "none",
@@ -53,9 +53,40 @@ const Confirmdeletemodal = ({ open, setOpen, id, setopenMenu }: propstype) => {
       setError("");
     }
   };
+
+  const dropModal = {
+    hidden: {
+      scale: 0,
+      opacity: 0,
+    },
+    visible: {
+      x: "-50%",
+      y: "-50%",
+      scale: 1.1,
+      opacity: 1,
+      transition: {
+        duration: 0.1,
+        type: "spring",
+        damping: 20,
+        stiffness: 200,
+      },
+    },
+    exit: {
+      y: "100vh",
+      opacity: 0,
+    },
+  };
+
   return (
     <Modal open={open} className="backdrop-blur-sm ">
-      <Box sx={style} className="relative md:w-[300px] w-[90%]">
+      <motion.div
+        variants={dropModal}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        style={style}
+        className="relative md:w-[300px] w-[90%] bg-white h-[150px] flex flex-col justify-evenly "
+      >
         <Closebtn onClick={() => setOpen(null)} />
         <p className="text-center font-bold">Do you want to Delete</p>
         <div className="flex justify-evenly mt-4">
@@ -80,7 +111,7 @@ const Confirmdeletemodal = ({ open, setOpen, id, setopenMenu }: propstype) => {
             No
           </Button>
         </div>
-      </Box>
+      </motion.div>
     </Modal>
   );
 };

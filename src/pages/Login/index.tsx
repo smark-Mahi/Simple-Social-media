@@ -22,6 +22,7 @@ import { Alert } from "../../components/reusableComponents/Alert";
 import { Snackbar } from "@mui/material";
 import { SignUpContext } from "../../Context/SignUPInfoContext";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 const initialValues = {
   email: "",
@@ -50,7 +51,7 @@ const Login = () => {
       window.removeEventListener("resize", handleWindowWidth);
     };
   }, [windowWidth]);
-//Context
+  //Context
   const { loading, setError, setLoading, error } = useContext(SignUpContext);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -95,8 +96,15 @@ const Login = () => {
     }
   };
   console.log(error, "err");
+
   return (
-    <div className="bg-white flex  items-center justify-center w-screen h-screen ">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.55, ease: "easeOut" }}
+      exit={{ opacity: 0 }}
+      className="bg-white flex  items-center justify-center w-screen h-screen "
+    >
       <div className=" relative  md:w-full h-[60%] max-w-md flex flex-col items-center justify-center border-1 rounded-lg border-indigo-200 shadow-2xl bg-white">
         <div
           className={`absolute top-0 -left-4 w-72 h-72 md:w-[450px] md:h-96 bg-purple-200 md:bg-purple-100 rounded-full mix-blend-multiply filter blur-2xl opacity-100 ${
@@ -122,7 +130,9 @@ const Login = () => {
           onSubmit={handleSubmit}
         >
           <div>
-            <h1 className="text-lg text-center font-bold">Log In</h1>
+            <h1 className="text-lg text-center font-bold text-slate-500">
+              Log In
+            </h1>
           </div>
           <FormControl className="mt-4">
             <TextField
@@ -148,6 +158,7 @@ const Login = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 name="password"
+                color="primary"
                 id="standard-adornment-password"
                 type={showPassword ? "text" : "password"}
                 endAdornment={
@@ -185,7 +196,7 @@ const Login = () => {
           </Snackbar>
         </Box>
         <div className=" w-full h-[25%] flex  justify-center items-center">
-          <h3 className="text-sm font-bold cursor-pointer text-center">
+          <h3 className="text-sm font-bold cursor-pointer text-center text-slate-500">
             Dont you have an account?
             <NavLink to="/signup">
               <Button
@@ -201,7 +212,7 @@ const Login = () => {
           </h3>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

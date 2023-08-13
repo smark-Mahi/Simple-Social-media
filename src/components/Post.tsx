@@ -4,6 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import FadeLoader from "react-spinners/FadeLoader";
+import { motion } from "framer-motion";
 
 const Post = () => {
   const { data, fetchNextPage, error, hasNextPage } = useInfiniteQuery(
@@ -27,7 +28,17 @@ const Post = () => {
       },
     }
   );
-  console.log(data?.pages, "pages");
+
+  const variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
   return (
     <>
       {error ? (
@@ -47,11 +58,16 @@ const Post = () => {
           loader={<FadeLoader height={5} width={2} />}
           style={{ width: "100%" }}
         >
-          <div className="p-4  grid place-items-center md:p-20 gap-5 ">
+          <motion.div
+            variants={variants}
+            initial="hidden"
+            animate="show"
+            className="p-4  grid place-items-center md:p-20 gap-5 "
+          >
             {data.pages.map((page: any) =>
               page.data.map((item: any) => <Singlepost items={item} />)
             )}
-          </div>
+          </motion.div>
         </InfiniteScroll>
       )}
     </>

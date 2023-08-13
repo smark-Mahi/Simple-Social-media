@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 import { useAppSelector } from "../../features/store";
 import { useState } from "react";
 import SkeletonProfile from "../../helpers/skeletons/SkeletonProfile";
+import { motion } from "framer-motion";
 
 export default function AllUsersProfile() {
   const params = useParams();
@@ -31,7 +32,13 @@ export default function AllUsersProfile() {
 
   console.log(idd, "id");
   return (
-    <div className="h-screen">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.55, ease: "easeOut" }}
+      exit={{ opacity: 0 }}
+      className="h-screen"
+    >
       <div className="md:mt-0 h-max flex justify-center mt-16 ">
         {userPosts.error || userProfile.error ? (
           <p>error</p>
@@ -123,6 +130,6 @@ export default function AllUsersProfile() {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -5,6 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import FadeLoader from "react-spinners/FadeLoader";
+import { motion } from "framer-motion";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -78,7 +79,13 @@ const Search = () => {
       );
 
   return (
-    <div className="mt-14 bg-white">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.55, ease: "easeOut" }}
+      exit={{ opacity: 0 }}
+      className="mt-14 bg-white"
+    >
       <div className="flex flex-col justify-center items-center">
         <div className="relative text-gray-600 focus-within:text-gray-400 m-2">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2 ">
@@ -160,7 +167,7 @@ const Search = () => {
           </div>
         </InfiniteScroll>
       )}
-    </div>
+    </motion.div>
   );
 };
 

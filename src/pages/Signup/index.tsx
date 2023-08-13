@@ -11,6 +11,7 @@ import { ObjectSchema } from "yup";
 import { createAccount } from "../../api/loginauth";
 import { useNavigate } from "react-router-dom";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import { motion } from "framer-motion";
 
 type basicValidationSchema = ObjectSchema<{
   email: string;
@@ -47,7 +48,7 @@ const Signup = () => {
 
   const ButtonLink = styled(Button)({
     fontWeight: "bold",
-    color: "indigo",
+    color: "gray",
     cursor: "pointer",
   });
 
@@ -108,7 +109,13 @@ const Signup = () => {
   };
   console.log(steps[step], "s");
   return (
-    <div className="flex flex-col justify-center items-center pt-4 bg-white">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.55, ease: "easeOut" }}
+      exit={{ opacity: 0 }}
+      className="flex flex-col justify-center items-center pt-4 bg-white"
+    >
       <div className="w-[80%]  h-2 rounded-md md:w-[30%] bg-slate-500 text-white ">
         <div
           style={{ width: step === 1 ? "50%" : "100%" }}
@@ -127,7 +134,7 @@ const Signup = () => {
           >
             <Form className="w-full ">
               <div className="mt-2">
-                <h1 className="text-lg text-center font-bold">
+                <h1 className="text-lg text-center font-bold text-slate-500">
                   {steps[step].title}
                 </h1>
               </div>
@@ -153,16 +160,16 @@ const Signup = () => {
             </Form>
           </Formik>
           <div className=" w-full h-[40%] flex justify-center items-center ">
-            <h3 className="text-sm cursor-pointer text-center">
+            <h3 className="text-sm cursor-pointer text-center text-slate-500">
               Already have an account?
               <NavLink to="/login">
-                <ButtonLink className="text-indigo-600">Login</ButtonLink>
+                <ButtonLink className="">Login</ButtonLink>
               </NavLink>
             </h3>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -15,8 +15,16 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Confirmdeletemodal from "../Modals/Confirmdeletemodal";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
+// import TimeAgo from "timeago-react";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { motion } from "framer-motion";
 
 const Singlepost = ({ items }: any) => {
+  //posted post date
+  dayjs.extend(relativeTime);
+  const dat = items.post.created_at;
+  const postDate = dayjs(dat).fromNow();
+
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [showCommentsPage, setShowCommentsPage] = React.useState<any | null>(
@@ -53,8 +61,26 @@ const Singlepost = ({ items }: any) => {
     setopenMenu(true);
   };
 
+  const cardVariants={
+    hidden:{
+      opacity:0,
+      x:30,
+    },
+    show:{
+      opacity:1,
+      x:0,
+      transition:{
+        duration:1.5,
+        delay:0.5,
+        type:"spring",
+        ease:"easeIn"
+      }
+    }
+  }
   return (
-    <>
+    <motion.div
+    variants={cardVariants}
+    >
       <CustomCard className="border-slate-300 border-solid border-[1px] cursor-pointer rounded-3xl flex flex-col hover:shadow-2xl  md:w-[470px]">
         <div className="relative">
           <CardHeader
@@ -79,9 +105,12 @@ const Singlepost = ({ items }: any) => {
             title={
               <p onClick={() => navigate(`/posts/user/${items.post.owner_id}`)}>
                 {items.post.owner.username}
+                <p>
+                  posted {postDate}
+                  {/* <TimeAgo datetime={dayyjs} locale="en-US" /> */}
+                </p>
               </p>
             }
-            subheader={dayjs(items.created_at).format("DD-MM-YYYY")}
           />
           {openMenu && (
             <div className="w-[90px] h-max bg-white absolute right-4 top-12 shadow-xl z-50 rounded-sm on">
@@ -212,7 +241,7 @@ const Singlepost = ({ items }: any) => {
           <div className="hidden md:block md:flex">
             <input
               placeholder="Add a comment..."
-              className="w-full text-black text-sm mt-2 outline-0 border-slate-500 border-b-2"
+              className="w-full text-black text-sm mt-2 outline-0 border-slate-500 border-b-2 bg-transparent"
               ref={inputRef}
               onClick={() => setForced(items.post.id)}
             />
@@ -244,7 +273,7 @@ const Singlepost = ({ items }: any) => {
           setopenMenu={setopenMenu}
         />
       )}
-    </>
+    </motion.div>
   );
 };
 

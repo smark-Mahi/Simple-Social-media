@@ -17,6 +17,7 @@ import Favorite from "@mui/icons-material/Favorite";
 import { useAppSelector } from "../features/store";
 import { getProfileApi } from "../api/loginauth";
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 
 const Sidebar = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -69,28 +70,35 @@ const Sidebar = () => {
     <>
       <div className="hidden lg:block fixed flex flex-col justify-between h-full border-r-[0.5px] border-slate-300 bg-white">
         <Stack spacing={3} direction="column">
-          <div className=" mt-10 text-center">
-            <h2 className="text-2xl font-base">𝓼𝓲𝓶𝓹𝓵𝓮 𝓼𝓸𝓬𝓲𝓪𝓵</h2>
+          <div className=" mt-10 text-center overflow-hidden ">
+            <motion.h2
+              animate={{ y: 0 }}
+              initial={{ y: "100%" }}
+              transition={{ delay: 0.25, duration: 0.5 }}
+              className="text-2xl font-base"
+            >
+              𝓼𝓲𝓶𝓹𝓵𝓮 𝓼𝓸𝓬𝓲𝓪𝓵
+            </motion.h2>
           </div>
           <div className="px-2">
-            <div className="flex font-semibold hover:bg-slate-500 hover:text-black justify-around h-[50px]  items-center rounded-lg ">
+            <div className="flex font-semibold hover:bg-slate-500 hover:text-black transition hover:duration-300 justify-around h-[50px]  items-center rounded-lg ">
               <NavLink
                 to="/"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
-                <div className="flex h-[50px] w-60 justify-around items-center  hover:text-lg transition-all">
+                <div className="flex h-[50px] w-60 justify-around items-center  hover:text-lg ">
                   <Home /> <p>Home</p>
                 </div>
               </NavLink>
             </div>
           </div>
           <div className="px-2">
-            <div className="flex hover:bg-slate-500 hover:text-black  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
+            <div className="flex hover:bg-slate-500 hover:text-black transition hover:duration-300  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
               <NavLink
                 to="/profile"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
-                <div className="flex h-[50px] w-60 justify-around items-center hover:text-lg transition-all">
+                <div className="flex h-[50px] w-60 justify-around items-center hover:text-lg ">
                   <img
                     src={
                       userProfile.data && userProfile.data.user.profile_photo
@@ -105,7 +113,7 @@ const Sidebar = () => {
           </div>
           <div className="px-2">
             <div
-              className="flex px-2 hover:bg-slate-500 hover:text-black hover:text-lg transition-all font-semibold   justify-around h-[50px] items-center rounded-lg  cursor-pointer"
+              className="flex px-2 hover:bg-slate-500 hover:text-black transition hover:duration-300 hover:text-lg  font-semibold   justify-around h-[50px] items-center rounded-lg  cursor-pointer"
               onClick={toggle}
             >
               <div>
@@ -115,24 +123,24 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="px-2">
-            <div className="flex font-semibold hover:bg-slate-500 hover:text-black justify-around h-[50px]  items-center rounded-lg ">
+            <div className="flex font-semibold hover:bg-slate-500 hover:text-black transition hover:duration-300 justify-around h-[50px]  items-center rounded-lg ">
               <NavLink
                 to="/chat"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
-                <div className="flex h-[50px] w-60 justify-around items-center hover:text-lg transition-all">
+                <div className="flex h-[50px] w-60 justify-around items-center hover:text-lg ">
                   <BsChatDots className="text-2xl" /> <p>Chat</p>
                 </div>
               </NavLink>
             </div>
           </div>
           <div className="px-2">
-            <div className="flex font-semibold hover:bg-slate-500 hover:text-black justify-around h-[50px]  items-center rounded-lg ">
+            <div className="flex font-semibold hover:bg-slate-500 hover:text-black transition hover:duration-300 justify-around h-[50px]  items-center rounded-lg ">
               <NavLink
                 to="/notification"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
-                <div className="flex h-[50px] w-60 ml-6 justify-around items-center hover:text-lg transition-all">
+                <div className="flex h-[50px] w-60 ml-6 justify-around items-center hover:text-lg ">
                   <AiOutlineHeart className="text-2xl" /> <p>Notifications</p>
                 </div>
               </NavLink>
@@ -140,9 +148,9 @@ const Sidebar = () => {
           </div>
         </Stack>
         <div className="py-4 px-2">
-          <div className="flex hover:bg-slate-500 hover:text-black  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
+          <div className="flex hover:bg-slate-500 hover:text-black transition hover:duration-300  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
             <div
-              className="flex h-[50px] w-60 justify-around items-center hover:text-lg transition-all cursor-pointer"
+              className="flex h-[50px] w-60 justify-around items-center hover:text-lg  cursor-pointer"
               onClick={logoutHandler}
             >
               <div>

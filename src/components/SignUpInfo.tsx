@@ -2,14 +2,33 @@ import React from "react";
 import { CheckboxWithLabel, TextField } from "formik-mui";
 // import { ErrorMessage } from "formik";
 import { Field } from "formik";
+import { styled } from "@mui/material";
 
 const SignUpInfo = () => {
   const [showPassword, setShowPassword] = React.useState<boolean>(false);
-
+  const CustomField = styled(Field)({
+    "& label.Mui-focused": {
+      color: "gray",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "gray",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "gray",
+      },
+      "&:hover fieldset": {
+        borderColor: "gray",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "gray",
+      },
+    },
+  });
   return (
     <div className="w-full h-[80%] flex flex-col items-center justify-around mt-8">
       <div className="w-full text-center">
-        <Field
+        <CustomField
           label="Email"
           name="email"
           id="email"
@@ -20,7 +39,7 @@ const SignUpInfo = () => {
       </div>
       <div className="flex flex-col justify-center w-full">
         <div className="text-center">
-          <Field
+          <CustomField
             name="password"
             component={TextField}
             id="password"
@@ -31,13 +50,14 @@ const SignUpInfo = () => {
           />
         </div>
         <div className="ml-10">
-          <Field
+          <CustomField
             component={CheckboxWithLabel}
             type="checkbox"
             name="checkbox"
             id="checkbox"
             disabled={false}
             checked={showPassword}
+            className="text-slate-500"
             Label={{ label: "show password" }}
             onClick={() => {
               setShowPassword((prev) => !prev);
@@ -46,7 +66,7 @@ const SignUpInfo = () => {
         </div>
       </div>
       <div className="w-full text-center">
-        <Field
+        <CustomField
           name="confirmpassword"
           component={TextField}
           label="confirm Password"
