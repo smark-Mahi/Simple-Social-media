@@ -35,6 +35,7 @@ type val = {
 
 type Decode = {
   user_id: number;
+  exp: number;
 };
 
 const Login = () => {
@@ -84,6 +85,7 @@ const Login = () => {
         isAuth: true,
         id: decoded.user_id,
         accessToken: data.data.access_token,
+        exp: decoded.exp,
       };
       setAuth(user);
       dispatch(login(user));

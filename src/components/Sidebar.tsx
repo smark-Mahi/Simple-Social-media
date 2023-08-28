@@ -51,7 +51,7 @@ const Sidebar = () => {
       name: "profile",
       icon: (
         <img
-          src={userProfile.data && userProfile.data.user.profile_photo}
+          src={userProfile.data && userProfile.data.User.profile_photo}
           className="w-[25px] h-[25px] rounded-full"
           style={{ border: "1px solid black" }}
         />
@@ -86,7 +86,7 @@ const Sidebar = () => {
                 to="/"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
-                <div className="flex h-[50px] w-60 justify-around items-center  hover:text-lg ">
+                <div className="flex h-[50px] w-52 justify-around items-center  hover:text-lg ">
                   <Home /> <p>Home</p>
                 </div>
               </NavLink>
@@ -98,10 +98,10 @@ const Sidebar = () => {
                 to="/profile"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
-                <div className="flex h-[50px] w-60 justify-around items-center hover:text-lg ">
+                <div className="flex h-[50px] w-52 justify-around items-center hover:text-lg ">
                   <img
                     src={
-                      userProfile.data && userProfile.data.user.profile_photo
+                      userProfile.data && userProfile.data.User.profile_photo
                     }
                     className="w-[25px] h-[25px] rounded-full"
                     style={{ border: "1px solid black" }}
@@ -128,7 +128,7 @@ const Sidebar = () => {
                 to="/chat"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
-                <div className="flex h-[50px] w-60 justify-around items-center hover:text-lg ">
+                <div className="flex h-[50px] w-52 justify-around items-center hover:text-lg ">
                   <BsChatDots className="text-2xl" /> <p>Chat</p>
                 </div>
               </NavLink>
@@ -140,7 +140,7 @@ const Sidebar = () => {
                 to="/notification"
                 className={({ isActive }) => (isActive ? activeLink : "")}
               >
-                <div className="flex h-[50px] w-60 ml-6 justify-around items-center hover:text-lg ">
+                <div className="flex h-[50px] w-52 ml-6 justify-around items-center hover:text-lg ">
                   <AiOutlineHeart className="text-2xl" /> <p>Notifications</p>
                 </div>
               </NavLink>
@@ -150,7 +150,7 @@ const Sidebar = () => {
         <div className="py-4 px-2">
           <div className="flex hover:bg-slate-500 hover:text-black transition hover:duration-300  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
             <div
-              className="flex h-[50px] w-60 justify-around items-center hover:text-lg  cursor-pointer"
+              className="flex h-[50px] w-52 justify-around items-center hover:text-lg  cursor-pointer"
               onClick={logoutHandler}
             >
               <div>

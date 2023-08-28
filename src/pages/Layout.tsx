@@ -8,14 +8,14 @@ import { AnimatePresence } from "framer-motion";
 const Layout = () => {
   return (
     <div className="md:flex bg-white">
-      <div className="basis-60 z-40">
+      <div className="basis-64 z-40">
         <Sidebar />
       </div>
       <div className="flex-auto h-max bg-white">
         <ErrorBoundary fallback={<p>An error has been occured</p>}>
           <Suspense
             fallback={
-              <div className="flex justify-center mt-[280px] lg:mt-[450px]">
+              <div className="flex justify-center items-center h-screen">
                 <BeatLoader size={10} />
               </div>
             }

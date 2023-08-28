@@ -61,26 +61,25 @@ const Singlepost = ({ items }: any) => {
     setopenMenu(true);
   };
 
-  const cardVariants={
-    hidden:{
-      opacity:0,
-      x:30,
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      x: 30,
     },
-    show:{
-      opacity:1,
-      x:0,
-      transition:{
-        duration:1.5,
-        delay:0.5,
-        type:"spring",
-        ease:"easeIn"
-      }
-    }
-  }
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1.5,
+        delay: 0.5,
+        type: "spring",
+        ease: "easeIn",
+      },
+    },
+  };
+  console.log(items, "items");
   return (
-    <motion.div
-    variants={cardVariants}
-    >
+    <motion.div variants={cardVariants}>
       <CustomCard className="border-slate-300 border-solid border-[1px] cursor-pointer rounded-3xl flex flex-col hover:shadow-2xl  md:w-[470px]">
         <div className="relative">
           <CardHeader
@@ -118,7 +117,7 @@ const Singlepost = ({ items }: any) => {
                 Update
               </p>
               <p
-                className=" cursor-pointer text-customred-400 text-lg font-bold text-center p-2  hover:bg-slate-500 hover:text-white"
+                className=" cursor-pointer text-customred-400 text-lg font-semibold text-center p-2  hover:bg-slate-500 hover:text-white"
                 onClick={() => {
                   toggle(items.post.id);
                 }}
@@ -151,16 +150,23 @@ const Singlepost = ({ items }: any) => {
         </div>
         <CardContent>
           <IconButton>
-            {items.votes === 1 || items.votes > 1 ? (
+            {items.is_liked_by_viewer && items.is_liked_by_viewer ? (
               <Favorite
                 sx={{ color: "red" }}
                 onClick={() => removeVote(items.post.id)}
               />
             ) : (
-              <FavoriteBorder
-                onClick={() => addVote(items.post.id)}
-                sx={{ color: "gray" }}
-              />
+              (
+                <FavoriteBorder
+                  onClick={() => addVote(items.post.id)}
+                  sx={{ color: "gray" }}
+                />
+              ) ?? (
+                <FavoriteBorder
+                  onClick={() => addVote(items.post.id)}
+                  sx={{ color: "gray" }}
+                />
+              )
             )}
           </IconButton>
           <MapsUgcRounded

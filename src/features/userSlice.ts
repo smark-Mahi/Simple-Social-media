@@ -5,6 +5,7 @@ const initialState: User = {
   isAuth: false,
   id: 0,
   accessToken: "",
+  exp: null,
 };
 
 const userSlice = createSlice({
@@ -15,11 +16,13 @@ const userSlice = createSlice({
       state.isAuth = true;
       state.id = payload.id;
       state.accessToken = payload.accessToken;
+      state.exp = payload.exp;
     },
     logout(state) {
       state.isAuth = false;
       state.id = 0;
       state.accessToken = "";
+      state.exp = null;
     },
     updateAccessToken(state, { payload }: PayloadAction<{ token: string }>) {
       state.accessToken = payload.token;

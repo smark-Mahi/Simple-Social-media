@@ -70,3 +70,7 @@ export async function getAllUniqueUsersForSearchApi() {
 export async function followUserApi(id: number) {
   return await axiosClient.post(`/followers/follow/${id}`);
 }
+
+export async function unFollowUserApi(id: number) {
+  return await axiosClient.post(`/followers/unfollow/${id}`);
+}

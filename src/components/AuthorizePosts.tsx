@@ -1,16 +1,16 @@
 import Singlepost from "./SinglePost";
 import SkeletonPost from "../helpers/skeletons/SkeletonPost";
 import InfiniteScroll from "react-infinite-scroll-component";
-import axios from "axios";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import FadeLoader from "react-spinners/FadeLoader";
 import { motion } from "framer-motion";
+import { axiosClient } from "../api/auth";
 
-const Post = () => {
+const AuthorizePosts = () => {
   const { data, fetchNextPage, error, hasNextPage } = useInfiniteQuery(
     ["getdata"],
     ({ pageParam = 0 }) =>
-      axios.get("https://simple-social.onrender.com/posts/", {
+      axiosClient.get("/posts/", {
         params: {
           post_limit: 10,
           skip: pageParam,
@@ -74,4 +74,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default AuthorizePosts;

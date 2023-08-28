@@ -1,9 +1,13 @@
 import Header from "../../components/Header";
-import Post from "../../components/Post";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import AuthorizePosts from "../../components/AuthorizePosts";
+import { useAppSelector } from "../../features/store";
+import UnAuthorizePosts from "../../components/UnAuthorizePosts";
 
 const Home = () => {
+  const auth = useAppSelector((state) => state.user);
+
   const [windowWidth, setWindoWidth] = useState(window.innerWidth);
 
   const handleWindowWidth = () => {
@@ -37,7 +41,7 @@ const Home = () => {
           windowWidth <= 380 ? "h-[660px] overflow-auto no-scrollbar" : "h-max"
         }`}
       >
-        <Post />
+        {auth.isAuth ? <AuthorizePosts /> : <UnAuthorizePosts />}
       </div>
     </motion.div>
   );

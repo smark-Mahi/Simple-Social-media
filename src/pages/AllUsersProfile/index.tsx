@@ -1,17 +1,21 @@
 import { useParams } from "react-router-dom";
-import { getPostByUserIdApi, getProfileApi } from "../../api/loginauth";
-import { useQueries } from "@tanstack/react-query";
+import {
+  followUserApi,
+  getPostByUserIdApi,
+  getProfileApi,
+  unFollowUserApi,
+} from "../../api/loginauth";
+import { useQueries, useQueryClient } from "@tanstack/react-query";
 import Profileposts from "../../components/Profileposts";
 import { Box } from "@mui/material";
-import { useAppSelector } from "../../features/store";
 import { useState } from "react";
 import SkeletonProfile from "../../helpers/skeletons/SkeletonProfile";
 import { motion } from "framer-motion";
 
 export default function AllUsersProfile() {
+  const queryClient = useQueryClient();
   const params = useParams();
   const id = +(params.id ?? 0);
-  const auth = useAppSelector((state) => state.user);
   const [idd, setIdd] = useState(0);
   const [userPosts, userProfile] = useQueries({
     queries: [
@@ -25,10 +29,15 @@ export default function AllUsersProfile() {
   console.log(userPosts.data, "datas");
   console.log(userProfile.data, "profile");
 
-  // const followUser = async () => {
-  //   await followUserApi(id);
-  //   await queryClient.invalidateQueries(["profile", id]);
-  // };
+  const followUser = async () => {
+    await followUserApi(id);
+    await queryClient.invalidateQueries(["profile", id]);
+  };
+
+  const unFollowUser = async () => {
+    await unFollowUserApi(id);
+    await queryClient.invalidateQueries(["profile", id]);
+  };
 
   console.log(idd, "id");
   return (
@@ -47,31 +56,32 @@ export default function AllUsersProfile() {
             <SkeletonProfile />
           </div>
         ) : (
-          <div className="w-full md:w-[70%]  p-2 md:pt-10  ">
+          <div className="w-full md:w-[70%]  p-2 md:pt-10  md:ml-44">
             <div className="flex md:justify-evenly md:items-center md:justify-around  ">
               <div className="md:-mt-0 hidden md:block">
-                {/* <button
-                  className="text-white w-24 h-10 rounded-md text-md bg-slate-500 p-1 cursor-pointer"
-                  onClick={followUser}
-                >
-                  Follow
-                </button> */}
                 <img
                   alt="Remy Sharp"
-                  src={userProfile.data.user.profile_photo}
-                  className="border-2 rounded-full md:w-[150px] md:h-[150px] w-[50px] h-[50px]"
+                  src={userProfile.data.User.profile_photo}
+                  className="border-2 rounded-full md:w-[150px] md:h-[150px] md:object-cover w-[50px] h-[50px]"
                 />
               </div>
               <div className=" md:w-[60%] md:h-[150px] flex flex-col justify-between w-full">
                 <div className="hidden md:block h-[50px] md:flex md:justify-start md:gap-2">
-                  <h6 className="text-2xl">{userProfile.data.user.username}</h6>
+                  <h6 className="text-2xl">{userProfile.data.User.username}</h6>
                   <button className="text-white w-24 h-10 rounded-md text-sm bg-slate-500 p-1 cursor-pointer">
                     Edit Profile
                   </button>
-                  {!(auth.id === id) && (
+                  {userProfile.data.is_followed_by_viewer ? (
                     <button
                       className="text-white w-24 h-10 rounded-md text-md bg-slate-500 p-1 cursor-pointer"
-                      onClick={() => setIdd(userProfile.data.user.id)}
+                      onClick={unFollowUser}
+                    >
+                      Following
+                    </button>
+                  ) : (
+                    <button
+                      className="text-white w-24 h-10 rounded-md text-md bg-slate-500 p-1 cursor-pointer"
+                      onClick={followUser}
                     >
                       Follow
                     </button>
@@ -81,21 +91,28 @@ export default function AllUsersProfile() {
                   <div className="md:hidden">
                     <img
                       alt="Remy Sharp"
-                      src={userProfile.data.user.profile_photo}
-                      className="border-2 rounded-full md:w-[150px] md:h-[150px] w-[50px] h-[50px]"
+                      src={userProfile.data.User.profile_photo}
+                      className="border-2 rounded-full md:w-[150px] md:h-[150px] w-[60px] h-[60px] object-cover"
                     />
                   </div>
                   <div className="md:h-[50px] md:flex md:justify-start md:gap-12">
                     <h6 className="text-2xl ">
-                      {userProfile.data.user.username}
+                      {userProfile.data.User.username}
                     </h6>
                     <button className="bg-black mt-2 md:mt-0 rounded-md text-sm text-slate-500 p-1 cursor-pointer">
                       Edit Profile
                     </button>
-                    {!(auth.id === id) && (
+                    {userProfile.data.is_followed_by_viewer ? (
                       <button
-                        className="text-white w-16 rounded-md text-sm bg-slate-500 p-1 ml-1 cursor-pointer"
-                        onClick={() => setIdd(userProfile.data.user.id)}
+                        className="text-white w-20 h-8 rounded-md text-md bg-slate-500 p-1 cursor-pointer ml-2"
+                        onClick={unFollowUser}
+                      >
+                        Following
+                      </button>
+                    ) : (
+                      <button
+                        className="text-white w-20 h-8 rounded-md text-md bg-slate-500 p-1 cursor-pointer ml-2"
+                        onClick={followUser}
                       >
                         Follow
                       </button>

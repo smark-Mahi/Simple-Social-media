@@ -75,7 +75,7 @@ const Header = () => {
               {search && search.trim() && filterSearchResult.length >= 1 ? (
                 <div
                   className={`p-2 w-[400px]  mt-24 ${
-                    profileData.data?.user.profile_photo ? "mr-12" : "mr-28"
+                    profileData.data?.User.profile_photo ? "mr-12" : "mr-28"
                   }  `}
                 >
                   {filterSearchResult.map((searchItems: any) => (
@@ -91,7 +91,7 @@ const Header = () => {
               ) : filterSearchResult.length === 0 ? (
                 <div
                   className={`p-2 w-[400px]  mt-24 ${
-                    profileData.data?.user.profile_photo ? "mr-12" : "mr-28"
+                    profileData.data?.User.profile_photo ? "mr-12" : "mr-28"
                   }  `}
                 >
                   <p className="text-sm w-full m-2 h-[30px] p-1 hover:bg-slate-500 bg-white text-red-500 underline rounded-sm cursor-pointer">
@@ -102,9 +102,9 @@ const Header = () => {
                 ""
               )}
             </div>
-            {profileData.data?.user.profile_photo ? (
+            {profileData.data?.User.profile_photo ? (
               <img
-                src={profileData.data?.user.profile_photo}
+                src={profileData.data?.User.profile_photo}
                 alt="i"
                 className="w-[50px] h-[50px] rounded-full"
                 style={{ border: "1px solid black", marginRight: "30px" }}

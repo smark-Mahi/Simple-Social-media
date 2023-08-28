@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "../../helpers/skeletons/Skeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
-import axios from "axios";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import FadeLoader from "react-spinners/FadeLoader";
 import { motion } from "framer-motion";
+import { axiosClient } from "../../api/auth";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Search = () => {
   const { data, fetchNextPage, error, hasNextPage } = useInfiniteQuery(
     ["getdata"],
     ({ pageParam = 0 }) =>
-      axios.get("https://simple-social.onrender.com/posts/", {
+      axiosClient.get("/posts/", {
         params: {
           post_limit: 10,
           skip: pageParam,

@@ -171,7 +171,7 @@ const Createpostmodal = ({ open, toggleModal }: Props) => {
             <div>
               {imagesLength > 1 ? (
                 <span>{imagesLength} files selected</span>
-              ) : imagesLength === 1 ? (
+              ) : imagesLength === 1 && !error ? (
                 <span>{imagesLength} file selected</span>
               ) : (
                 <label className="cursor-pointer">

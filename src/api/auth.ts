@@ -43,6 +43,7 @@ export const setUpInterceptors = () => {
             updateAuthToken(access_token);
             return axiosClient(originalConfig);
           } catch (error) {
+            console.log(error, "err");
             return Promise.reject({ message: "Access token expired" });
           }
         }

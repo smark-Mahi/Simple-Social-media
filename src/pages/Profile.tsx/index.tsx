@@ -42,18 +42,18 @@ const Profile = () => {
           <SkeletonProfile />
         </div>
       ) : (
-        <div className="w-full md:w-[70%] h-screen p-2 md:pt-10 h-max ">
-          <div className="flex md:justify-evenly md:items-center md:justify-around  ">
+        <div className="w-full md:w-[70%] h-screen p-2 md:pt-10  md:ml-44">
+          <div className="flex md:justify-evenly md:items-center  ">
             <div className="md:-mt-0 hidden md:block">
               <img
                 alt="Remy Sharp"
-                src={userProfile.data.user.profile_photo}
-                className="border-2 rounded-full md:w-[150px] md:h-[150px] w-[150px] h-[150px]"
+                src={userProfile.data.User.profile_photo}
+                className="border-2 rounded-full md:w-[150px] md:h-[150px] md:object-cover w-[150px] h-[150px]"
               />
             </div>
             <div className=" md:w-[60%] md:h-[150px] flex flex-col justify-between w-full">
               <div className="hidden md:block h-[50px] md:flex md:justify-start md:gap-12">
-                <h6 className="text-2xl ">{userProfile.data.user.username}</h6>
+                <h6 className="text-2xl ">{userProfile.data.User.username}</h6>
                 <button className="text-white w-24 h-10 rounded-md text-sm bg-slate-500 p-1">
                   Edit Profile
                 </button>
@@ -62,12 +62,12 @@ const Profile = () => {
                 <div className="md:hidden">
                   <img
                     alt="Remy Sharp"
-                    src={userProfile.data.user.profile_photo}
-                    className="border-2 rounded-full md:w-[150px] md:h-[150px] w-[50px] h-[50px]"
+                    src={userProfile.data.User.profile_photo}
+                    className="border-2 rounded-full md:object-contain w-[50px] h-[50px]"
                   />
                 </div>
                 <div className="md:h-[50px] md:flex md:justify-start md:gap-12">
-                  <h6 className="text-2xl ">{userProfile.data.username}</h6>
+                  <h6 className="text-2xl ">{userProfile.data.Username}</h6>
                   <button className="bg-black mt-2 md:mt-0 rounded-md text-sm text-slate-500 p-1">
                     Edit Profile
                   </button>
@@ -90,7 +90,7 @@ const Profile = () => {
                   <div className="absolute top-5 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-70 "></div>
                 </div>
                 <div className="md:order-last">
-                  <p>{userProfile.data.user.about}</p>
+                  <p>{userProfile.data.User.about}</p>
                 </div>
               </div>
             </div>
@@ -99,7 +99,7 @@ const Profile = () => {
             variants={variants}
             initial="hidden"
             animate="show"
-            className="mt-12 md:h-[820px] md:overflow-auto md:no-scrollbar"
+            className="mt-12 md:h-[820px] md:overflow-auto md:no-scrollbar relative"
           >
             <Profileposts posts={userPosts.data.data} />
           </motion.div>
