@@ -33,7 +33,7 @@ const Profile = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.75, delay: 0.5 }}
-      className="md:mt-0 h-max flex justify-center mt-16"
+      className="md:mt-0 h-max flex justify-center mt-16 relative"
     >
       {userPosts.error || userProfile.error ? (
         <p>error</p>
@@ -42,7 +42,7 @@ const Profile = () => {
           <SkeletonProfile />
         </div>
       ) : (
-        <div className="w-full md:w-[70%] h-screen p-2 md:pt-10  md:ml-44">
+        <div className="w-full md:w-[80%] h-screen p-2 md:pt-10">
           <div className="flex md:justify-evenly md:items-center  ">
             <div className="md:-mt-0 hidden md:block">
               <img

@@ -14,12 +14,15 @@ import { useNavigate } from "react-router-dom";
 
 const Home = lazy(() => import("./pages/Home"));
 const Profile = lazy(() => import("./pages/Profile.tsx"));
-const Chat = lazy(() => import("./pages/Chat"));
+const Chat = lazy(() => import("./pages/Chat/index.tsx"));
 const Notification = lazy(() => import("./pages/Notification"));
 const Search = lazy(() => import("./pages/Search"));
 const PostDetails = lazy(() => import("./pages/PostDetails/PostDetails.tsx"));
 const Comments = lazy(() => import("./pages/Comments/Comments.tsx"));
 const AllUsersProfile = lazy(() => import("./pages/AllUsersProfile"));
+const MobileChatPage = lazy(
+  () => import("./pages/MobileChatPage/MobileChatPage.tsx")
+);
 
 type Decoded = {
   exp: number;
@@ -64,6 +67,7 @@ function App() {
           <Route element={<ProtectedRoutes />}>
             <Route path="profile" element={<Profile />} />
             <Route path="chat" element={<Chat />} />
+            <Route path="/chat/chat/:id" element={<MobileChatPage />} />
             <Route path="notification" element={<Notification />} />
             <Route path="comments/:id" element={<Comments />} />
             <Route path="search" element={<Search />} />

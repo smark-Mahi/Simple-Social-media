@@ -74,3 +74,19 @@ export async function followUserApi(id: number) {
 export async function unFollowUserApi(id: number) {
   return await axiosClient.post(`/followers/unfollow/${id}`);
 }
+
+export async function getChatListApi() {
+  const data = await axiosClient.get("/chat/");
+  return data;
+}
+
+export async function sendMessageApi(payload: {
+  content: string;
+  chat_id: number;
+}) {
+  return await axiosClient.post("/chat/messages/", payload);
+}
+
+export async function createChatApi(id: number) {
+  return await axiosClient.post(`/chat/${id}`);
+}

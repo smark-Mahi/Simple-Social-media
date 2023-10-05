@@ -1,7 +1,7 @@
 import axios from "axios";
 import { store } from "../features/store";
 import { updateAccessToken } from "../features/userSlice";
-import { updateAuthToken } from "../helpers/Tokens";
+import { clearAuth, updateAuthToken } from "../helpers/Tokens";
 
 export const axiosClient = axios.create({
   baseURL: "https://simple-social.onrender.com",
@@ -36,7 +36,7 @@ export const setUpInterceptors = () => {
           originalConfig._retry = true;
           try {
             const res = await axiosClient.post("/refresh");
-            console.log(res, "res");
+            console.log(res.status, "res");
             const { access_token } = res.data;
             console.log(access_token, "token");
             dispatch(updateAccessToken({ token: access_token }));
@@ -44,10 +44,12 @@ export const setUpInterceptors = () => {
             return axiosClient(originalConfig);
           } catch (error) {
             console.log(error, "err");
+            clearAuth();
             return Promise.reject({ message: "Access token expired" });
           }
         }
       }
+
       return Promise.reject(error);
     }
   );

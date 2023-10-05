@@ -2,29 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-
-@layer utilities{
-  .animation-elay-2000{
+@layer utilities {
+  .animation-elay-2000 {
     animation-delay: 2s;
   }
-  .animation-elay-4000{
+  .animation-elay-4000 {
     animation-delay: 4s;
   }
-  .drop-shadoww{
+  .drop-shadoww {
     filter: drop-shadow(0 0 2em #777aacaa);
   }
-  h2{
-    font-family: 'Allura', cursive;
+  h2 {
+    font-family: "Allura", cursive;
   }
-.no-scrollbar::-webkit-scrollbar{
-  display: none;
-}
-  .no-scrollbar{
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-}
+  .customScrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 7px;
+  }
 
+  .customScrollbar::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: transparent;
+    border: 1px solid #e4dcdc93;
+  }
+
+  .customScrollbar::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: slategray;
+  }
+}
 
 body {
   margin: 0;
@@ -36,8 +49,8 @@ body {
 
 :root {
   --MAIN-BORDER: #333;
-  --POST-BGCOLOR: hsl(200,20%,95%);
-  --BOX-SHADOW: rgb(0,0,0,0.5);
+  --POST-BGCOLOR: hsl(200, 20%, 95%);
+  --BOX-SHADOW: rgb(0, 0, 0, 0.5);
 }
 
 .post {
@@ -46,8 +59,6 @@ body {
   padding-left: 8px;
   margin: 1rem;
   border: 0px solid var(--MAIN-BORDER);
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   box-shadow: 1px 1px 1px 1px var(--BOX-SHADOW);
 }
-
-

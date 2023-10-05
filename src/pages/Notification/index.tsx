@@ -8,9 +8,15 @@ const Notification = () => {
       transition={{ duration: 0.55, ease: "easeOut" }}
       exit={{ opacity: 0 }}
     >
-      <p className="lg:translate-x-1/2 translate-x-24 translate-y-56 text-sm">
-        Comming Soon
-      </p>
+      <div className="h-screen p-2 mt-12">
+        <p className="text-4xl font-semibold text-slate-600">Notications</p>
+        <div className="mt-4">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+          laboriosam asperiores sunt perferendis iste facilis dicta suscipit
+          consectetur vel. Aliquam, alias deserunt perspiciatis mollitia ullam
+          voluptas voluptatem? Rerum, voluptatibus vitae!
+        </div>
+      </div>
     </motion.div>
   );
 };

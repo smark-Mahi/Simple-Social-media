@@ -30,7 +30,6 @@ const Home = () => {
       exit={{ opacity: 0 }}
     >
       <Header />
-
       <div
         className={` fixed w-1/6 h-1/2 bg-purple-200 md:bg-purple-100 rounded-full mix-blend-multiply filter blur-2xl opacity-80   ${
           windowWidth <= 380 ? "animate-blob ml-24" : "ml-[680px] -mt-12"
@@ -41,7 +40,7 @@ const Home = () => {
           windowWidth <= 380 ? "h-[660px] overflow-auto no-scrollbar" : "h-max"
         }`}
       >
-        {auth.isAuth ? <AuthorizePosts /> : <UnAuthorizePosts />}
+        {auth && auth.isAuth ? <AuthorizePosts /> : <UnAuthorizePosts />}
       </div>
     </motion.div>
   );

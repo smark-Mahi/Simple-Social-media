@@ -33,6 +33,7 @@ const PostDetails = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [forced, setForced] = useState<boolean>(false);
   const toggle = (id: number) => setOpen(id);
+
   const CustomCard = styled(Card)({
     backgroundColor: "white",
     color: "#708090",

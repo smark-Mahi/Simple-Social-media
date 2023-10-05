@@ -18,7 +18,7 @@ const Profileposts = ({ posts }: any) => {
   return (
     <motion.div
       variants={cardVariants}
-      className="columns-3 md:columns-4 gap-x-px "
+      className="columns-3 md:columns-4 gap-x-px absolute"
     >
       {posts.map((item: any, i: number) => (
         <img

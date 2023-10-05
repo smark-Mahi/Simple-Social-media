@@ -2,6 +2,7 @@ import React, {
   ReactElement,
   createContext,
   useContext,
+  useMemo,
   useState,
 } from "react";
 
@@ -18,6 +19,18 @@ type SignUpInfo = {
   about: string;
 };
 
+export type UserInfo = {
+  id: number;
+  username: string;
+  full_name: string;
+  profile_photo: string;
+};
+
+type GetChatHeader = {
+  id: number;
+  users: UserInfo[];
+};
+
 const initState: SignUpInfo = {
   email: "",
   password: "",
@@ -31,13 +44,17 @@ export type SignUpInfoContextType = {
   signUpInfo: SignUpInfo;
   setSignUpInfo: React.Dispatch<React.SetStateAction<SignUpInfo>>;
   images: string | null;
+  show: GetChatHeader | null;
+  notificationOpen: boolean;
   setImages: React.Dispatch<React.SetStateAction<string | null>>;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
   setOpened: React.Dispatch<React.SetStateAction<Message | null>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setShow: React.Dispatch<React.SetStateAction<GetChatHeader | null>>;
   error: string | null;
   loading: boolean;
   opened: Message | null;
+  setNotificationOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const defaultContextState = {
@@ -55,9 +72,13 @@ const defaultContextState = {
   error: null,
   loading: false,
   opened: null,
+  show: null,
+  notificationOpen: false,
   setError: (error: string | null) => error,
   setOpened: (opened: string | null) => opened,
   setLoading: (loading: boolean) => !loading,
+  setShow: (show: GetChatHeader | null) => show,
+  setNotificationOpen: (nottificationOpen: boolean) => !nottificationOpen,
 } as SignUpInfoContextType;
 
 export const SignUpContext = createContext(defaultContextState);
@@ -74,6 +95,9 @@ const SignUPInfoContextProvider = ({
   const [error, setError] = useState<string | null>(null);
   const [opened, setOpened] = useState<Message | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [show, setShow] = useState<GetChatHeader | null>(null);
+  const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
+
 
   return (
     <SignUpContext.Provider
@@ -88,6 +112,10 @@ const SignUPInfoContextProvider = ({
         setError,
         opened,
         setOpened,
+        show,
+        setShow,
+        notificationOpen,
+        setNotificationOpen,
       }}
     >
       {children}

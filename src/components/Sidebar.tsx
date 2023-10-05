@@ -3,28 +3,48 @@ import Home from "@mui/icons-material/Home";
 import Add from "@mui/icons-material/Add";
 import Stack from "@mui/material/Stack";
 import Createpostmodal from ".././Modals/Createpostmodal";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useAppDispatch } from "../features/store";
 import { useNavigate } from "react-router-dom";
 import { clearAuth } from "../helpers/Tokens";
 import { logout } from "../features/userSlice";
 import { BsChatDots } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
-import { AiOutlineHome } from "react-icons/ai";
-import { AiOutlineHeart } from "react-icons/ai";
+import {
+  AiOutlineHeart,
+  AiFillHeart,
+  AiOutlineHome,
+  AiFillMessage,
+} from "react-icons/ai";
 import { IoIosLogOut } from "react-icons/io";
 import Favorite from "@mui/icons-material/Favorite";
 import { useAppSelector } from "../features/store";
 import { getProfileApi } from "../api/loginauth";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { SignUpContext } from "../Context/SignUPInfoContext";
 
 const Sidebar = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const [isActiveLink, setIsActiveLink] = useState<string>("Home");
+  const { notificationOpen, setNotificationOpen } = useContext(SignUpContext);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.user);
+  const [windowWidth, setWindoWidth] = useState(window.innerWidth);
+
+  const handleWindowWidth = () => {
+    setWindoWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowWidth);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowWidth);
+    };
+  }, [windowWidth]);
 
   const toggle = () => setOpen((prevS) => !prevS);
   console.log(location.pathname, "location");
@@ -36,7 +56,11 @@ const Sidebar = () => {
     navigate("/login");
   }
 
-  const activeLink = "text-black bg-slate-500 rounded-lg ";
+  function activeLink(path: string) {
+    setIsActiveLink(path);
+    return "text-black bg-slate-500 rounded-lg ";
+  }
+
   console.log(auth, "u");
   const userProfile = useQuery({
     queryKey: ["profile", auth.id],
@@ -68,37 +92,90 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="hidden lg:block fixed flex flex-col justify-between h-full border-r-[0.5px] border-slate-300 bg-white">
+      <div
+        className={`hidden  md:block fixed flex flex-col justify-between h-full border-r-[0.5px] border-slate-300  bg-white ${
+          !notificationOpen && !(windowWidth <= 1025)
+            ? ""
+            : "w-24 transition-all ease-in-out duration-300 delay-150 "
+        }`}
+      >
         <Stack spacing={3} direction="column">
-          <div className=" mt-10 text-center overflow-hidden ">
-            <motion.h2
-              animate={{ y: 0 }}
-              initial={{ y: "100%" }}
-              transition={{ delay: 0.25, duration: 0.5 }}
-              className="text-2xl font-base"
-            >
-              𝓼𝓲𝓶𝓹𝓵𝓮 𝓼𝓸𝓬𝓲𝓪𝓵
-            </motion.h2>
+          <div
+            className={` overflow-hidden ${
+              !notificationOpen  && !(windowWidth <= 1025)? "mt-10 text-center" : "ml-8 mt-8 "
+            } `}
+          >
+            {!notificationOpen && !(windowWidth <= 1025) ? (
+              <motion.h2
+                animate={{ y: 0 }}
+                initial={{ y: "100%" }}
+                transition={{ delay: 0.25, duration: 0.5 }}
+                className="text-2xl font-base"
+              >
+                𝓼𝓲𝓶𝓹𝓵𝓮 𝓼𝓸𝓬𝓲𝓪𝓵
+              </motion.h2>
+            ) : (
+              <motion.h2
+                animate={{ y: 0 }}
+                initial={{ y: "100%" }}
+                transition={{ delay: 0.25, duration: 0.5 }}
+                className="text-4xl font-base"
+              >
+                𝓼
+              </motion.h2>
+            )}
           </div>
           <div className="px-2">
             <div className="flex font-semibold hover:bg-slate-500 hover:text-black transition hover:duration-300 justify-around h-[50px]  items-center rounded-lg ">
               <NavLink
                 to="/"
-                className={({ isActive }) => (isActive ? activeLink : "")}
+                className={({ isActive }) =>
+                  isActive && !notificationOpen ? activeLink("Home") : ""
+                }
               >
-                <div className="flex h-[50px] w-52 justify-around items-center  hover:text-lg ">
-                  <Home /> <p>Home</p>
+                <div
+                  className={`flex h-[50px] justify-around items-center  hover:text-lg ${
+                    !notificationOpen && !(windowWidth <= 1025)
+                      ? "w-52"
+                      : "w-20  transition-all ease-in-out duration-300 delay-150"
+                  }`}
+                >
+                  {!notificationOpen && isActiveLink === "Home" ? (
+                    <Home />
+                  ) : (
+                    <AiOutlineHome className="text-2xl" />
+                  )}
+
+                  {!notificationOpen && !(windowWidth <= 1025) ? (
+                    <div className=" w-28 flex justify-start">
+                      {" "}
+                      <p>Home</p>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </NavLink>
             </div>
           </div>
           <div className="px-2">
-            <div className="flex hover:bg-slate-500 hover:text-black transition hover:duration-300  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
+            <div
+              className={`flex hover:text-black hover:bg-slate-500 transition hover:duration-300  font-semibold justify-around h-[50px] items-center rounded-lg 
+                `}
+            >
               <NavLink
                 to="/profile"
-                className={({ isActive }) => (isActive ? activeLink : "")}
+                className={({ isActive }) =>
+                  isActive && !notificationOpen ? activeLink("Profile") : ""
+                }
               >
-                <div className="flex h-[50px] w-52 justify-around items-center hover:text-lg ">
+                <div
+                  className={`flex h-[50px] justify-around items-center hover:text-lg ${
+                    !notificationOpen && !(windowWidth <= 1025)
+                      ? "w-52"
+                      : "w-20 transition-all ease-in-out duration-300 delay-150"
+                  }`}
+                >
                   <img
                     src={
                       userProfile.data && userProfile.data.User.profile_photo
@@ -106,57 +183,122 @@ const Sidebar = () => {
                     className="w-[25px] h-[25px] rounded-full"
                     style={{ border: "1px solid black" }}
                   />{" "}
-                  <p>profile</p>
+                  {!notificationOpen && !(windowWidth <= 1025) ? (
+                    <div className=" w-28 flex justify-start">
+                      <p>profile</p>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </NavLink>
             </div>
           </div>
           <div className="px-2">
             <div
-              className="flex px-2 hover:bg-slate-500 hover:text-black transition hover:duration-300 hover:text-lg  font-semibold   justify-around h-[50px] items-center rounded-lg  cursor-pointer"
+              className="flex px-2 hover:bg-slate-500 hover:text-black transition hover:duration-300 hover:text-lg  font-semibold justify-around h-[50px] items-center rounded-lg  cursor-pointer"
               onClick={toggle}
             >
               <div>
                 <Add className="text-2xl" />
               </div>
-              <div>create</div>
+              {!notificationOpen && !(windowWidth <= 1025) ? (
+                <div className=" w-28 flex justify-start">
+                  <p>create</p>
+                </div>
+              ) : (
+                " "
+              )}
             </div>
           </div>
           <div className="px-2">
-            <div className="flex font-semibold hover:bg-slate-500 hover:text-black transition hover:duration-300 justify-around h-[50px]  items-center rounded-lg ">
+            <div
+              className={`flex font-semibold hover:bg-slate-500 hover:text-black transition hover:duration-300 justify-around h-[50px]  items-center rounded-lg ${
+                !(windowWidth <= 1025) ? "" : " "
+              }`}
+            >
               <NavLink
                 to="/chat"
-                className={({ isActive }) => (isActive ? activeLink : "")}
+                className={({ isActive }) =>
+                  isActive && !notificationOpen ? activeLink("Chat") : ""
+                }
               >
-                <div className="flex h-[50px] w-52 justify-around items-center hover:text-lg ">
-                  <BsChatDots className="text-2xl" /> <p>Chat</p>
+                <div
+                  className={`flex h-[50px] justify-around items-center hover:text-lg ${
+                    !notificationOpen && !(windowWidth <= 1025)
+                      ? "w-52"
+                      : "w-20 transition-all ease-in-out duration-300 delay-150"
+                  }`}
+                >
+                  {!notificationOpen && isActiveLink === "Chat" ? (
+                    <AiFillMessage className="text-2xl" />
+                  ) : (
+                    <BsChatDots className="text-2xl" />
+                  )}
+                  {!notificationOpen && !(windowWidth <= 1025) ? (
+                    <div className=" w-28 flex justify-start">
+                      {" "}
+                      <p className="text-center">Messages</p>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </NavLink>
             </div>
           </div>
           <div className="px-2">
-            <div className="flex font-semibold hover:bg-slate-500 hover:text-black transition hover:duration-300 justify-around h-[50px]  items-center rounded-lg ">
-              <NavLink
-                to="/notification"
-                className={({ isActive }) => (isActive ? activeLink : "")}
-              >
-                <div className="flex h-[50px] w-52 ml-6 justify-around items-center hover:text-lg ">
-                  <AiOutlineHeart className="text-2xl" /> <p>Notifications</p>
+            <div
+              className={`flex font-semibold cursor-pointer hover:text-black transition hover:bg-slate-500 hover:duration-300 justify-around h-[50px]  items-center rounded-lg ${
+                !notificationOpen
+                  ? ""
+                  : "border-[0.5px] border-slate-300"
+              }`}
+            >
+              <div onClick={() => setNotificationOpen((prev) => !prev)}>
+                <div
+                  className={`flex h-[50px]   items-center hover:text-lg  ${
+                    !notificationOpen
+                      ? "w-52 justify-around ml-6"
+                      : "w-20 justify-center "
+                  }`}
+                >
+                  {notificationOpen ? (
+                    <AiFillHeart className="text-2xl  cursor-pointer" />
+                  ) : (
+                    <AiOutlineHeart className="text-2xl mr-8 cursor-pointer" />
+                  )}
+                  {!notificationOpen && !(windowWidth <= 1025) ? (
+                    <div className="w-36 flex justify-start ">
+                      <p>Notifications</p>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
-              </NavLink>
+              </div>
             </div>
           </div>
         </Stack>
         <div className="py-4 px-2">
           <div className="flex hover:bg-slate-500 hover:text-black transition hover:duration-300  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
             <div
-              className="flex h-[50px] w-52 justify-around items-center hover:text-lg  cursor-pointer"
+              className={`flex h-[50px] justify-around items-center hover:text-lg  cursor-pointer ${
+                !notificationOpen && !(windowWidth <= 1025) ? "w-52" : "w-20"
+              }`}
               onClick={logoutHandler}
             >
               <div>
                 <IoIosLogOut className="text-customred-400 text-2xl" />
               </div>
-              {auth.isAuth ? <p>logout</p> : <p>Login</p>}
+              {!notificationOpen && !(windowWidth <= 1025) ? (
+                <div className=" w-28 flex justify-start">
+                  {" "}
+                  {auth.isAuth ? <p>logout</p> : <p>Login</p>}
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
