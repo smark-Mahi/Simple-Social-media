@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import ChatSidebar from "../../components/ChatSidebar";
 import { Avatar, Badge, Box, Stack, Typography, styled } from "@mui/material";
 import { BiSend } from "react-icons/bi";
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import "../../../node_modules/react-quill/dist/quill.snow.css";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
@@ -65,11 +65,6 @@ export default function Chat() {
 export const Messages = ({ id }: { id: number }) => {
   const { show } = useContext(SignUpContext);
   const chatFeed = useRef<HTMLDivElement>(null);
-
-  const profileInformation = useMemo(() => {
-    return show;
-  }, [show]);
-  console.log(id, show, "messagecmp");
 
   const getCurrentTimeLine = (date: string) => {
     // console.log(new Date().getDate());
@@ -149,7 +144,7 @@ export const Messages = ({ id }: { id: number }) => {
   const [showEmoji, setShowEmoji] = useState(false);
   const [body, setBody] = useState("");
 
-  function clickEmoji(emojiObject: EmojiClickData, e: MouseEvent) {
+  function clickEmoji(emojiObject: EmojiClickData) {
     setBody((prevState) => prevState + emojiObject.emoji);
   }
   //React.ChangeEvent<HTMLInputElement>
@@ -272,9 +267,8 @@ export const Messages = ({ id }: { id: number }) => {
     setBody("");
     await sendMessageApi({ content: body, chat_id: show?.id as number });
     await queryClient.invalidateQueries(["getmessages", show?.id]);
-   
   };
-  console.log(profileInformation?.users, "pages");
+  console.log(show?.users, "pages");
   return (
     <>
       <Stack
@@ -288,7 +282,7 @@ export const Messages = ({ id }: { id: number }) => {
           p={1}
           className="border-solid border-b-[0.5px] border-slate-300"
         >
-          {profileInformation?.users.map((userInfo: UserInfo) => {
+          {show?.users.map((userInfo: UserInfo) => {
             if (userInfo.id !== auth.id) {
               return (
                 <Stack
@@ -304,13 +298,11 @@ export const Messages = ({ id }: { id: number }) => {
                       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                       variant="dot"
                     >
-                      {
-                        userInfo.profile_photo === "string" ?  <Avatar
-                        src=''
-                      /> :  <Avatar
-                      src={userInfo.profile_photo}
-                    />
-                      }
+                      {userInfo.profile_photo === "string" ? (
+                        <Avatar src="" />
+                      ) : (
+                        <Avatar src={userInfo.profile_photo} />
+                      )}
                     </StyledBadge>
                   </Box>
                   <Stack spacing={0.2}>

@@ -8,7 +8,6 @@ import {
 import { useQueries, useQueryClient } from "@tanstack/react-query";
 import Profileposts from "../../components/Profileposts";
 import { Box } from "@mui/material";
-import { useState } from "react";
 import SkeletonProfile from "../../helpers/skeletons/SkeletonProfile";
 import { motion } from "framer-motion";
 
@@ -16,7 +15,7 @@ export default function AllUsersProfile() {
   const queryClient = useQueryClient();
   const params = useParams();
   const id = +(params.id ?? 0);
-  const [idd, setIdd] = useState(0);
+
   const [userPosts, userProfile] = useQueries({
     queries: [
       {
@@ -39,7 +38,6 @@ export default function AllUsersProfile() {
     await queryClient.invalidateQueries(["profile", id]);
   };
 
-  console.log(idd, "id");
   return (
     <motion.div
       initial={{ opacity: 0 }}

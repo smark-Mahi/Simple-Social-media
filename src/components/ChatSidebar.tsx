@@ -1,6 +1,6 @@
 import {
   Avatar,
-  Badge,
+  // Badge,
   Box,
   Button,
   Divider,
@@ -108,7 +108,7 @@ const Chat = () => {
                 const chatId = await createChatApi(filterSearchResult[0].id);
                 await queryClient.invalidateQueries(["chatlist"]);
                 setState({ right: false });
-                console.log(chatId.data.id, "vhat_id");
+                console.log(chatId.data.id, anchor, "vhat_id");
                 setShow(chatId.data.id);
               }}
             >
@@ -236,34 +236,34 @@ const ChatCards = ({ chatlist }: any) => {
 
   const auth = useAppSelector((state) => state.user);
   console.log(chatlist, "chatlist");
-  const StyledBadge = styled(Badge)(({ theme }) => ({
-    "& .MuiBadge-badge": {
-      backgroundColor: "#44b700",
-      color: "#44b700",
-      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-      "&::after": {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        borderRadius: "50%",
-        animation: "ripple 1.2s infinite ease-in-out",
-        border: "1px solid currentColor",
-        content: '""',
-      },
-    },
-    "@keyframes ripple": {
-      "0%": {
-        transform: "scale(.8)",
-        opacity: 1,
-      },
-      "100%": {
-        transform: "scale(2.4)",
-        opacity: 0,
-      },
-    },
-  }));
+  // const StyledBadge = styled(Badge)(({ theme }) => ({
+  //   "& .MuiBadge-badge": {
+  //     backgroundColor: "#44b700",
+  //     color: "#44b700",
+  //     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+  //     "&::after": {
+  //       position: "absolute",
+  //       top: 0,
+  //       left: 0,
+  //       width: "100%",
+  //       height: "100%",
+  //       borderRadius: "50%",
+  //       animation: "ripple 1.2s infinite ease-in-out",
+  //       border: "1px solid currentColor",
+  //       content: '""',
+  //     },
+  //   },
+  //   "@keyframes ripple": {
+  //     "0%": {
+  //       transform: "scale(.8)",
+  //       opacity: 1,
+  //     },
+  //     "100%": {
+  //       transform: "scale(2.4)",
+  //       opacity: 0,
+  //     },
+  //   },
+  // }));
 
   return (
     <>
