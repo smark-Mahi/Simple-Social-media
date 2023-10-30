@@ -16,6 +16,18 @@ import { sendMessageApi } from "../../api/loginauth";
 import Skeleton from "../../helpers/skeletons/Skeleton";
 import dayjs from "dayjs";
 
+
+/*"start_typing":{
+    "chat_id":int,
+    "user_id":int,
+    "username":str
+}
+
+"stop_typing":{
+    "chat_id":int,
+    "user_id":int,
+    "username":str
+} */
 export default function Chat() {
   const { show } = useContext(SignUpContext);
 

@@ -6,7 +6,7 @@ import { IconButton, styled } from "@mui/material";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import MapsUgcRounded from "@mui/icons-material/MapsUgcRounded";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommentSectionModal from "../Modals/CommentSectionModal";
 import { addCommentsApi, addLikeApi } from "../api/loginauth";
 import Carousel from "./Carousel";
@@ -18,6 +18,8 @@ import dayjs from "dayjs";
 // import TimeAgo from "timeago-react";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { motion } from "framer-motion";
+import { socket } from "../helpers/socket";
+import { useAppSelector } from "../features/store";
 
 const Singlepost = ({ items }: any) => {
   //posted post date
@@ -25,6 +27,7 @@ const Singlepost = ({ items }: any) => {
   const dat = items.post.created_at;
   const postDate = dayjs(dat).fromNow();
 
+  const auth = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [showCommentsPage, setShowCommentsPage] = React.useState<any | null>(
@@ -34,11 +37,33 @@ const Singlepost = ({ items }: any) => {
   const [open, setOpen] = useState<number | null>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [forced, setForced] = useState<number | null>(null);
+  const [socketEventForVotes, setSocketEventForVotes] = useState<string | null>(
+    null
+  );
   const toggle = (id: number) => setOpen(id);
   const CustomCard = styled(Card)({
     backgroundColor: "white",
     color: "#708090",
   });
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Connected to server");
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from server");
+    });
+
+    socket.on(`voted-${auth.id}`, () => {
+      setSocketEventForVotes(`${auth.id} Liked your Post`);
+      queryClient.invalidateQueries(["getdata"]);
+    });
+  }, [items, queryClient]);
 
   const removeVote = async (id: number) => {
     await addLikeApi({ post_id: id, dir: 0 });

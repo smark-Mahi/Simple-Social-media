@@ -8,7 +8,7 @@ import Notification from "../components/Notification";
 
 const Layout = () => {
   return (
-    <div className="md:flex">
+    <div className="md:flex bg-white">
       <div className="lg:basis-64 z-40 basis-24 ">
         <Sidebar />
       </div>
