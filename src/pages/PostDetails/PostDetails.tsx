@@ -47,12 +47,12 @@ const PostDetails = () => {
 
   const removeVote = async (id: number) => {
     await addLikeApi({ post_id: id, dir: 0 });
-    await queryClient.invalidateQueries(["getdata"]);
+    await queryClient.invalidateQueries(["getdata", id]);
   };
 
   const addVote = async (id: number) => {
     await addLikeApi({ post_id: id, dir: 1 });
-    await queryClient.invalidateQueries(["getdata"]);
+    await queryClient.invalidateQueries(["getdata", id]);
   };
   const getId = (id: number) => {
     console.log(id, "postid");

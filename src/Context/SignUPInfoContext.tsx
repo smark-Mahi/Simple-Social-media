@@ -39,21 +39,27 @@ const initState: SignUpInfo = {
   about: "",
 };
 
+
+
 export type SignUpInfoContextType = {
   signUpInfo: SignUpInfo;
   setSignUpInfo: React.Dispatch<React.SetStateAction<SignUpInfo>>;
   images: string | null;
   show: GetChatHeader | null;
   notificationOpen: boolean;
+  isOnline: boolean,
   setImages: React.Dispatch<React.SetStateAction<string | null>>;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
   setOpened: React.Dispatch<React.SetStateAction<Message | null>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setShow: React.Dispatch<React.SetStateAction<GetChatHeader | null>>;
   error: string | null;
+  socketEventFotMessage: string | null;
   loading: boolean;
   opened: Message | null;
   setNotificationOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOnline: React.Dispatch<React.SetStateAction<boolean>>;
+  setSocketEventFotMessage: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 const defaultContextState = {
@@ -72,11 +78,16 @@ const defaultContextState = {
   loading: false,
   opened: null,
   show: null,
+  isOnline:false,
+  socketEventFotMessage: null,
   notificationOpen: false,
   setError: (error: string | null) => error,
   setOpened: (opened: string | null) => opened,
   setLoading: (loading: boolean) => !loading,
   setShow: (show: GetChatHeader | null) => show,
+  setIsOnline:(isOnline: boolean) => !isOnline,
+  setSocketEventFotMessage: (socketEventFotMessage: string | null) =>
+    socketEventFotMessage,
   setNotificationOpen: (nottificationOpen: boolean) => !nottificationOpen,
 } as SignUpInfoContextType;
 
@@ -94,9 +105,12 @@ const SignUPInfoContextProvider = ({
   const [error, setError] = useState<string | null>(null);
   const [opened, setOpened] = useState<Message | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isOnline, setIsOnline] = useState<boolean>(false);
   const [show, setShow] = useState<GetChatHeader | null>(null);
   const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
-
+  const [socketEventFotMessage, setSocketEventFotMessage] = useState<
+    string | null
+  >(null);
 
   return (
     <SignUpContext.Provider
@@ -115,6 +129,10 @@ const SignUPInfoContextProvider = ({
         setShow,
         notificationOpen,
         setNotificationOpen,
+        isOnline,
+        setIsOnline,
+        socketEventFotMessage,
+        setSocketEventFotMessage,
       }}
     >
       {children}

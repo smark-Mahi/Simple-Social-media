@@ -12,7 +12,7 @@ import { ThemeProvider } from "@emotion/react";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import ru from "javascript-time-ago/locale/ru.json";
-
+import { Toaster } from "react-hot-toast";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -47,6 +47,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                   {" "}
                   <App />
                 </ThemeProvider>
+                <Toaster position="top-right" />
               </SignUPInfoContextProvider>
             }
           />

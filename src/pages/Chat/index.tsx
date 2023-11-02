@@ -15,19 +15,8 @@ import { useAppSelector } from "../../features/store";
 import { sendMessageApi } from "../../api/loginauth";
 import Skeleton from "../../helpers/skeletons/Skeleton";
 import dayjs from "dayjs";
+import { socket } from "../../helpers/socket";
 
-
-/*"start_typing":{
-    "chat_id":int,
-    "user_id":int,
-    "username":str
-}
-
-"stop_typing":{
-    "chat_id":int,
-    "user_id":int,
-    "username":str
-} */
 export default function Chat() {
   const { show } = useContext(SignUpContext);
 
@@ -75,9 +64,48 @@ export default function Chat() {
 }
 
 export const Messages = ({ id }: { id: number }) => {
-  const { show } = useContext(SignUpContext);
+  const { show, socketEventFotMessage, isOnline } = useContext(SignUpContext);
   const chatFeed = useRef<HTMLDivElement>(null);
+  const auth = useAppSelector((state) => state.user);
+  const [isTyping, setIsTyping] = useState(false);
 
+  useEffect(() => {
+    socket.emit("join_chat", {
+      chat_id: show?.id,
+    });
+  }, [socket, show]);
+
+  const handleCompositionStart = () => {
+    setIsTyping(true);
+  };
+
+  const handleCompositionEnd = () => {
+    setIsTyping(false);
+  };
+
+  useEffect(() => {
+    if (isTyping) {
+      socket.emit(
+        "start_typing",
+        JSON.stringify({
+          chat_id: show?.id,
+          user_id: auth.id,
+          username: "not necessary",
+        })
+      );
+    } else {
+      socket.emit(
+        "stop_typing",
+        JSON.stringify({
+          chat_id: show?.id,
+          user_id: auth.id,
+          username: "not necessary",
+        })
+      );
+    }
+  }, [isTyping]);
+
+  console.log(socketEventFotMessage, "istyping");
   const getCurrentTimeLine = (date: string) => {
     // console.log(new Date().getDate());
     // console.log(dayjs(date).date());
@@ -150,7 +178,6 @@ export const Messages = ({ id }: { id: number }) => {
     });
   }, [data?.pages]);
   // console.log(show, "show");
-  const auth = useAppSelector((state) => state.user);
   const queryClient = useQueryClient();
   //picker
   const [showEmoji, setShowEmoji] = useState(false);
@@ -280,7 +307,6 @@ export const Messages = ({ id }: { id: number }) => {
     await sendMessageApi({ content: body, chat_id: show?.id as number });
     await queryClient.invalidateQueries(["getmessages", show?.id]);
   };
-  console.log(show?.users, "pages");
   return (
     <>
       <Stack
@@ -308,7 +334,7 @@ export const Messages = ({ id }: { id: number }) => {
                     <StyledBadge
                       overlap="circular"
                       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                      variant="dot"
+                      variant={isOnline ? "dot" : "standard"}
                     >
                       {userInfo.profile_photo === "string" ? (
                         <Avatar src="" />
@@ -460,7 +486,11 @@ export const Messages = ({ id }: { id: number }) => {
           <Stack direction={"row"} alignItems={"center"} spacing={3}>
             <div className="border rounded-md  border-slate-300 w-full h-36 relative space-y-4">
               <ReactQuill
-                placeholder="Type your message here..."
+                placeholder={
+                  socketEventFotMessage === "startTyping"
+                    ? "Typing..."
+                    : "Type your message here..."
+                }
                 modules={Chat.modules}
                 formats={Chat.formats}
                 onChange={handleBody}
@@ -469,6 +499,8 @@ export const Messages = ({ id }: { id: number }) => {
                   height: "90px",
                   width: "100%",
                 }}
+                onKeyDown={handleCompositionStart}
+                onKeyUp={handleCompositionEnd}
               />
               <MdOutlineEmojiEmotions
                 onClick={() => setShowEmoji(!showEmoji)}
