@@ -43,10 +43,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-<<<<<<< HEAD
   
-=======
->>>>>>> 3e9bacf27f4c388cd82dc3be08038e94e3b2d8f2
 }
 
 /* || VARIABLES */
@@ -66,7 +63,6 @@ body {
   border-radius: 0.25rem;
   box-shadow: 1px 1px 1px 1px var(--BOX-SHADOW);
 }
-<<<<<<< HEAD
 
 @media (prefers-color-scheme:dark){
 body{
@@ -81,5 +77,3 @@ body{
   color:black;
 }
 }
-=======
->>>>>>> 3e9bacf27f4c388cd82dc3be08038e94e3b2d8f2
