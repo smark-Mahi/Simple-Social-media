@@ -19,7 +19,6 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { motion } from "framer-motion";
 
-
 const Singlepost = ({ items }: any) => {
   //posted post date
   dayjs.extend(relativeTime);

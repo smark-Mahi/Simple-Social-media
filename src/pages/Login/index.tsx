@@ -91,10 +91,8 @@ const Login = () => {
       dispatch(login(user));
       setLoading(false);
       navigate(from, { replace: true });
-    } catch (err:any) {
-      if (
-        err.response.status === 403
-      ) {
+    } catch (err: any) {
+      if (err.response.status === 403) {
         setError("invalid credentials");
       }
       setLoading(false);

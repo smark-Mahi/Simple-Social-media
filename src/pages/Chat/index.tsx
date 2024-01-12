@@ -75,8 +75,6 @@ export const Messages = ({ id }: { id: number }) => {
     });
   }, [socket, show]);
 
- 
-
   const handleCompositionStart = () => {
     setIsTyping(true);
   };

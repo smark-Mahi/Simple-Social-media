@@ -9,12 +9,28 @@ import { useEffect } from "react";
 // };
 
 const ProtectedRoutes = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
   console.log("protected");
+=======
+  // const auth = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+
+>>>>>>> 3e9bacf27f4c388cd82dc3be08038e94e3b2d8f2
   useEffect(() => {
     let login = localStorage.getItem("simpleSocial");
     if (!login) {
       navigate("/login");
+<<<<<<< HEAD
+=======
+      // } else {
+      //   const decoded: Decoded = jwtDecode(auth.accessToken);
+      //   const currentTime = Date.now() / 1000;
+      //   console.log(currentTime, "currenttime");
+      //   if (decoded.exp < currentTime) {
+      //     navigate("/login");
+      //   }
+>>>>>>> 3e9bacf27f4c388cd82dc3be08038e94e3b2d8f2
     }
   });
 

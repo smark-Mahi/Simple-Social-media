@@ -99,7 +99,10 @@ const Chat = () => {
               onChange={handleChange}
               placeholder="search... "
               className="bg-transparent outline-0"
+<<<<<<< HEAD
               value={search}
+=======
+>>>>>>> 3e9bacf27f4c388cd82dc3be08038e94e3b2d8f2
             />
           </div>
           {search.trim() ? (
@@ -109,6 +112,7 @@ const Chat = () => {
                 const chatId = await createChatApi(filterSearchResult[0].id);
                 await queryClient.invalidateQueries(["chatlist"]);
                 setState({ right: false });
+<<<<<<< HEAD
                 console.log(chatId.data.id, chatId, anchor, "cvhat_id");
                 setShow({
                   id: chatId.data.id,
@@ -121,6 +125,10 @@ const Chat = () => {
                     },
                   ],
                 });
+=======
+                console.log(chatId.data.id, anchor, "vhat_id");
+                setShow(chatId.data.id);
+>>>>>>> 3e9bacf27f4c388cd82dc3be08038e94e3b2d8f2
               }}
             >
               Go
@@ -132,16 +140,24 @@ const Chat = () => {
         {search && search.trim() && filterSearchResult.length >= 1 ? (
           <div className={`p-2  `}>
             {filterSearchResult.map((searchItems: any) => (
+<<<<<<< HEAD
               <div
                 className="text-sm w-full m-2 h-[30px] p-1  hover:bg-slate-500 bg-white hover:underline rounded-sm cursor-pointer"
                 onClick={() => setSearch(searchItems.username)}
               >
+=======
+              <div className="text-sm w-full m-2 h-[30px] p-1  hover:bg-slate-500 bg-white hover:underline rounded-sm cursor-pointer">
+>>>>>>> 3e9bacf27f4c388cd82dc3be08038e94e3b2d8f2
                 {" "}
                 {searchItems.username}
               </div>
             ))}
           </div>
+<<<<<<< HEAD
         ) : filterSearchResult?.length === 0 && search.trim() ? (
+=======
+        ) : filterSearchResult.length === 0 && search.trim() ? (
+>>>>>>> 3e9bacf27f4c388cd82dc3be08038e94e3b2d8f2
           <div className={`p-2 `}>
             <p className="text-sm m-2 h-[30px] p-1 hover:bg-slate-500 bg-white text-red-500 underline rounded-sm cursor-pointer">
               No User Found

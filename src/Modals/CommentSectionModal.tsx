@@ -96,7 +96,6 @@ const CommentSectionModal = ({ open, setShowModal, posts }: propstype) => {
       opacity: 0,
     },
   };
-
   return (
     <Modal
       open={open}
