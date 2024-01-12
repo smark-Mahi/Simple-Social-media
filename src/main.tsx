@@ -43,10 +43,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             path="/*"
             element={
               <SignUPInfoContextProvider>
-                <ThemeProvider theme={theme}>
-                  {" "}
-                  <App />
-                </ThemeProvider>
+                {/* <ThemeProvider theme={theme}> */}
+
+                <App />
+                {/* </ThemeProvider> */}
                 <Toaster position="top-right" />
               </SignUPInfoContextProvider>
             }

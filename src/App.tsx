@@ -17,7 +17,7 @@ import toast from "react-hot-toast";
 import { socket } from "./helpers/socket.ts";
 
 const Home = lazy(() => import("./pages/Home"));
-const Profile = lazy(() => import("./pages/Profile.tsx"));
+const Profile = lazy(() => import("./pages/Profile/index.tsx"));
 const Chat = lazy(() => import("./pages/Chat/index.tsx"));
 const Notification = lazy(() => import("./pages/Notification"));
 const Search = lazy(() => import("./pages/Search"));

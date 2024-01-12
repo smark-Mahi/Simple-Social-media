@@ -8,11 +8,11 @@ import Notification from "../components/Notification";
 
 const Layout = () => {
   return (
-    <div className="md:flex bg-white">
+    <div className="md:flex min-h-screen">
       <div className="lg:basis-64 z-40 basis-24 ">
         <Sidebar />
       </div>
-      <div className="flex-auto h-max bg-white">
+      <div className="flex-auto min-h-screen">
         <ErrorBoundary fallback={<p>An error has been occured</p>}>
           <Suspense
             fallback={

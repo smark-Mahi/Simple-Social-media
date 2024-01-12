@@ -1,4 +1,4 @@
-import { NavLink,  useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Home from "@mui/icons-material/Home";
 import Add from "@mui/icons-material/Add";
 import Stack from "@mui/material/Stack";
@@ -93,7 +93,7 @@ const Sidebar = () => {
   return (
     <>
       <div
-        className={`hidden  md:block fixed flex flex-col justify-between h-full border-r-[0.5px] border-slate-300  bg-white ${
+        className={`hidden  md:block fixed flex flex-col justify-between h-full border-r-[0.5px] border-slate-300   ${
           !notificationOpen && !(windowWidth <= 1025)
             ? ""
             : "w-24 transition-all ease-in-out duration-300 delay-150 "
@@ -102,7 +102,9 @@ const Sidebar = () => {
         <Stack spacing={3} direction="column">
           <div
             className={` overflow-hidden ${
-              !notificationOpen  && !(windowWidth <= 1025)? "mt-10 text-center" : "ml-8 mt-8 "
+              !notificationOpen && !(windowWidth <= 1025)
+                ? "mt-10 text-center"
+                : "ml-8 mt-8 "
             } `}
           >
             {!notificationOpen && !(windowWidth <= 1025) ? (
@@ -250,9 +252,7 @@ const Sidebar = () => {
           <div className="px-2">
             <div
               className={`flex font-semibold cursor-pointer hover:text-black transition hover:bg-slate-500 hover:duration-300 justify-around h-[50px]  items-center rounded-lg ${
-                !notificationOpen
-                  ? ""
-                  : "border-[0.5px] border-slate-300"
+                !notificationOpen ? "" : "border-[0.5px] border-slate-300"
               }`}
             >
               <div onClick={() => setNotificationOpen((prev) => !prev)}>
@@ -304,7 +304,7 @@ const Sidebar = () => {
         </div>
         {open && <Createpostmodal open={open} toggleModal={toggle} />}
       </div>
-      <div className="block md:hidden lg:hidden fixed top-0 z-50 bg-white w-full h-12 flex justify-between items-center p-2 border-b-2">
+      <div className="block md:hidden lg:hidden fixed top-0 z-50  w-full flex justify-between items-center p-2 border-b-2 bg-white">
         <p className="text-slate-500 font-bold">𝓼𝓲𝓶𝓹𝓵𝓮 𝓼𝓸𝓬𝓲𝓪𝓵</p>
         <div className="flex justify-around items-center h-12 w-[70px]">
           <Add onClick={toggle} className="cursor-pointer" />

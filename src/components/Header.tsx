@@ -39,7 +39,7 @@ const Header = () => {
       ) : !data ? (
         <SearchSkeleton />
       ) : (
-        <div className="hidden md:block sticky top-0 z-20  bg-white">
+        <div className="hidden md:block sticky top-0 z-20  ">
           <div className="  flex justify-end items-center h-[60px] border-b-[1px] border-slate-300 rounded-b-3xl ">
             <div className="flex flex-col">
               <div>

@@ -27,6 +27,7 @@ const Home = () => {
       animate={{ opacity: 1 }}
       transition={{ delay: 0.25, duration: 0.55, ease: "easeOut" }}
       exit={{ opacity: 0 }}
+      className=" min-h-screen"
     >
       <Header />
       <div
@@ -35,7 +36,7 @@ const Home = () => {
         }`}
       ></div>
       <div
-        className={`relative md:mt-0 mt-12 ${
+        className={`relative md:mt-0 mt-12  ${
           windowWidth <= 380 ? "h-[660px] overflow-auto no-scrollbar" : "h-max"
         }`}
       >
