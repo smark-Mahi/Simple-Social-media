@@ -122,22 +122,6 @@ function App() {
   }, [dispatch]);
   console.log("app");
 
-<<<<<<< HEAD
-=======
-  // useEffect(() => {
-  //   let login = localStorage.getItem("simpleSocial");
-  //   console.log(login, "lo");
-  //   if (login) {
-  //     const currentTime = Date.now() / 1000;
-  //     console.log(currentTime, "currenttime");
-  //     if (auth.exp < currentTime) {
-  //       clearAuth();
-  //       console.log("true");
-  //     }
-  //   }
-  // });
-
->>>>>>> 3e9bacf27f4c388cd82dc3be08038e94e3b2d8f2
   return (
     <>
       <Routes>
