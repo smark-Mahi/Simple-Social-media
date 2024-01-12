@@ -2,7 +2,6 @@ import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import AuthorizePosts from "../../components/AuthorizePosts";
-import { useAppSelector } from "../../features/store";
 import UnAuthorizePosts from "../../components/UnAuthorizePosts";
 
 const Home = () => {
