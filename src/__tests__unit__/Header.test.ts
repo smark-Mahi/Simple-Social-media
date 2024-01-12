@@ -1,6 +1,4 @@
 import { describe, it, expect } from "vitest";
-import TestRenderer from "react-test-renderer";
-import Header from "../components/Header";
 
 describe("example()", () => {
   it("checks if 5 is 5", () => {

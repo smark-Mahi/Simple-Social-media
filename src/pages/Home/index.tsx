@@ -4,10 +4,8 @@ import { motion } from "framer-motion";
 import AuthorizePosts from "../../components/AuthorizePosts";
 import { useAppSelector } from "../../features/store";
 import UnAuthorizePosts from "../../components/UnAuthorizePosts";
-import { getAuth } from "../../helpers/Tokens";
 
 const Home = () => {
-  const auth = useAppSelector((state) => state.user);
   let login = localStorage.getItem("simpleSocial");
 
   const [windowWidth, setWindoWidth] = useState(window.innerWidth);
