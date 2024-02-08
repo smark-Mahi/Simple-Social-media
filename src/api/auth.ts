@@ -2,9 +2,6 @@ import axios from "axios";
 import { store } from "../features/store";
 import { updateAccessToken } from "../features/userSlice";
 import { clearAuth, updateAuthToken } from "../helpers/Tokens";
-import dayjs from "dayjs";
-import jwt_decode from "jwt-decode";
-import Cookies from "js-cookie";
 
 export const axiosClient = axios.create({
   baseURL: "https://simple-social.onrender.com",
