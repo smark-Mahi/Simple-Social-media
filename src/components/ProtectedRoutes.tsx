@@ -9,14 +9,14 @@ import { useEffect } from "react";
 // };
 
 const ProtectedRoutes = () => {
+  let login = localStorage.getItem("simpleSocial");
   const navigate = useNavigate();
   console.log("protected");
   useEffect(() => {
-    let login = localStorage.getItem("simpleSocial");
     if (!login) {
       navigate("/login");
     }
-  });
+  }, [login]);
 
   return <Outlet />;
 };

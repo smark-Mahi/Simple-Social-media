@@ -2,12 +2,16 @@ import axios from "axios";
 import { store } from "../features/store";
 import { updateAccessToken } from "../features/userSlice";
 import { clearAuth, updateAuthToken } from "../helpers/Tokens";
+import dayjs from "dayjs";
+import jwt_decode from "jwt-decode";
+import Cookies from "js-cookie";
 
 export const axiosClient = axios.create({
   baseURL: "https://simple-social.onrender.com",
   withCredentials: true,
 });
-
+let isRefresh = false;
+let isResponseStatus = "unauthorized";
 export const setUpInterceptors = () => {
   axiosClient.interceptors.request.use(
     (request) => {
@@ -24,32 +28,30 @@ export const setUpInterceptors = () => {
   );
 
   const { dispatch } = store;
+  console.log("here");
 
   axiosClient.interceptors.response.use(
     (response) => {
       return response;
     },
     async (error) => {
-      const originalConfig = error.config;
-      if (error.response && originalConfig.url !== "/login") {
-        if (error.response.status === 401 && !originalConfig._retry) {
-          originalConfig._retry = true;
-          try {
-            const res = await axiosClient.post("/refresh");
-            console.log(res.status, "res");
-            const { access_token } = res.data;
-            console.log(access_token, "token");
-            dispatch(updateAccessToken({ token: access_token }));
-            updateAuthToken(access_token);
-            return axiosClient(originalConfig);
-          } catch (error) {
-            console.log(error, "err");
-            clearAuth();
-            return Promise.reject({ message: "Access token expired" });
-          }
-        }
+      if (error.response.status === 401 && !isRefresh) {
+        isRefresh = true;
+        console.log(isResponseStatus, "isresp", "line39");
+        const res = await axiosClient.post("/refresh");
+        const { access_token } = res.data;
+        console.log(access_token, "token");
+        dispatch(updateAccessToken({ token: access_token }));
+        updateAuthToken(access_token);
+        isResponseStatus = "authorize";
+        return axiosClient(error.config);
       }
-
+      if (isResponseStatus === "unauthorized") {
+        clearAuth();
+      }
+      isRefresh = false;
+      isResponseStatus = "unauthorized";
+      console.log("loop");
       return Promise.reject(error);
     }
   );

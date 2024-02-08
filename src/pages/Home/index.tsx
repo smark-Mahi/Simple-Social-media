@@ -32,12 +32,12 @@ const Home = () => {
       <Header />
       <div
         className={` fixed w-1/6 h-1/2 bg-purple-200 md:bg-purple-100 rounded-full mix-blend-multiply filter blur-2xl opacity-80   ${
-          windowWidth <= 380 ? "animate-blob ml-24" : "ml-[680px] -mt-12"
+          windowWidth <= 600 ? "animate-blob ml-24" : "ml-[680px] -mt-12"
         }`}
       ></div>
       <div
-        className={`relative md:mt-0 mt-12  ${
-          windowWidth <= 380 ? "h-[660px] overflow-auto no-scrollbar" : "h-max"
+        className={`relative md:mt-0 my-14  ${
+          windowWidth <= 600 ? "h-[600px]  overflow-auto no-scrollbar" : "h-max"
         }`}
       >
         {login ? <AuthorizePosts /> : <UnAuthorizePosts />}

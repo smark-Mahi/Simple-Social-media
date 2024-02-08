@@ -48,15 +48,27 @@ const Singlepost = ({ items }: any) => {
   };
 
   const addVote = async (id: number) => {
-    settoggleVote(true);
-    await addLikeApi({ post_id: id, dir: 1 });
-    await queryClient.invalidateQueries(["getdata"]);
+    try {
+      await addLikeApi({ post_id: id, dir: 1 });
+      settoggleVote(true);
+      await queryClient.invalidateQueries(["getdata"]);
+    } catch (error: any) {
+      if (error.response.status === 401) {
+        navigate("/login");
+      }
+    }
   };
 
   const addComment = async (id: number) => {
-    console.log(inputRef.current?.value, "refval");
-    await addCommentsApi({ post_id: id, comment: inputRef.current?.value });
-    await queryClient.invalidateQueries(["getdata"]);
+    try {
+      console.log(inputRef.current?.value, "refval");
+      await addCommentsApi({ post_id: id, comment: inputRef.current?.value });
+      await queryClient.invalidateQueries(["getdata"]);
+    } catch (error: any) {
+      if (error.response.status === 401) {
+        navigate("/login");
+      }
+    }
   };
 
   const getId = (id: number) => {
@@ -180,11 +192,11 @@ const Singlepost = ({ items }: any) => {
           />
           <Typography component="p">
             {items.votes !== 1 ? (
-              <p>{items.votes} likes</p>
+              <p>{toggleVote ? items.votes + 1 : items.votes} likes</p>
             ) : items.votes === 0 ? (
               <p>No likes</p>
             ) : (
-              <p>{items.votes} like</p>
+              <p>{toggleVote ? items.votes + 1 : items.votes} like</p>
             )}
           </Typography>
           <Typography variant="body2">
