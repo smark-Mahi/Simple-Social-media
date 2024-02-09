@@ -65,7 +65,7 @@ const PostDetails = () => {
       {error ? (
         <p>error</p>
       ) : !data ? (
-        <div className="p-4 grid place-items-center md:p-20 gap-5 mt-12 md:mt-0">
+        <div className="p-4 grid place-items-center md:p-20 gap-5 mt-20 md:mt-0">
           <SkeletonPost />
         </div>
       ) : (
@@ -76,7 +76,7 @@ const PostDetails = () => {
           exit={{ opacity: 0 }}
           className="flex justify-center"
         >
-          <CustomCard className="cursor-pointer border-slate-100 border-2 md:mt-6 mt-14">
+          <CustomCard className="cursor-pointer border-slate-100 border-2 md:mt-6 mt-20">
             <div className="relative">
               <CardHeader
                 avatar={

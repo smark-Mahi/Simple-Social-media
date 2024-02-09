@@ -36,8 +36,8 @@ const Home = () => {
         }`}
       ></div>
       <div
-        className={`relative md:mt-0 my-14  ${
-          windowWidth <= 600 ? "h-[600px]  overflow-auto no-scrollbar" : "h-max"
+        className={`relative md:mt-0 my-14 mt-20 h-max ${
+          windowWidth <= 600 && " overflow-auto no-scrollbar"
         }`}
       >
         {login ? <AuthorizePosts /> : <UnAuthorizePosts />}

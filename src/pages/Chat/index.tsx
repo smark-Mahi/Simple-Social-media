@@ -29,7 +29,7 @@ export default function Chat() {
       className=" h-screen relative"
     >
       <div
-        className={`md:mt-0 mt-12 absolute flex justify-between w-full h-[500px]  md:h-screen`}
+        className={`md:mt-0 mt-20 absolute flex justify-between w-full h-[500px]  md:h-screen`}
       >
         <div className="basis-full hidden sm:block">
           {show ? (

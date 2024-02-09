@@ -8,7 +8,7 @@ const Notification = () => {
       transition={{ duration: 0.55, ease: "easeOut" }}
       exit={{ opacity: 0 }}
     >
-      <div className="h-screen p-2 mt-12">
+      <div className="h-screen p-2 mt-20">
         <p className="text-4xl font-semibold text-slate-600">Notications</p>
         <div className="mt-4">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero

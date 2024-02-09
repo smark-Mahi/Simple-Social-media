@@ -45,6 +45,10 @@ export const setUpInterceptors = () => {
       }
       if (isResponseStatus === "unauthorized") {
         clearAuth();
+         if (window.location.href !== "http://localhost:3000/") {
+           window.location.href = "/login";
+         }
+         console.log("chnge loc", window.location.href);
       }
       isRefresh = false;
       isResponseStatus = "unauthorized";
