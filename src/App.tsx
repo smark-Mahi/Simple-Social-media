@@ -46,7 +46,9 @@ function App() {
   //   },
   // });
 
-  setUpInterceptors(navigate);
+  useEffect(() => {
+    setUpInterceptors(navigate);
+  }, []);
 
   useEffect(() => {
     socket.on("connect", () => {
