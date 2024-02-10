@@ -36,7 +36,7 @@ const Home = () => {
         }`}
       ></div>
       <div
-        className={`relative md:mt-0 my-14 mt-20 h-max ${
+        className={`relative md:mt-0 my-14 mt-16 h-max ${
           windowWidth <= 600 && " overflow-auto no-scrollbar"
         }`}
       >
