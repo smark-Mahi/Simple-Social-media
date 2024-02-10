@@ -45,12 +45,6 @@ export const setUpInterceptors = () => {
       }
       if (isResponseStatus === "unauthorized") {
         clearAuth();
-         if (
-           window.location.href !== "https://simple-social-smark.netlify.app/"
-         ) {
-           window.location.href = "/login";
-         }
-        
         console.log("chnge loc", window.location.href);
       }
       isRefresh = false;
