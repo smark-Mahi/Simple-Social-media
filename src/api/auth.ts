@@ -45,8 +45,11 @@ export const setUpInterceptors = () => {
       }
       if (isResponseStatus === "unauthorized") {
         clearAuth();
-         if (window.location.href !== "http://localhost:3000/") {
-           window.location.href = "/login";
+         if (
+           window.location.href !== "https://simple-social-smark.netlify.app/"
+         ) {
+           window.location.href =
+             "https://simple-social-smark.netlify.app/login";
          }
         
         console.log("chnge loc", window.location.href);
