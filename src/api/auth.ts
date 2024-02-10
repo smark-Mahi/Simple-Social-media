@@ -48,8 +48,7 @@ export const setUpInterceptors = () => {
          if (
            window.location.href !== "https://simple-social-smark.netlify.app/"
          ) {
-           window.location.href =
-             "https://simple-social-smark.netlify.app/login";
+           window.location.href = "/login";
          }
         
         console.log("chnge loc", window.location.href);
