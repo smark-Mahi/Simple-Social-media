@@ -65,7 +65,7 @@ const PostDetails = () => {
       {error ? (
         <p>error</p>
       ) : !data ? (
-        <div className="p-4 grid place-items-center md:p-20 gap-5 mt-20 md:mt-0">
+        <div className="p-4 grid place-items-center md:p-20 gap-5 mt-16 md:mt-0">
           <SkeletonPost />
         </div>
       ) : (

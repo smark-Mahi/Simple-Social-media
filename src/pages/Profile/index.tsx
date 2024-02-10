@@ -33,7 +33,7 @@ const Profile = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.75, delay: 0.5 }}
-      className="md:mt-0 h-max flex justify-center mt-20 relative"
+      className="md:mt-0 h-max flex justify-center mt-16 relative"
     >
       {userPosts.error || userProfile.error ? (
         <p>error</p>

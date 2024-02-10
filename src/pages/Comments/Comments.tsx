@@ -49,7 +49,7 @@ export default function Comments() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.55, ease: "easeOut" }}
           exit={{ opacity: 0 }}
-          className="mt-20  h-screen bg-slate-500 flex flex-col"
+          className="mt-16  h-screen bg-slate-500 flex flex-col"
         >
           <div className="">
             <KeyboardArrowLeftIcon

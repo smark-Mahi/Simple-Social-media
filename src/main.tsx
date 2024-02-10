@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { store } from "./features/store.ts";
 import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { setUpInterceptors } from "./api/auth.ts";
 import SignUPInfoContextProvider from "./Context/SignUPInfoContext.tsx";
 // import { createTheme } from "@mui/material";
 // import { ThemeProvider } from "@emotion/react";
@@ -21,7 +20,7 @@ const queryClient = new QueryClient({
     },
   },
 });
-setUpInterceptors();
+
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);

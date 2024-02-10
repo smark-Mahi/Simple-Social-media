@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Layout from "./pages/Layout";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import { useAppDispatch, useAppSelector } from "./features/store.ts";
@@ -15,6 +15,7 @@ import SignUPInfoContextProvider, {
 // import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { socket } from "./helpers/socket.ts";
+import { setUpInterceptors } from "./api/auth.ts";
 
 const Home = lazy(() => import("./pages/Home"));
 const Profile = lazy(() => import("./pages/Profile/index.tsx"));
@@ -37,13 +38,15 @@ function App() {
   const { setSocketEventFotMessage, setIsOnline } = useContext(SignUpContext);
   const auth = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // const [mode] = useState("dark");
   // const darkTheme = createTheme({
   //   palette: {
   //     mode: mode as PaletteMode,
   //   },
   // });
+
+  setUpInterceptors(navigate);
 
   useEffect(() => {
     socket.on("connect", () => {

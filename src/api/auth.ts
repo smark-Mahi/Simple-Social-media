@@ -9,7 +9,7 @@ export const axiosClient = axios.create({
 });
 let isRefresh = false;
 let isResponseStatus = "unauthorized";
-export const setUpInterceptors = () => {
+export const setUpInterceptors = (navigate: any) => {
   axiosClient.interceptors.request.use(
     (request) => {
       const currentState = store.getState();
@@ -45,7 +45,11 @@ export const setUpInterceptors = () => {
       }
       if (isResponseStatus === "unauthorized") {
         clearAuth();
-        console.log("chnge loc", window.location.href);
+        if (
+          window.location.href !== "https://simple-social-smark.netlify.app/"
+        ) {
+          navigate("/login");
+        }
       }
       isRefresh = false;
       isResponseStatus = "unauthorized";
