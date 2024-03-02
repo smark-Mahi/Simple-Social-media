@@ -54,7 +54,7 @@ const Profile = () => {
             <div className=" md:w-[60%] md:h-[150px] flex flex-col justify-between w-full">
               <div className="hidden md:block h-[50px] md:flex md:justify-start md:gap-12">
                 <h6 className="text-2xl ">{userProfile.data.User.username}</h6>
-                <button className="text-white w-24 h-10 rounded-md text-sm bg-slate-500 p-1">
+                <button className="text-white w-24 h-10 rounded-md text-sm bg-blue-900 p-1">
                   Edit Profile
                 </button>
               </div>
@@ -68,7 +68,7 @@ const Profile = () => {
                 </div>
                 <div className="md:h-[50px] md:flex md:justify-start md:gap-12">
                   <h6 className="text-2xl ">{userProfile.data.Username}</h6>
-                  <button className="bg-black mt-2 md:mt-0 rounded-md text-sm text-slate-500 p-1">
+                  <button className="bg-blue-900 mt-2 md:mt-0 rounded-md text-sm text-white p-1">
                     Edit Profile
                   </button>
                 </div>

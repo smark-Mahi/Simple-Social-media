@@ -38,17 +38,17 @@ export default function Chat() {
             </>
           ) : (
             <div className="h-screen flex flex-col items-center justify-center">
-              <div className="border-2 rounded-full border-slate-500 w-20 h-20 flex justify-center items-center">
-                <div className="w-10 h-10 border border-slate-800 rounded-full flex justify-center items-center">
-                  <BiSolidMessageRoundedDetail className="text-3xl text-slate-500" />
+              <div className="border-2 rounded-full border-blue-900 w-20 h-20 flex justify-center items-center">
+                <div className="w-10 h-10 border border-blue-900 rounded-full flex justify-center items-center">
+                  <BiSolidMessageRoundedDetail className="text-3xl text-blue-900" />
                 </div>
               </div>
               <div className="flex flex-col gap-2 items-center">
-                <p className="text-xl text-slate-800">Your messages</p>
-                <p className="text-md text-slate-500">
+                <p className="text-xl text-blue-900">Your messages</p>
+                <p className="text-md text-blue-800">
                   send private messages to your friend.
                 </p>
-                <button className="w-fit h-fit p-1 px-2 bg-slate-600 text-white text-md rounded-md hover:bg-slate-500 ">
+                <button className="w-fit h-fit p-1 px-2 bg-blue-900 text-white text-md rounded-md hover:bg-blue-800 ">
                   send message
                 </button>
               </div>
@@ -318,7 +318,7 @@ export const Messages = ({ id }: { id: number }) => {
         <Box
           sx={{ height: 90, backgroundColor: "white", width: "100%" }}
           p={1}
-          className="border-solid border-b-[0.5px] border-slate-300"
+          className="border-solid border-b-[0.5px] border-blue-900 sm:mt-36"
         >
           {show?.users?.map((userInfo: UserInfo) => {
             if (userInfo.id !== auth.id) {
@@ -388,7 +388,7 @@ export const Messages = ({ id }: { id: number }) => {
           >
             {isFetchingNextPage ? (
               <div>
-                <p className="text-center text-xs font-semibold text-slate-800 pt-4">
+                <p className="text-center text-xs font-semibold text-blue-900 pt-4">
                   loading history...
                 </p>
               </div>
@@ -396,7 +396,7 @@ export const Messages = ({ id }: { id: number }) => {
               <div className="flex justify-center items-center">
                 <button
                   onClick={() => fetchNextPage()}
-                  className="p-2 rounded-md w-fit text-white bg-slate-500 text-xs"
+                  className="p-2 rounded-md w-fit text-white bg-blue-900 text-xs"
                 >
                   Load More
                 </button>
@@ -425,11 +425,11 @@ export const Messages = ({ id }: { id: number }) => {
                     {/* {based on current Day condition show this whole div} */}
                     {isSameTimeLine(page.data.messages, i, key) ? (
                       <div className="w-full py-4 flex gap-1 justify-center items-center">
-                        <hr className="bg-slate-500 w-2/5" />
-                        <p className="text-sm text-slate-500 p-1">
+                        <hr className="bg-blue-900 w-2/5" />
+                        <p className="text-sm text-blue-900 p-1">
                           {getCurrentTimeLine(message.created_at)}
                         </p>
-                        <hr className="bg-slate-500 w-2/5" />
+                        <hr className="bg-blue-900 w-2/5" />
                       </div>
                     ) : (
                       ""
@@ -456,8 +456,8 @@ export const Messages = ({ id }: { id: number }) => {
                       <div
                         className={`flex  ${
                           message.sender.id !== auth.id
-                            ? "bg-slate-400 text-white"
-                            : "bg-slate-200"
+                            ? "bg-blue-900 text-white"
+                            : "bg-blue-900 text-white"
                         } w-fit rounded-md `}
                       >
                         <div className=" p-2">
@@ -484,7 +484,7 @@ export const Messages = ({ id }: { id: number }) => {
         {/* chat footer */}
         <Box p={2} className="h-[165px] bg-white w-full">
           <Stack direction={"row"} alignItems={"center"} spacing={3}>
-            <div className="border rounded-md  border-slate-300 w-full h-36 relative space-y-4">
+            <div className="border rounded-md  border-blue-900 w-full h-36 relative space-y-4">
               <ReactQuill
                 placeholder={
                   socketEventFotMessage === "startTyping"
@@ -507,7 +507,7 @@ export const Messages = ({ id }: { id: number }) => {
                 className="text-2xl cursor-pointer absolute left-2 "
               />
             </div>
-            <Box className="bg-slate-500 relative rounded-full w-8 h-8">
+            <Box className="bg-blue-900 relative rounded-full w-8 h-8">
               <BiSend
                 className="absolute left-2 top-2 cursor-pointer text-white"
                 onClick={sendMessageHandler}

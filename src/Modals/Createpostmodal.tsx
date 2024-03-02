@@ -150,7 +150,7 @@ const Createpostmodal = ({ open, toggleModal }: Props) => {
                 id="modal-modal-title"
                 variant="h6"
                 component="h2"
-                className="text-center"
+                className="text-center text-blue-900"
               >
                 Create Post
               </Typography>

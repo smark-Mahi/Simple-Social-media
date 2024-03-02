@@ -10,7 +10,7 @@ export default function UnAuthorizePosts() {
   const { data, fetchNextPage, error, hasNextPage } = useInfiniteQuery(
     ["getdata"],
     ({ pageParam = 0 }) =>
-      axios.get("https://simple-social.onrender.com/posts/general", {
+      axios.get("https://flickz-server.csproject.org/posts/general", {
         params: {
           post_limit: 10,
           skip: pageParam,

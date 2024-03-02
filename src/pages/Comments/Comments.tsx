@@ -49,14 +49,14 @@ export default function Comments() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.55, ease: "easeOut" }}
           exit={{ opacity: 0 }}
-          className="mt-16  h-screen bg-slate-500 flex flex-col"
+          className="mt-16  h-screen bg-white flex flex-col"
         >
           <div className="">
             <KeyboardArrowLeftIcon
               className="cursor-pointer"
               onClick={() => navigate("/")}
             />
-            <p className="text-center -mt-6">Comments</p>
+            <p className="text-center -mt-6 text-blue-900">Comments</p>
           </div>
           <div className="bg-white h-14 p-2 flex gap-4 justify-center items-center">
             <img
@@ -65,9 +65,9 @@ export default function Comments() {
               className="w-[25px] h-[25px] rounded-full"
               style={{ border: "1px solid black" }}
             />
-            <div className="flex justify-between bg-slate-500 w-64 items-center p-2 h-[40px] rounded-full">
+            <div className="flex justify-between bg-blue-900 w-64 items-center p-2 h-[40px] rounded-full">
               <input
-                className="text-sm m-2 outline-0 w-32 bg-transparent mt-2 border-0 "
+                className="text-sm m-2 outline-0 w-32 bg-transparent mt-2 border-0 text-white"
                 placeholder="Add a comment..."
                 value={addComment}
                 onChange={(e) => setAddComment(e.target.value)}

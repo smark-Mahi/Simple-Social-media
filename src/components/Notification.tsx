@@ -35,8 +35,8 @@ export default function Notification() {
             windowWidth <= 1025 ? "" : "-ml-40"
           }`}
         >
-          <p className="text-4xl font-semibold text-slate-600 ">Notications</p>
-          <div className="mt-2 text-center text-gray-400">
+          <p className="text-4xl font-semibold text-blue-900 ">Notications</p>
+          <div className="mt-2 text-center text-blue-800">
             No Notification yet
           </div>
         </motion.div>

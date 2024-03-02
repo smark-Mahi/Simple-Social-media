@@ -90,7 +90,7 @@ const Chat = () => {
 
   const list = (anchor: Anchor) => (
     <Box sx={{ width: "auto" }} p={4} role="presentation">
-      <Typography className="text-slate-500">Search Users</Typography>
+      <Typography className="text-blue-900">Search Users</Typography>
       <Box marginTop={"10px"} className="flex flex-col">
         <div className="flex justify-around">
           <div>
@@ -104,7 +104,7 @@ const Chat = () => {
           </div>
           {search.trim() ? (
             <button
-              className="w-fit h-fit px-2 p-1 text-center bg-slate-500 text-white hover:bg-slate-600 rounded-md"
+              className="w-fit h-fit px-2 p-1 text-center bg-blue-900 text-white hover:bg-blue-600 rounded-md"
               onClick={async () => {
                 const chatId = await createChatApi(filterSearchResult[0].id);
                 await queryClient.invalidateQueries(["chatlist"]);
@@ -133,7 +133,7 @@ const Chat = () => {
           <div className={`p-2  `}>
             {filterSearchResult.map((searchItems: any) => (
               <div
-                className="text-sm w-full m-2 h-[30px] p-1  hover:bg-slate-500 bg-white hover:underline rounded-sm cursor-pointer"
+                className="text-sm w-full m-2 h-[30px] p-1  hover:bg-blue-900 hover:text-white bg-white hover:underline rounded-sm cursor-pointer"
                 onClick={() => setSearch(searchItems.username)}
               >
                 {" "}
@@ -143,7 +143,7 @@ const Chat = () => {
           </div>
         ) : filterSearchResult?.length === 0 && search.trim() ? (
           <div className={`p-2 `}>
-            <p className="text-sm m-2 h-[30px] p-1 hover:bg-slate-500 bg-white text-red-500 underline rounded-sm cursor-pointer">
+            <p className="text-sm m-2 h-[30px] p-1 hover:bg-blue-900 bg-white text-red-500 underline rounded-sm cursor-pointer">
               No User Found
             </p>
           </div>
@@ -165,7 +165,7 @@ const Chat = () => {
             width: { md: 320, lg: "auto" },
             backgroundColor: "white",
           }}
-          className="border-solid border-l-[0.5px] border-slate-300 h-screen"
+          className="border-solid border-l-[0.5px] border-blue-900 h-screen"
         >
           <Stack
             direction="column"
@@ -184,7 +184,7 @@ const Chat = () => {
             width: { md: 320, lg: "auto" },
             backgroundColor: "white",
           }}
-          className={` border-solid border-l-[0.5px] border-slate-300`}
+          className={` border-solid border-l-[0.5px] border-blue-900`}
         >
           <ResponsiveLayout p={3} spacing={1} sx={{ height: { lg: "100vh" } }}>
             <Stack
@@ -194,7 +194,7 @@ const Chat = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ display: { md: "block", sm: "none" } }}
+                sx={{ display: { md: "block", sm: "none",color:'blue' } }}
               >
                 chats
               </Typography>
@@ -202,7 +202,7 @@ const Chat = () => {
               <Tooltip title="Search" arrow>
                 <Button>
                   <BsSearch
-                    className="text-xl"
+                    className="text-xl text-blue-900"
                     onClick={toggleDrawer("right", true)}
                   />
                 </Button>

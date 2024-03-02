@@ -58,7 +58,7 @@ const Sidebar = () => {
 
   function activeLink(path: string) {
     setIsActiveLink(path);
-    return "text-black bg-slate-500 rounded-lg ";
+    return "text-white bg-blue-900 rounded-lg ";
   }
 
   console.log(auth, "u");
@@ -93,7 +93,7 @@ const Sidebar = () => {
   return (
     <>
       <div
-        className={`hidden  md:block fixed flex flex-col justify-between h-full border-r-[0.5px] border-slate-300   ${
+        className={`hidden  md:block fixed flex flex-col justify-between h-full border-r-[0.5px] border-blue-900   ${
           !notificationOpen && !(windowWidth <= 1025)
             ? ""
             : "w-24 transition-all ease-in-out duration-300 delay-150 "
@@ -112,23 +112,23 @@ const Sidebar = () => {
                 animate={{ y: 0 }}
                 initial={{ y: "100%" }}
                 transition={{ delay: 0.25, duration: 0.5 }}
-                className="text-2xl font-base"
+                className="text-2xl font-base text-blue-900"
               >
-                𝓼𝓲𝓶𝓹𝓵𝓮 𝓼𝓸𝓬𝓲𝓪𝓵
+                ƒℓι¢кz
               </motion.h2>
             ) : (
               <motion.h2
                 animate={{ y: 0 }}
                 initial={{ y: "100%" }}
                 transition={{ delay: 0.25, duration: 0.5 }}
-                className="text-4xl font-base"
+                className="text-4xl font-base text-blue-900"
               >
-                𝓼
+                ḟ
               </motion.h2>
             )}
           </div>
           <div className="px-2">
-            <div className="flex font-semibold hover:bg-slate-500 hover:text-black transition hover:duration-300 justify-around h-[50px]  items-center rounded-lg ">
+            <div className="flex font-semibold hover:bg-blue-900 hover:text-white transition hover:duration-300 justify-around h-[50px]  items-center rounded-lg ">
               <NavLink
                 to="/"
                 className={({ isActive }) =>
@@ -162,7 +162,7 @@ const Sidebar = () => {
           </div>
           <div className="px-2">
             <div
-              className={`flex hover:text-black hover:bg-slate-500 transition hover:duration-300  font-semibold justify-around h-[50px] items-center rounded-lg 
+              className={`flex hover:text-white hover:bg-blue-900 transition hover:duration-300  font-semibold justify-around h-[50px] items-center rounded-lg 
                 `}
             >
               <NavLink
@@ -198,7 +198,7 @@ const Sidebar = () => {
           </div>
           <div className="px-2">
             <div
-              className="flex px-2 hover:bg-slate-500 hover:text-black transition hover:duration-300 hover:text-lg  font-semibold justify-around h-[50px] items-center rounded-lg  cursor-pointer"
+              className="flex px-2 hover:bg-blue-900 hover:text-white transition hover:duration-300 hover:text-lg  font-semibold justify-around h-[50px] items-center rounded-lg  cursor-pointer"
               onClick={toggle}
             >
               <div>
@@ -215,7 +215,7 @@ const Sidebar = () => {
           </div>
           <div className="px-2">
             <div
-              className={`flex font-semibold hover:bg-slate-500 hover:text-black transition hover:duration-300 justify-around h-[50px]  items-center rounded-lg ${
+              className={`flex font-semibold hover:bg-blue-900 hover:text-white transition hover:duration-300 justify-around h-[50px]  items-center rounded-lg ${
                 !(windowWidth <= 1025) ? "" : " "
               }`}
             >
@@ -251,8 +251,8 @@ const Sidebar = () => {
           </div>
           <div className="px-2">
             <div
-              className={`flex font-semibold cursor-pointer hover:text-black transition hover:bg-slate-500 hover:duration-300 justify-around h-[50px]  items-center rounded-lg ${
-                !notificationOpen ? "" : "border-[0.5px] border-slate-300"
+              className={`flex font-semibold cursor-pointer hover:text-white transition hover:bg-blue-900 hover:duration-300 justify-around h-[50px]  items-center rounded-lg ${
+                !notificationOpen ? "" : "border-[0.5px] border-blue-900"
               }`}
             >
               <div onClick={() => setNotificationOpen((prev) => !prev)}>
@@ -281,7 +281,7 @@ const Sidebar = () => {
           </div>
         </Stack>
         <div className="py-4 px-2">
-          <div className="flex hover:bg-slate-500 hover:text-black transition hover:duration-300  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
+          <div className="flex hover:bg-blue-900 hover:text- transition hover:duration-300  font-semibold   justify-around h-[50px] items-center rounded-lg   ">
             <div
               className={`flex h-[50px] justify-around items-center hover:text-lg  cursor-pointer ${
                 !notificationOpen && !(windowWidth <= 1025) ? "w-52" : "w-20"
@@ -305,7 +305,7 @@ const Sidebar = () => {
         {open && <Createpostmodal open={open} toggleModal={toggle} />}
       </div>
       <div className="block md:hidden lg:hidden fixed top-0 z-50  w-full flex justify-between items-center p-2 border-b-2 bg-white">
-        <p className="text-slate-500 font-bold">𝓼𝓲𝓶𝓹𝓵𝓮 𝓼𝓸𝓬𝓲𝓪𝓵</p>
+        <p className="text-blue-900 font-bold">ƒℓι¢кz</p>
         <div className="flex justify-around items-center h-12 w-[70px]">
           <Add onClick={toggle} className="cursor-pointer" />
           <NavLink to="/notification" className="text-xl  cursor-pointer">
@@ -322,18 +322,18 @@ const Sidebar = () => {
           {menus.map((menu, i) => (
             <li className="w-14 list-none" key={i}>
               <a
-                className="flex flex-col text-center pt-4 items-center"
+                className="flex flex-col text-center pt-4 items-center justify-center"
                 onClick={() => {
                   setActive(i);
                 }}
               >
                 {active === i && (
-                  <span className="w-12 h-2 bg-slate-500 absolute top-0 rounded-b-xl"></span>
+                  <span className="w-14 h-2 bg-blue-900 absolute top-0 rounded-b-xl"></span>
                 )}
                 <NavLink to={menu.path}>
                   <span
-                    className={`text-xl cursor-pointer  duration-500 ${
-                      active === i && "text-slate-500"
+                    className={`text-xl cursor-pointer  duration-500  ${
+                      active === i && "text-blue-800"
                     }`}
                   >
                     {menu.icon}
@@ -341,7 +341,7 @@ const Sidebar = () => {
                   <span
                     className={`text-center text-xs ${
                       active === i
-                        ? "translate-y-4 duration-400 opacity-100 text-slate-500"
+                        ? "translate-y-4 duration-400 opacity-100 text-blue-800"
                         : "opacity-0 translate-y-10"
                     }`}
                   >

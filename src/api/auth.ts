@@ -4,15 +4,16 @@ import { updateAccessToken } from "../features/userSlice";
 import { clearAuth, updateAuthToken } from "../helpers/Tokens";
 
 export const axiosClient = axios.create({
-  baseURL: "https://simple-social.onrender.com",
+  baseURL: "https://flickz-server.csproject.org/",
   withCredentials: true,
 });
-let isRefresh = false;
-let isResponseStatus = "unauthorized";
-export const setUpInterceptors = (navigate: any) => {
+console.log("this is begning");
+let notExpire = 0;
+export const setUpInterceptors = () => {
   axiosClient.interceptors.request.use(
     (request) => {
       const currentState = store.getState();
+      console.log(currentState, "me");
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       request!.headers![
         "Authorization"
@@ -25,35 +26,57 @@ export const setUpInterceptors = (navigate: any) => {
   );
 
   const { dispatch } = store;
-  console.log("here");
 
   axiosClient.interceptors.response.use(
     (response) => {
       return response;
     },
     async (error) => {
-      if (error.response.status === 401 && !isRefresh) {
-        isRefresh = true;
-        console.log(isResponseStatus, "isresp", "line39");
-        const res = await axiosClient.post("/refresh");
-        const { access_token } = res.data;
-        console.log(access_token, "token");
-        dispatch(updateAccessToken({ token: access_token }));
-        updateAuthToken(access_token);
-        isResponseStatus = "authorize";
-        return axiosClient(error.config);
-      }
-      if (isResponseStatus === "unauthorized") {
-        clearAuth();
+      console.log("start");
+      const originalConfig = error.config;
+      console.log(originalConfig, "see originconfig");
+      if (error.response && originalConfig.url !== "/login") {
+        console.log(
+          error.response.status === 401 && !originalConfig._retry,
+          notExpire,
+          "checkconditionjust"
+        );
         if (
-          window.location.href !== "https://simple-social-smark.netlify.app/"
+          error.response.status === 401 &&
+          !originalConfig._retry &&
+          notExpire != 5
         ) {
-          navigate("/login");
+          console.log(
+            error.response.status === 401 && !originalConfig._retry,
+            "checkcondition"
+          );
+          originalConfig._retry = true;
+          notExpire += 1;
+          try {
+            console.log("enter in try block refresh the token");
+            const res = await axiosClient.post("/refresh");
+            notExpire = 0;
+            console.log(res.status, "res");
+            const { access_token } = res.data;
+            console.log(access_token, "token");
+            dispatch(updateAccessToken({ token: access_token }));
+            updateAuthToken(access_token);
+            return axiosClient(originalConfig);
+          } catch (error) {
+            console.log(error, "err");
+            console.log("this is clear auth part");
+            return Promise.reject({ message: "Access token expired" });
+          }
+        }
+        if (notExpire === 5) {
+          clearAuth();
+
+          console.log("refresh token expired");
+          return Promise.reject({ message: "refresh token expired" });
         }
       }
-      isRefresh = false;
-      isResponseStatus = "unauthorized";
-      console.log("loop");
+      notExpire = 0;
+      console.log("end");
       return Promise.reject(error);
     }
   );

@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import { useAppDispatch, useAppSelector } from "./features/store.ts";
@@ -38,7 +38,6 @@ function App() {
   const { setSocketEventFotMessage, setIsOnline } = useContext(SignUpContext);
   const auth = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   // const [mode] = useState("dark");
   // const darkTheme = createTheme({
   //   palette: {
@@ -47,7 +46,7 @@ function App() {
   // });
 
   useEffect(() => {
-    setUpInterceptors(navigate);
+    setUpInterceptors();
   }, []);
 
   useEffect(() => {

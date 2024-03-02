@@ -19,6 +19,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { motion } from "framer-motion";
 
+
 const Singlepost = ({ items }: any) => {
   //posted post date
   dayjs.extend(relativeTime);
@@ -128,11 +129,11 @@ const Singlepost = ({ items }: any) => {
           />
           {openMenu && (
             <div className="w-[90px] h-max bg-white absolute right-4 top-12 shadow-xl z-50 rounded-sm on">
-              <p className=" cursor-pointer text-slate-500 text-center p-2 hover:bg-slate-500 hover:text-white">
+              <p className=" cursor-pointer text-slate-500 text-center p-2 hover:bg-blue-900 hover:text-white">
                 Update
               </p>
               <p
-                className=" cursor-pointer text-customred-400 text-lg font-semibold text-center p-2  hover:bg-slate-500 hover:text-white"
+                className=" cursor-pointer text-customred-400 text-lg font-semibold text-center p-2  hover:bg-blue-900 hover:text-white"
                 onClick={() => {
                   toggle(items.post.id);
                 }}
@@ -140,13 +141,13 @@ const Singlepost = ({ items }: any) => {
                 Delete
               </p>
               <p
-                className=" cursor-pointer text-slate-500 text-center pb-2  hover:bg-slate-500 hover:text-white"
+                className=" cursor-pointer text-slate-500 text-center pb-2  hover:bg-blue-900 hover:text-white"
                 onClick={() => navigate(`/posts/${items.post.id}`)}
               >
                 Go To Post
               </p>
               <p
-                className=" cursor-pointer text-slate-500 text-center pb-2  hover:bg-slate-500 hover:text-white"
+                className=" cursor-pointer text-slate-500 text-center pb-2  hover:bg-blue-900 hover:text-white"
                 onClick={() => {
                   setopenMenu(false);
                 }}

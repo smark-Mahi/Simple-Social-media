@@ -30,12 +30,12 @@
   .customScrollbar::-webkit-scrollbar-track {
     border-radius: 8px;
     background-color: transparent;
-    border: 1px solid #e4dcdc93;
+    border: 1px solid blue;
   }
 
   .customScrollbar::-webkit-scrollbar-thumb {
     border-radius: 3px;
-    background-color: slategray;
+    background-color: blue;
   }
 }
 
