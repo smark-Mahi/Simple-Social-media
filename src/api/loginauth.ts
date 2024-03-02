@@ -23,7 +23,7 @@ export async function createAccount(payload: unknown) {
 }
 
 export async function createPostApi(payload: unknown) {
-  return await axiosClient.post("/posts", payload);
+  return await axiosClient.post("/posts/", payload);
 }
 
 export async function addLikeApi(payload: unknown) {
