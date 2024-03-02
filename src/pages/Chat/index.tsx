@@ -482,7 +482,7 @@ export const Messages = ({ id }: { id: number }) => {
           </Box>
         )}
         {/* chat footer */}
-        <Box p={2} className="h-[165px] bg-white w-full">
+        <Box p={2} className="h-[165px] bg-white w-full ">
           <Stack direction={"row"} alignItems={"center"} spacing={3}>
             <div className="border rounded-md  border-blue-900 w-full h-36 relative space-y-4">
               <ReactQuill

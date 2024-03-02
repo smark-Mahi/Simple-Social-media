@@ -53,6 +53,7 @@ const Singlepost = ({ items }: any) => {
       await addLikeApi({ post_id: id, dir: 1 });
       settoggleVote(true);
       await queryClient.invalidateQueries(["getdata"]);
+      settoggleVote(false);
     } catch (error: any) {
       if (error.response.status === 401) {
         navigate("/login");
@@ -192,7 +193,7 @@ const Singlepost = ({ items }: any) => {
             onClick={() => setShowCommentsPage(items.post)}
           />
           <Typography component="p">
-            {items.votes !== 1 ? (
+            {items.votes > 1 ? (
               <p>{toggleVote ? items.votes + 1 : items.votes} likes</p>
             ) : items.votes === 0 ? (
               <p>No likes</p>
