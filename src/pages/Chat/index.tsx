@@ -318,7 +318,7 @@ export const Messages = ({ id }: { id: number }) => {
         <Box
           sx={{ height: 90, backgroundColor: "white", width: "100%" }}
           p={1}
-          className="border-solid border-b-[0.5px] border-blue-900 sm:mt-36"
+          className="border-solid border-b-[0.5px] border-blue-900 "
         >
           {show?.users?.map((userInfo: UserInfo) => {
             if (userInfo.id !== auth.id) {
