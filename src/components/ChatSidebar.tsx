@@ -31,7 +31,8 @@ const ResponsiveLayout = styled(Stack)(({ theme }) => ({
   //   height: "100vh",
   // },
   [theme.breakpoints.down("md")]: {
-    height: "550px",
+    height: "100vh",
+    width: "100%",
   },
 }));
 
@@ -40,7 +41,7 @@ const Responsiveness = styled(Box)(({ theme }) => ({
     width: "320px",
   },
   [theme.breakpoints.down("sm")]: {
-    width: "100vw",
+    width: "90vw",
   },
 }));
 
@@ -171,7 +172,7 @@ const Chat = () => {
             direction="column"
             spacing={2.4}
             p={4}
-            sx={{ flexGrow: 1, overflow: "auto", height: "100%" }}
+            sx={{ flexGrow: 1, overflow: "auto", height: "100vh" }}
           >
             {[1, 2, 3, 4, 5, 6, 7].map((_: unknown, index: number) => (
               <ChatListSkeleton key={index} />
@@ -194,7 +195,7 @@ const Chat = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ display: { md: "block", sm: "none",color:'blue' } }}
+                sx={{ display: { md: "block", sm: "none", color: "blue" } }}
               >
                 chats
               </Typography>

@@ -316,7 +316,11 @@ export const Messages = ({ id }: { id: number }) => {
       >
         {/* chat header */}
         <Box
-          sx={{ height: 90, backgroundColor: "white", width: "100%" }}
+          sx={{
+            height: 90,
+            backgroundColor: "white",
+            width: "100%",
+          }}
           p={1}
           className="border-solid border-b-[0.5px] border-blue-900 "
         >

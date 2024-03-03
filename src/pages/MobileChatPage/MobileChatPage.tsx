@@ -22,7 +22,7 @@ const MobileChatPage = () => {
 
   console.log(id, "params");
   return (
-    <div className={`h-[500px] mt-12 ${windowWidth <= 380 ? "h-[620px]" : ""}`}>
+    <div className={`h-[calc(100vh-150px)] mt-20`}>
       <Messages id={id} />
     </div>
   );
