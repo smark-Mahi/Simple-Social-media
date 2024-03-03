@@ -33,6 +33,7 @@ export const setUpInterceptors = (navigate: any) => {
       console.log(notExpire, "expirecount");
       return response;
     },
+
     async (error) => {
       console.log("start");
       const originalConfig = error.config;
@@ -72,6 +73,7 @@ export const setUpInterceptors = (navigate: any) => {
         }
         if (notExpire === 5) {
           clearAuth();
+          notExpire = 0;
           console.log("refresh token expired");
           navigate("/login");
           return Promise.reject({ message: "refresh token expired" });
