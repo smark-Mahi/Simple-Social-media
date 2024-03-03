@@ -10,6 +10,7 @@ export const axiosClient = axios.create({
 console.log("this is begning");
 let notExpire = 0;
 export const setUpInterceptors = (navigate: any) => {
+  console.log(notExpire, "expirecount");
   axiosClient.interceptors.request.use(
     (request) => {
       const currentState = store.getState();
@@ -29,6 +30,7 @@ export const setUpInterceptors = (navigate: any) => {
 
   axiosClient.interceptors.response.use(
     (response) => {
+      console.log(notExpire, "expirecount");
       return response;
     },
     async (error) => {
