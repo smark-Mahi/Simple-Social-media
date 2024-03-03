@@ -351,7 +351,6 @@ export const Messages = ({ id }: { id: number }) => {
                     <Typography variant="subtitle2">
                       {userInfo.username}
                     </Typography>
-                    <Typography variant="caption">online</Typography>
                   </Stack>
                 </Stack>
               );
@@ -487,7 +486,7 @@ export const Messages = ({ id }: { id: number }) => {
         )}
         {/* chat footer */}
         <Box p={2} className="h-[165px] bg-white w-full ">
-          <Stack direction={"row"} alignItems={"center"} spacing={3}>
+          <Stack direction={"row"} alignItems={"center"} spacing={1}>
             <div className="border rounded-md  border-blue-900 w-full h-36 relative space-y-4">
               <ReactQuill
                 placeholder={
@@ -511,7 +510,7 @@ export const Messages = ({ id }: { id: number }) => {
                 className="text-2xl cursor-pointer absolute left-2 "
               />
             </div>
-            <Box className="bg-blue-900 relative rounded-full w-8 h-8">
+            <Box className="bg-blue-900 relative rounded-full w-8 h-8 ">
               <BiSend
                 className="absolute left-2 top-2 cursor-pointer text-white"
                 onClick={sendMessageHandler}
