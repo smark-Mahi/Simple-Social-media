@@ -9,7 +9,7 @@ export const axiosClient = axios.create({
 });
 console.log("this is begning");
 let notExpire = 0;
-export const setUpInterceptors = () => {
+export const setUpInterceptors = (navigate: any) => {
   axiosClient.interceptors.request.use(
     (request) => {
       const currentState = store.getState();
@@ -70,8 +70,8 @@ export const setUpInterceptors = () => {
         }
         if (notExpire === 5) {
           clearAuth();
-
           console.log("refresh token expired");
+          navigate("/login");
           return Promise.reject({ message: "refresh token expired" });
         }
       }
