@@ -204,7 +204,10 @@ const Singlepost = ({ items }: any) => {
           <Typography variant="body2">
             <b>{items.post.owner.username}</b> &nbsp;
             {items.post.related_text.length > 20 ? (
-              <span className="text-sm">
+              <span
+                className="text-sm"
+                onClick={() => navigate(`/posts/${items.post.id}`)}
+              >
                 {items.post.related_text.slice(0, 11)}&nbsp; more....
               </span>
             ) : (
@@ -237,7 +240,7 @@ const Singlepost = ({ items }: any) => {
           </p>
           {items.post.comments[0] && (
             <Typography variant="body2">
-              <b>commenter username</b> &nbsp;
+              <b>{items.post.comments[0].user.username}</b> &nbsp;
               {items.post.comments[0].comment.length > 20 ? (
                 <span className="text-sm">
                   {items.post.comments[0].comment.slice(0, 11)}&nbsp;....
@@ -251,7 +254,7 @@ const Singlepost = ({ items }: any) => {
           )}
           {items.post.comments[1] && (
             <Typography variant="body2">
-              <b>commenter username</b> &nbsp;
+              <b>{items.post.comments[1].user.username}</b> &nbsp;
               {items.post.comments[1].comment.length > 20 ? (
                 <span className="text-sm">
                   {items.post.comments[1].comment.slice(0, 11)}&nbsp;....

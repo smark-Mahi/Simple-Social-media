@@ -155,9 +155,7 @@ const PostDetails = () => {
               <Typography variant="body2">
                 <b>{data.post.owner.username}</b> &nbsp;
                 {data.post.related_text.length > 20 ? (
-                  <span className="text-sm">
-                    {data.post.related_text.slice(0, 11)}&nbsp; more....
-                  </span>
+                  <span className="text-sm">{data.post.related_text}</span>
                 ) : (
                   <span className="text-sm">{data.post.related_text}</span>
                 )}
@@ -188,10 +186,10 @@ const PostDetails = () => {
               </p>
               {data.post.comments[0] && (
                 <Typography variant="body2">
-                  <b>commenter username</b> &nbsp;
+                  <b>{data.post.comments[0].user.username}</b> &nbsp;
                   {data.post.comments[0].comment.length > 20 ? (
                     <span className="text-sm">
-                      {data.post.comments[0].comment.slice(0, 11)}&nbsp;....
+                      {data.post.comments[0].comment}
                     </span>
                   ) : (
                     <span className="text-sm">
@@ -202,7 +200,7 @@ const PostDetails = () => {
               )}
               {data.post.comments[1] && (
                 <Typography variant="body2">
-                  <b>commenter username</b> &nbsp;
+                  <b>{data.post.comments[1].user.username}</b> &nbsp;
                   {data.post.comments[1].comment.length > 20 ? (
                     <span className="text-sm">
                       {data.post.comments[1].comment.slice(0, 11)}&nbsp;....
