@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { store } from "../features/store";
 import { updateAccessToken } from "../features/userSlice";
 import { clearAuth, updateAuthToken } from "../helpers/Tokens";
@@ -65,9 +65,17 @@ export const setUpInterceptors = (navigate: any) => {
             dispatch(updateAccessToken({ token: access_token }));
             updateAuthToken(access_token);
             return axiosClient(originalConfig);
-          } catch (error) {
-            console.log(error, "err");
-            console.log("this is clear auth part");
+          } catch (error: any) {
+            console.log(error, "err0r");
+            if (error.response.status === 400) {
+              clearAuth();
+              navigate("/login");
+              return Promise.reject({
+                message:
+                  "Refresh token not found in cookies and Access token expired",
+              });
+            }
+            console.log("this is clear auth part", error?.response?.status);
             return Promise.reject({ message: "Access token expired" });
           }
         }
