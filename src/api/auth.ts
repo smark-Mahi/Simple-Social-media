@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { store } from "../features/store";
 import { updateAccessToken } from "../features/userSlice";
 import { clearAuth, updateAuthToken } from "../helpers/Tokens";
