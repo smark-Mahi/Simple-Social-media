@@ -66,10 +66,9 @@ export const setUpInterceptors = (navigate: any) => {
             updateAuthToken(access_token);
             return axiosClient(originalConfig);
           } catch (error: any) {
-            console.log(error, "err0r");
+            console.log(error, "error");
             if (error.response.status === 400) {
               clearAuth();
-              navigate("/login");
               return Promise.reject({
                 message:
                   "Refresh token not found in cookies and Access token expired",
